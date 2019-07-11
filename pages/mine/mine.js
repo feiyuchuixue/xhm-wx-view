@@ -57,7 +57,6 @@ Page({
   },
   //跳转到上传页面
   createArticle:function (e) {
-    console.log("init this function createArticle ...")
     wx.navigateTo({
       url: '/pages/article/create',
     })

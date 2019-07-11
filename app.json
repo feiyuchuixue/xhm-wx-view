@@ -7,7 +7,9 @@
     "pages/mine/mine",
     "pages/mall/index",
     "pages/goods/index",
-    "pages/article/create"
+    "pages/article/create",
+    "pages/topics/topics",
+    "pages/searchResult/searchResult"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -41,7 +43,6 @@
         "selectedIconPath": "image/b2.png"
       }
     ]
-  }
-,
+  },
   "sitemapLocation": "sitemap.json"
 }

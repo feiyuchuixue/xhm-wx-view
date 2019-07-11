@@ -1,0 +1,20 @@
+<!--pages/topics/topics.wxml-->
+<view>
+    <include src="../../wxSearchView/wxSearchView.wxml" />
+
+</view>
+<!--<view class="text_area_content">
+    <view class="area_content">
+        <view class="area_content_out">
+            <input
+                    class="topics_input"
+                    name="topics"
+                    placeholder="#参与话题#"
+                    maxlength="25"
+                    placeholder-style="color:#b3b3b3;font-size:12px;"
+                    bindinput="handlerTopicsInput"
+            ></input>
+
+        </view>
+    </view>
+</view>-->
