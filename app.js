@@ -1,4 +1,5 @@
 //app.js
+var config = require('./config')
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -34,6 +35,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    host:"http://192.168.1.200:8081/xhm/"
   }
 })

@@ -1,4 +1,6 @@
 // pages/article/create.js
+const app =getApp()
+
 Page({
     /**
      * 页面的初始数据
@@ -170,14 +172,19 @@ Page({
     // 表单提交事件
     submitClick() {
         console.log("img == ",this.data)
+        console.log("get app Host = ...",app.globalData.host)
+
+        var article={
+            typeId:1
+        }
+
         wx.request({
-            url: 'http://localhost:8081/xhm/articleCon/add', //仅为示例，并非真实的接口地址
-            data: {
-                code:"oneyuan"
-            },
+            url: app.globalData.host + 'articleCon/add', //仅为示例，并非真实的接口地址
+            data:  article
+            ,
             method: "POST",
             header: {
-                "Content-Type": "application/x-www-form-urlencoded"  //post
+                "Content-Type": " multipart/form-data"  //post
             },
             complete: function( res ) {
                 that.setData( {

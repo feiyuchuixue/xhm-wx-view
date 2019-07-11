@@ -9,7 +9,8 @@
     "pages/goods/index",
     "pages/article/create",
     "pages/topics/topics",
-    "pages/searchResult/searchResult"
+    "pages/searchResult/searchResult",
+    "pages/upload-image/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

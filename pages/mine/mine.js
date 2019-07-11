@@ -62,6 +62,14 @@ Page({
     })
 
 
-  }
+  },
+//跳转到上传页面
+createArticle2:function (e) {
+  wx.navigateTo({
+    url: '/pages/upload-image/index',
+  })
+
+
+}
 
 })

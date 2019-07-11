@@ -1,4 +1,5 @@
-var chooseImage = (t, count) => {
+
+var chooseImage = (t, count) =>{
   wx.chooseImage({
     count: count,
     sizeType: ['original', 'compressed'],
@@ -7,7 +8,7 @@ var chooseImage = (t, count) => {
       var imgArr = t.data.upImgArr || [];
       let arr = res.tempFiles;
       // console.log(res)
-      arr.map(function (v, i) {
+      arr.map(function(v,i){
         v['progress'] = 0;
         imgArr.push(v)
       })
@@ -16,7 +17,7 @@ var chooseImage = (t, count) => {
       })
 
       let upFilesArr = getPathArr(t);
-      if (upFilesArr.length > count - 1) {
+      if (upFilesArr.length > count-1) {
         let imgArr = t.data.upImgArr;
         let newimgArr = imgArr.slice(0, count)
         t.setData({
@@ -27,11 +28,11 @@ var chooseImage = (t, count) => {
     },
   });
 }
-var chooseVideo = (t, count) => {
+var chooseVideo = (t,count) => {
   wx.chooseVideo({
     sourceType: ['album', 'camera'],
     maxDuration: 30,
-    compressed: true,
+    compressed:true,
     camera: 'back',
     success: function (res) {
       let videoArr = t.data.upVideoArr || [];
@@ -89,7 +90,7 @@ var getPathArr = t => {
  * success：上传完成之后
  */
 
-var upFilesFun = (t, data, progress, success) => {
+var upFilesFun = (t, data, progress, success) =>{
   let _this = t;
   let url = data.url;
   let filesPath = data.filesPathsArr ? data.filesPathsArr : getPathArr(t);
@@ -125,16 +126,16 @@ var upFilesFun = (t, data, progress, success) => {
         })
       }
     },
-    fail: function (res) {
+    fail: function(res){
       failNumber++;
       // console.log('fail', filesPath[startIndex])
       // console.log('failstartIndex',startIndex)
       // console.log('fail', failNumber)
       // console.log('fail', res)
     },
-    complete: function (res) {
+    complete: function(res){
 
-      if (startIndex == filesPath.length - 1) {
+      if (startIndex == filesPath.length - 1 ){
         // console.log('completeNumber', startIndex)
         // console.log('over',res)
         let sucPathArr = t.data.uploadedPathArr;
@@ -143,7 +144,7 @@ var upFilesFun = (t, data, progress, success) => {
           uploadedPathArr: []
         })
         console.log('成功：' + successNumber + " 失败：" + failNumber)
-      } else {
+      }else{
         startIndex++;
         // console.log(startIndex)
         data.startIndex = startIndex;
@@ -166,4 +167,4 @@ var upFilesFun = (t, data, progress, success) => {
   })
 
 }
-module.exports = { chooseImage, chooseVideo, upFilesFun, getPathArr }
+module.exports = { chooseImage, chooseVideo, upFilesFun, getPathArr}

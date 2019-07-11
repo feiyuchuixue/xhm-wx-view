@@ -21,7 +21,7 @@
     <view class='btn btn_l' bindtap='createArticle'>
       <button>上传</button>
     </view>
-    <view class='btn btn_r'>
+    <view class='btn btn_r'  bindtap='createArticle2'>
       <button>积分</button>
     </view>
   </view>
