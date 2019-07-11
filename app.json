@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/page1/index",
+    "pages/page2/index",
+    "pages/page3/index",
+    "pages/mine/mine",
+    "pages/mall/index",
+    "pages/goods/index",
+    "pages/article/create"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "听会儿中医demo",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#000",
+    "selectedColor": "#1AAD19",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "image/a1.png",
+        "selectedIconPath": "image/a2.png"
+      },
+      {
+        "pagePath": "pages/mall/index",
+        "text": "商城",
+        "iconPath": "image/b1.png",
+        "selectedIconPath": "image/b2.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "image/b1.png",
+        "selectedIconPath": "image/b2.png"
+      }
+    ]
+  }
+,
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,36 @@
+/* pages/page1/mine.wxss */
+
+.yaoling {
+  padding: 0 30rpx;
+}
+
+text {
+  font-size: 14px;
+}
+
+.warning {
+  color: #a81616;
+}
+
+.yl {
+  font-size: 16px;
+  color: #af9506;
+}
+
+.title {
+  font-size: 16px;
+}
+
+.v1 {
+  text-align: center;
+}
+
+.v1 image {
+  width: 120px;
+  height: 120px;
+  margin: 10px 0;
+}
+
+audio {
+  width: 100%;
+}

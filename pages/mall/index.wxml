@@ -1,0 +1,63 @@
+<!--mall.wxml-->
+
+<view class='page_row' bindtap="suo">
+  <view class="search">
+    <view class="df search_arr">
+      <icon class="searchcion" size='20' type='search'></icon>
+      <input class="" disabled placeholder="请输入关键字" value="{{searchValue}}" />
+    </view>
+  </view>
+  <!-- <view class='sousuo'>搜索</view> -->
+</view>
+<view class='goods_list'>
+  <view wx:for="{{goods}}" wx:key="key" class="view-parent">
+    <view class="view-goods">
+      <view class='a_img'>
+        <image src="{{item.img}}" bindtap="goods"></image>
+      </view>
+      <view class='a_ttl'>
+        <text>{{item.name}}</text>
+      </view>
+      <view class='a_intr'>
+        <text>{{item.intr}}</text>
+      </view>
+      <view class='a_note'>
+        <view class='a_price'>
+          <text>￥{{item.price}}</text>
+        </view>
+        <view class='a_sign' wx:if="{{item.count==1}}">
+          <text>限时特价</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+
+
+
+<!-- <view class='huandeng'>
+  <swiper indicator-dots="true" autoplay="true" interval="5000">
+    <block wx:for="{{imgUrls}}" wx:key="key">
+      <swiper-item>
+        <image src="{{item}}" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class="tt">
+  <text>
+    爱中医最新课程
+  </text>
+</view>
+
+<view class='a1'>
+  <image bindtap="kecheng1" src='/image/k3.jpg'></image>
+</view>
+<view class='a1'>
+  <image bindtap="kecheng2" src='/image/k2.jpg'></image>
+</view>
+<view class='a1'>
+  <image bindtap="kecheng3" src='/image/k1.jpg'></image>
+</view> -->

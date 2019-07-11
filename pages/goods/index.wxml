@@ -1,0 +1,54 @@
+<!--pages/goods/mine.wxml-->
+<cover-view class='goods_prew_select'>
+  <cover-view class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>视频</cover-view>
+  <cover-view class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>图片</cover-view>
+</cover-view>
+<swiper current="{{currentData}}" class='type_swiper' duration="300" bindchange="bindchange">
+  <swiper-item>
+    <image class='video' src="{{video}}" width="750" height="750" />
+  </swiper-item>
+  <swiper-item>
+    <view class='huandeng'>
+      <swiper indicator-dots="true" autoplay="true" interval="5000">
+        <block wx:for="{{imgUrls}}" wx:key="key">
+          <swiper-item>
+            <image src="{{item}}" width="750" height="750" />
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+  </swiper-item>
+</swiper>
+<view class="goods_intr">
+  <view class="price">
+    <text>￥13.30</text>
+  </view>
+  <view class='goods_title'>
+    <text>鲁滨孙漂流记（彩插励志版 无障碍阅读）/新课标必读名著，智慧熊图书</text>
+  </view>
+  <view class='goods_info'>
+    <text>
+    暑期阅读季中小学生用书每100减50,领券享6元运费补贴（具体优惠信息以商品详情页为准)!立即抢购
+    </text>
+  </view>
+</view>
+
+
+
+
+
+
+<view class='intr'>
+  <view wx:for="{{introduce}}" wx:key="key" class="goods_img">
+    <image src='{{item}}' width="750" mode="widthFix"></image>
+  </view>
+</view>
+
+<cover-view class='cart'>
+  <cover-view class='cart_l'>
+  </cover-view>
+  <cover-view class='cart_r'>
+    <cover-view class='buyIt'>立即购买</cover-view>
+    <cover-view class='cartIt'>加入购物车</cover-view>
+  </cover-view>
+</cover-view>

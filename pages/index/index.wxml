@@ -1,0 +1,69 @@
+<!--mine.wxml-->
+
+<view class='page_row' bindtap="suo">
+  <view class="search">
+    <view class="df search_arr">
+      <icon class="searchcion" size='20' type='search'></icon>
+      <input class="" disabled placeholder="请输入关键字" value="{{searchValue}}" />
+    </view>
+  </view>
+  <!-- <view class='sousuo'>搜索</view> -->
+</view>
+<scroll-view scroll-x class="scroll-x">
+  <view wx:for="{{list}}" wx:key="key" class="view-parent">
+    <view class="view-item">{{item.txt}}</view>
+  </view>
+</scroll-view>
+<view class='banner'>
+  <image src='/image/dl.png'></image>
+</view>
+<view class='article_list'>
+  <view wx:for="{{article}}" wx:key="key" class="view-parent">
+    <view class="view-article">
+      <view class='a_img'>
+        <image src="{{item.img}}" bindtap="kecheng1"></image>
+      </view>
+      <view class='a_ttl'>
+        <text>{{item.txt}}</text>
+      </view>
+      <view class='a_note'>
+        <view class='a_head'>
+          <image src="{{item.pic}}"></image>
+        </view>
+        <view class='a_name'>
+          <text>{{item.name}}</text>
+        </view>
+        <view class='a_read'>{{item.count}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+
+
+
+<!-- <view class='huandeng'>
+  <swiper indicator-dots="true" autoplay="true" interval="5000">
+    <block wx:for="{{imgUrls}}" wx:key="key">
+      <swiper-item>
+        <image src="{{item}}" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class="tt">
+  <text>
+    爱中医最新课程
+  </text>
+</view>
+
+<view class='a1'>
+  <image bindtap="kecheng1" src='/image/k3.jpg'></image>
+</view>
+<view class='a1'>
+  <image bindtap="kecheng2" src='/image/k2.jpg'></image>
+</view>
+<view class='a1'>
+  <image bindtap="kecheng3" src='/image/k1.jpg'></image>
+</view> -->

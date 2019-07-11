@@ -1,0 +1,172 @@
+/**mine.wxss**/
+
+/*图片轮播*/
+
+.search {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.search_arr {
+  border: 1px solid #dedede;
+  border-radius: 30rpx;
+  margin-left: 0rpx;
+  background: #efefef;
+}
+
+.search_arr input {
+  margin-left: 60rpx;
+  height: 60rpx;
+  border-radius: 5px;
+  font-size: 32rpx;
+}
+
+.page_row {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 15rpx;
+  box-shadow: 0 4rpx 6rpx #eee;
+}
+
+.searchcion {
+  margin: 10rpx 10rpx 10rpx 30rpx;
+  position: absolute;
+  left: 25rpx;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
+
+.scroll-x {
+  height: 86rpx;
+  white-space: nowrap;
+  display: flex;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+.banner{
+  width: 100%;
+  height:130rpx;
+  text-align: center;
+  background: #eee;
+  padding:20rpx 0;
+}
+.banner image{
+  width:80%;
+  max-height:139rpx;
+  margin:0 auto;
+}
+.view-parent {
+  display: inline-block;
+}
+
+.view-item {
+  height: 86rpx;
+  line-height: 86rpx;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  font-size: 30rpx;
+  color: #222;
+  margin: 0 30rpx;
+}
+
+.article_list {
+  width: 96%;
+  padding:0rpx 2%;
+  background: #eee;
+}
+
+.view-article {
+  width: 345rpx;
+  height: 640rpx;
+  margin:8rpx 7.5rpx;
+  overflow: hidden;
+  border-radius: 10rpx;
+  background: #fff;
+  box-shadow: 0 0 10rpx #bbb;
+}
+
+.view-article .a_img {
+  width: 345rpx;
+  height: 460rpx;
+  text-align: center;
+  overflow: hidden;
+}
+
+.view-article .a_ttl {
+  width: 325rpx;
+  height: 72rpx;
+  padding: 0 10rpx;
+  margin: 10rpx auto;
+  display: block;
+  overflow: hidden;
+  line-height: 36rpx;
+  font-size: 28rpx;
+}
+
+.view-article .a_ttl text {
+  width: 325rpx;
+  height: 72rpx;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.a_note {
+  height: 80rpx;
+  overflow: hidden;
+}
+
+.a_head {
+  width: 60rpx;
+  height: 60rpx;
+  overflow: hidden;
+  border-radius: 30rpx;
+  float: left;
+  margin: 10rpx;
+}
+
+.a_head image {
+  max-width: 60rpx;
+  max-height: 60rpx;
+}
+
+.a_name {
+  font-size: 24rpx;
+  line-height: 80rpx;
+  width: 120rpx;
+  height: 80rpx;
+  float: left;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.a_name text {
+  width: 120rpx;
+  height: 80rpx;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.a_read{
+  width: 140rpx;
+  height:80rpx;
+  line-height:80rpx;
+  font-size:24rpx;
+  float: left;
+  text-indent:40rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,158 @@
+/* pages/mine/mine.wxss */
+
+view {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+button::after {
+  border: none;
+}
+
+.u_head {
+  width: 220rpx;
+  height: 220rpx;
+  overflow: hidden;
+  border-radius: 50%;
+  text-align: center;
+  box-shadow: 0 0 1rpx #ddd;
+  margin: 20rpx 40rpx;
+  float: left;
+}
+
+.u_head image {
+  max-width: 220rpx;
+  max-height: 220rpx;
+}
+
+.count {
+  width: 450rpx;
+  float: left;
+}
+
+.count_list .view-parent {
+  float: left;
+  width: 25%;
+  padding-top: 30rpx;
+}
+
+.count_list .view-item {
+  text-align: center;
+  font-size: 24rpx;
+  color: #555;
+  height: 50rpx;
+  line-height: 50rpx;
+}
+
+.edit {
+  float: left;
+  width: 300rpx;
+  height: 64rpx;
+  border-radius: 32rpx;
+  line-height: 64rpx;
+  font-size: 28rpx;
+  margin-top: 20rpx;
+  border: 1rpx solid #ddd;
+}
+
+.menu {
+  float: left;
+  width: 90rpx;
+  height: 64rpx;
+  border-radius: 32rpx;
+  line-height: 64rpx;
+  font-size: 28rpx;
+  margin-top: 20rpx;
+  border: 1rpx solid #ddd;
+  margin-left: 10rpx;
+}
+
+.plus {
+  width: 100%;
+  height: 80rpx;
+  clear: both;
+  border-bottom: 1rpx solid #eee;
+}
+.btn{
+  width:374rpx;
+  height:50rpx;
+  float: left;
+  margin:10rpx 0 20rpx 0;
+}
+.btn_l{
+  border-right:1rpx solid #ddd;
+}
+
+.btn_r{
+  border-left:1rpx solid #aaa;
+}
+.btn button{
+  width:60%;
+  height:50rpx;
+  margin:0rpx auto;
+  line-height:50rpx;
+  font-size:24rpx;
+}
+/* .sex {
+  width: 60rpx;
+  height: 32rpx;
+  display: block;
+  margin: 14rpx;
+  text-align: center;
+  font-size: 24rpx;
+  line-height: 32rpx;
+  float: left;
+  border-right: 1rpx solid #ddd;
+  color: #4086e7;
+  font-weight: 700;
+}
+
+.text_plus {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #d91919;
+  padding: 0 10rpx;
+  border: 1rpx solid #d91919;
+  border-radius: 30rpx;
+  margin-left: 20rpx;
+} */
+
+.tab {
+  float: left;
+  width: 15%;
+  margin:0 5%;
+  text-align: center;
+  padding: 10rpx 0;
+  font-size: 28rpx;
+  font-weight: 400;
+
+}
+
+.topTabSwiper {
+  zoom: 1;
+  padding: 20rpx 10%;
+  height: 60rpx;
+}
+
+.topTabSwiper:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.tabBorer {
+  border-bottom: 6rpx solid #f00;
+  color: #f00;
+}
+
+.swiper {
+  width: 100%;
+  background: #eee;
+}
+
+.swiper_con {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  padding: 80rpx 0;
+}
