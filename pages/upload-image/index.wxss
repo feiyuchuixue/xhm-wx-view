@@ -202,6 +202,7 @@ page{
 
 .cyht {
     margin-left: 30rpx;
+    color:dodgerblue;
 }
 
 /* 视频部分样式 */

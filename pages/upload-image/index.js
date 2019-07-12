@@ -2,6 +2,7 @@
 var config = require('../../config')
 var util = require('../../utils/util.js')
 var upFiles = require('../../utils/upFiles.js')
+const app =getApp()
 
 Page({
 
@@ -109,8 +110,108 @@ Page({
           }
       })
   },
+    // 上传文件
+    subFormData:function(){
+        let _this = this;
+        console.log("this.data ===" ,_this.data)
+        let upData = {};
+        let upImgArr = _this.data.upImgArr;
+        let upVideoArr = _this.data.upVideoArr;
+        _this.setData({
+            upFilesProgress:true,
+        })
+        upData['url'] = config.service.upFiles;
+        console.log("upData ===" ,upData)
+        console.log("this is ...",_this)
+        let article={};
+        article.typeId='1';
+        article.articleLogo='';
+        article.articleTitle = _this.data.title;
+        article.articlePicture='';
+        article.articleContent=_this.data.content;
+        article.articleLabel='';
+        article.articleKeyWords='';
+        article.articleTotalView=0;
+        article.articleTotalShare=0;
+        article.articleTotalLike=0;
+        article.articleTotalLike='c0fb320807454e4fbea024d31c9c5c75'
+        article.articleCheckAdminId='';
+
+
+
+
+
+/*
+        wx.request({
+            url: app.globalData.host + 'articleCon/add',
+            data:  {
+                article:article,
+                pictures:upImgArr
+            },
+            method: "POST",
+            header: {
+                "Content-Type": "application/form-data"
+            },
+            complete: function( res ) {
+                console.log("result ===",res);
+                if( res == null || res.data == null ) {
+                    // reject(new Error('网络请求失败'))
+                }
+            },
+            success: function(res) {
+                console.log("result success ===",res);
+                if(res.data.code ==0){
+                    let result = res.data.data;
+                    let searchTempArr = [];
+
+                    for (const resultElement of result) {
+                        let tempObj = {};
+                        tempObj.codeKey = resultElement.id;
+                        tempObj.codeName = resultElement.topicName;
+                        searchTempArr.push(tempObj)
+
+                    }
+
+                    _this.setData({
+                        searchResult:searchTempArr,
+                        searchValue:inputValue,
+                        searchNot: e.detail.value
+                    })
+                    console.log("searchResult 2 == ",_this.data.searchResult)
+
+                    //  resolve(res)
+
+                }
+            }
+
+
+        })
+*/
+
+
+        wx.uploadFile({
+            url: app.globalData.host + 'articleCon/add',
+            filePath: upImgArr[0].path,
+            formData: {
+                article:JSON.stringify(article),
+            },
+            header: {
+                "Content-Type": "multipart/form-data"
+            },
+
+            name: 'file',
+            success: function (res) {
+                var json2map = JSON.parse(res.data);
+                console.log(json2map)
+
+            }
+        })
+
+
+
+    },
   // 上传文件
-  subFormData:function(){
+  subFormData2:function(){
       let _this = this;
       let upData = {};
       let upImgArr = _this.data.upImgArr;

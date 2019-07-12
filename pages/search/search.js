@@ -180,7 +180,7 @@ Page({
     // do your job here
     // 跳转
     prevPage.setData({
-      topics:value,
+      topics:"#"+value,
       topicsId:id
     })
     wx.navigateBack();
@@ -188,8 +188,8 @@ Page({
   // 创建话题
   wxSearchKeyTapCreate: function (event) {
 
-    console.log("e ==",event)
-    console.log("val 2 = ",event.target.dataset.key)
+    //console.log("e ==",event)
+   // console.log("val 2 = ",event.target.dataset.key)
     let value =event.target.dataset.key;
     let id = event.target.dataset.id;
     var pages = getCurrentPages();
@@ -206,10 +206,9 @@ Page({
         topicsId:id
       })
     }else{
-      console.log("bug 触发...");
       var aaa= this.data.searchNot;
       prevPage.setData({
-        topics: aaa,
+        topics: "#"+aaa,
         topicsId: 'noExist'
       })
     }

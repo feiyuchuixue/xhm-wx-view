@@ -54,6 +54,7 @@
                 class="cyht"
                 placeholder="#参与话题~"
                 maxlength="25"
+
                 placeholder-style="color:#b3b3b3;font-size:16px;"
                 disabled="disabled"
                 value="{{topics}}"
