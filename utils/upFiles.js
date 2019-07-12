@@ -31,28 +31,42 @@ var chooseImage = (t, count) =>{
 var chooseVideo = (t,count) => {
   wx.chooseVideo({
     sourceType: ['album', 'camera'],
-    maxDuration: 30,
+    maxDuration: 16,
     compressed:true,
     camera: 'back',
     success: function (res) {
-      let videoArr = t.data.upVideoArr || [];
-      let videoInfo = {};
-      videoInfo['tempFilePath'] = res.tempFilePath;
-      videoInfo['size'] = res.size;
-      videoInfo['height'] = res.height;
-      videoInfo['width'] = res.width;
-      videoInfo['thumbTempFilePath'] = res.thumbTempFilePath;
-      videoInfo['progress'] = 0;
-      videoArr.push(videoInfo)
-      t.setData({
-        upVideoArr: videoArr
-      })
-      let upFilesArr = getPathArr(t);
-      if (upFilesArr.length > count - 1) {
-        t.setData({
-          upFilesBtn: false,
+      var tempDuration = res.duration;
+      var tempSize = res.size
+      console.log("视频大小",tempSize);
+      console.log("视频时长",tempDuration);
+      if(tempDuration>16){
+        wx.showToast({
+          title: "视频太长了不能超过15s",
+          icon: 'none',
+          duration: 3000
         })
+      }else{
+        let videoArr = t.data.upVideoArr || [];
+        let videoInfo = {};
+        videoInfo['tempFilePath'] = res.tempFilePath;
+        videoInfo['size'] = res.size;
+        videoInfo['height'] = res.height;
+        videoInfo['width'] = res.width;
+        videoInfo['thumbTempFilePath'] = res.thumbTempFilePath;
+        videoInfo['progress'] = 0;
+        videoArr.push(videoInfo)
+        t.setData({
+          upVideoArr: videoArr
+        })
+        let upFilesArr = getPathArr(t);
+        if (upFilesArr.length > count - 1) {
+          t.setData({
+            upFilesBtn: false,
+          })
+        }
       }
+
+
       // console.log(res)
     }
   })

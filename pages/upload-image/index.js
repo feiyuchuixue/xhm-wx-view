@@ -11,7 +11,7 @@ Page({
   data: {
       upFilesBtn:true,
       upFilesProgress:false,
-      maxUploadLen:6,
+      maxUploadLen:9,
       // 标题数
       titleCount: 0,
       // 详情数
@@ -100,7 +100,7 @@ Page({
               if (xindex == 0){
                   upFiles.chooseImage(_this, _this.data.maxUploadLen)
               } else if (xindex == 1){
-                  upFiles.chooseVideo(_this, _this.data.maxUploadLen)
+                  upFiles.chooseVideo(_this, 1)
               }
 
           },

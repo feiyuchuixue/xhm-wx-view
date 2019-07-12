@@ -132,7 +132,6 @@ page{
 .area_content_out {
     /* border-top: 1px solid #f1efef; */
     margin-top: 10rpx;
-    display: flex;
     flex-direction: row;
     justify-content: space-between;
 
@@ -147,8 +146,9 @@ page{
 .content_textarea_counter {
     color:#d4d0d0;
     font-size:30rpx;
-    margin-right: 10rpx;
-    padding-right: 10rpx;
+    text-align: right;
+    margin-right: 30rpx;
+    margin-bottom: 30rpx;
 }
 .content_textarea_counter-lf {
     color:#d4d0d0;
@@ -156,13 +156,15 @@ page{
     text-align:right;
     margin-top:10rpx;
     margin-left: 10rpx;
+    margin-bottom: 10rpx;
 }
 
 .content_textarea_error_counter {
     color:#ce2f2f;
     font-size:30rpx;
-    text-align:right;
-    margin-top:5rpx;
+    text-align: right;
+    margin-right: 30rpx;
+    margin-bottom: 30rpx;
 }
 /* 图片部分 */
 .publish_imgs_area{
@@ -240,6 +242,13 @@ page{
     display: flex;
     align-items: center;
 }
+.topics1 {
+    background-color: #fff;
+    font-size: 32rpx;
+    color: #333;
+    align-items: center;
+}
+
 .divLine{
     border-top: 1rpx solid #f1efef;
     width: 95%;

@@ -71,13 +71,13 @@
 <!-- 内容 -->
 
     <view class="optName ">
-        <view class="area_content_out topics">
+        <view class="area_content_out topics1">
           <textarea
                   class=""
                   placeholder="说说此刻的心情..."
                   maxlength="255"
                   placeholder-style="color:#b3b3b3;font-size:16px;"
-                  style='padding-left:30rpx; padding-top: 30rpx;display:block;'
+                  style='margin: 0 3%; padding-top: 30rpx;width: 94%;min-height: 450rpx;overflow: hidden;'
 
                   bindinput="handleContentInput"
                   value="{{content}}"

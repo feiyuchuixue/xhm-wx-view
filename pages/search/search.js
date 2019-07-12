@@ -16,7 +16,10 @@ Page({
    __that : null,
    searchResult:[],
   //搜索值
-   searchValue:''
+   searchValue:'',
+   searchNot:'',
+   timeoutID:null
+
 
 },
 
@@ -76,54 +79,69 @@ Page({
 
   },
 
-
   // 搜索框输入时候操作
   wxSearchInput: function (e) {
   let inputValue = e.detail.value;
   console.log("now search value is " + inputValue);
     let _this = this;
-    wx.request({
-      url: app.globalData.host + 'topics/list', //仅为示例，并非真实的接口地址
-      data:  {
-        topicName:inputValue
-      },
-      method: "POST",
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      complete: function( res ) {
-        console.log("result ===",res);
-        if( res == null || res.data == null ) {
-         // reject(new Error('网络请求失败'))
-        }
-      },
-      success: function(res) {
-        console.log("result success ===",res);
-        if(res.data.code ==0){
-          let result = res.data.data;
-          let searchTempArr = [];
 
-          for (const resultElement of result) {
-            let tempObj = {};
-            tempObj.codeKey = resultElement.id;
-            tempObj.codeName = resultElement.topicName;
-            searchTempArr.push(tempObj)
+    if(this.data.timeoutID){
+      clearTimeout(this.data.timeoutID);
+      this.setData({
+        timeoutID:null
+      });
+    }
 
-          }
+   let nowTimeout = setTimeout(function () {
 
-          _this.setData({
-            searchResult:searchTempArr,
-            searchValue:inputValue
-          })
-          console.log("searchResult 2 == ",_this.data.searchResult)
+     wx.request({
+       url: app.globalData.host + 'topics/list', //仅为示例，并非真实的接口地址
+       data:  {
+         topicName:inputValue
+       },
+       method: "POST",
+       header: {
+         "Content-Type": "application/x-www-form-urlencoded"
+       },
+       complete: function( res ) {
+         console.log("result ===",res);
+         if( res == null || res.data == null ) {
+           // reject(new Error('网络请求失败'))
+         }
+       },
+       success: function(res) {
+         console.log("result success ===",res);
+         if(res.data.code ==0){
+           let result = res.data.data;
+           let searchTempArr = [];
 
-        //  resolve(res)
+           for (const resultElement of result) {
+             let tempObj = {};
+             tempObj.codeKey = resultElement.id;
+             tempObj.codeName = resultElement.topicName;
+             searchTempArr.push(tempObj)
 
-        }
-      }
+           }
+
+           _this.setData({
+             searchResult:searchTempArr,
+             searchValue:inputValue,
+             searchNot: e.detail.value
+           })
+           console.log("searchResult 2 == ",_this.data.searchResult)
+
+           //  resolve(res)
+
+         }
+       }
 
 
-    })
+     })
+
+   },500);
+    this.setData({
+      timeoutID:nowTimeout
+    });
 
 
 /*  // 页面数据
@@ -168,7 +186,8 @@ Page({
     wx.navigateBack();
 },
   // 创建话题
-  wxSearchKeyTapCreate:function (event) {
+  wxSearchKeyTapCreate: function (event) {
+
     console.log("e ==",event)
     console.log("val 2 = ",event.target.dataset.key)
     let value =event.target.dataset.key;
@@ -188,6 +207,11 @@ Page({
       })
     }else{
       console.log("bug 触发...");
+      var aaa= this.data.searchNot;
+      prevPage.setData({
+        topics: aaa,
+        topicsId: 'noExist'
+      })
     }
     // 跳转
     wx.navigateBack();
