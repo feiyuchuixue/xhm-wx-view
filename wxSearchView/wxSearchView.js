@@ -113,6 +113,7 @@ function search(inputValue) {
     var temData = __that.data.wxSearchData;
     console.log("temData===",temData)
     temData.value = inputValue;
+    console.log("temData inputValue ===",inputValue)
     __that.setData({
       wxSearchData: temData
     });

@@ -12,6 +12,22 @@ Page({
       upFilesBtn:true,
       upFilesProgress:false,
       maxUploadLen:6,
+      // 标题数
+      titleCount: 0,
+      // 详情数
+      contentCount: 0,
+      // 标题内容
+      title: '',
+      // 标题内容
+      content: '',
+      // 图片列表
+      images: [],
+      // 视频
+      video: '',
+      //话题
+      topics:'',
+      //话题id
+      topicsId:''
 
   },
 
@@ -122,5 +138,39 @@ Page({
           // success
           console.log(arr)
       })
-  }
+  },
+    // 标题操作
+    handleTitleInput(event) {
+        let inputValue = event.detail.value;
+        // 确保标题不存在空格
+        if (inputValue.lastIndexOf(" ") != -1) {
+            inputValue = inputValue.substring(0, inputValue.lastIndexOf(" "));
+        }
+        let titleCount = inputValue.length;
+        if (titleCount <= 25) {
+            this.setData({
+                titleCount: titleCount,
+                title: inputValue
+            })
+        }
+    },
+    // 内容操作
+    handleContentInput(event) {
+        let textareaValue = event.detail.value;
+        let contentCount = textareaValue.length;
+        if (contentCount <= 255) {
+            this.setData({
+                contentCount: contentCount,
+                content: textareaValue
+            })
+        }
+    },
+    //话题操作
+    handleTopicsInput(event){
+        console.log("init  handleTopicsInput...")
+        wx.navigateTo({
+            url: '/pages/search/search',
+        })
+    },
+
 })

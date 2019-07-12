@@ -25,7 +25,6 @@
                   placeholder="说说此刻的心情..."
                   maxlength="255"
                   placeholder-style="color:#b3b3b3;font-size:12px;"
-                  style="height: 8rem"
                   bindinput="handleContentInput"
                   value="{{content}}"
           />

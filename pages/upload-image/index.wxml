@@ -1,8 +1,8 @@
 <!--pages/index/index.wxml-->
- 
+
 
 <view class="optClass">
-    <view class='optName'>附件</view> 
+    <view class='optName'>附件</view>
     <view class='optContent' >可上传图片或视频</view>
 </view>
 <view class="optClass" style='padding:0 30rpx;flex-wrap:wrap;'>
@@ -20,12 +20,75 @@
         </cover-view>
         <cover-view class='delbtn' data-index="{{index}}" data-type="video" bindtap='delFile'>X</cover-view>
     </view>
-    
+
     <view class='uploadimgbox' wx:if="{{upFilesBtn}}">
-        <image class='uploadbtn' bindtap='uploadFiles' src='./addimgsbtn.png'></image>
+        <image class='uploadbtn' bindtap='uploadFiles' src='../../image/addimgsbtn.png'></image>
     </view>
-    
+
 </view>
+<!-- 标题 -->
+<view class="optName">
+<view class="text_area_title topics" >
+    <input
+            class=""
+            placeholder="请输入标题~"
+            maxlength="25"
+            placeholder-style="color:#b3b3b3;font-size:16px;"
+            bindinput="handleTitleInput"
+            style='padding:0 30rpx;'
+            value="{{title}}"
+    ></input>
+    <!-- 标题字数限制 -->
+    <view
+            style="padding-right: 10rpx" class="{{ titleCount < 25 ? 'content_textarea_counter' : 'title_input_error_counter' }}"
+    >{{titleCount}}/25</view>
+</view>
+    </view>
+
+<!-- 话题 -->
+<view class="optName">
+
+
+    <view class="text_area_title topics"  bindtap="handleTopicsInput" >
+        <input
+                class="cyht"
+                placeholder="#参与话题~"
+                maxlength="25"
+                placeholder-style="color:#b3b3b3;font-size:16px;"
+                disabled="disabled"
+                value="{{topics}}"
+        ></input>
+        <image
+                class="iamge_cancel"
+                src="../../image/arrow-ios-forward-outline-48.png"
+                mode="aspectFill"
+                data-id="{{index}}"
+
+        />
+    </view>
+</view>
+
+<!-- 内容 -->
+
+    <view class="optName ">
+        <view class="area_content_out topics">
+          <textarea
+                  class=""
+                  placeholder="说说此刻的心情..."
+                  maxlength="255"
+                  placeholder-style="color:#b3b3b3;font-size:16px;"
+                  style='padding-left:30rpx; padding-top: 30rpx;display:block;'
+
+                  bindinput="handleContentInput"
+                  value="{{content}}"
+          />
+            <!-- 字数限制 -->
+            <view class="{{ contentCount < 255 ? 'content_textarea_counter' : 'content_textarea_error_counter'}}">{{contentCount}}/255</view>
+        </view>
+    </view>
+
+
+
 
 <view class='subBtnBox'>
     <button class='subBtn' type='button' bindtap='subFormData'>我要上传</button>

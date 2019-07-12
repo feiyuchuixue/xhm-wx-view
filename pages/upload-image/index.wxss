@@ -77,3 +77,171 @@ page{
 .subBtnBox .subBtn.button-hover{
     background-color: #bb0909;
 }
+
+.containor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.publish_text_area {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin:20rpx 20rpx 6rpx 20rpx;
+    border-radius: 15rpx;
+}
+
+.text_area_title {
+    text-align: left;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10rpx;
+    height: 2.8rem;
+    min-height: 2.8rem;
+}
+
+.text_area_content {
+
+}
+
+.title_input {
+    font-size: 30rpx;
+    width:590rpx;
+}
+
+.title_input_counter {
+    font-size:32rpx;
+    color:#b3b3b3;
+    margin-top:5rpx;
+    text-align:right;
+}
+
+.title_input_error_counter {
+    font-size:32rpx;
+    color:#ce2f2f;
+    margin-top:5rpx;
+    text-align:right;
+}
+
+.area_content {
+    border-top: 1rpx solid #f1efef;
+}
+
+.area_content_out {
+    /* border-top: 1px solid #f1efef; */
+    margin-top: 10rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+
+}
+
+.content-textarea {
+    width: 690rpx;
+    font-size: 24rpx;
+}
+
+.content_textarea_counter {
+    color:#d4d0d0;
+    font-size:30rpx;
+    margin-right: 10rpx;
+    padding-right: 10rpx;
+}
+.content_textarea_counter-lf {
+    color:#d4d0d0;
+    font-size:30rpx;
+    text-align:right;
+    margin-top:10rpx;
+    margin-left: 10rpx;
+}
+
+.content_textarea_error_counter {
+    color:#ce2f2f;
+    font-size:30rpx;
+    text-align:right;
+    margin-top:5rpx;
+}
+/* 图片部分 */
+.publish_imgs_area{
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    border-radius: 15rpx;
+    margin: 20rpx;
+    padding-left: 8rpx;
+    padding-top: 8rpx;
+    padding-bottom: 8rpx;
+    /* height: 450rpx; */
+}
+
+.iamge_item {
+    width: 225rpx;
+    height: 225rpx;
+    padding: 4rpx;
+}
+
+.iamge_content{
+    width: 223rpx;
+    height: 223rpx;
+    border-radius: 15rpx;
+    border: 1px solid #f1efef;
+}
+
+.iamge_cancel{
+    width:32rpx;
+    height:32rpx;
+    margin: 0 20rpx;
+}
+
+.cyht {
+    margin-left: 30rpx;
+}
+
+/* 视频部分样式 */
+.video_area {
+    width: 700rpx;
+    position: relative;
+}
+
+.video_item {
+    width: 700rpx;
+}
+.video_delete {
+    width: 50rpx;
+    height: 50rpx;
+    position: absolute;
+    top: 10rpx;
+    right: 2rpx;
+}
+
+.btn_all_area {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin:20rpx 20rpx 6rpx 20rpx;
+    border-radius: 15rpx;
+    /* position: absolute;
+    bottom: 0; */
+}
+
+.btn_area {
+    width: 350rpx;
+}
+.topics {
+    background-color: #fff;
+    font-size: 32rpx;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+.divLine{
+    border-top: 1rpx solid #f1efef;
+    width: 95%;
+    height: 5rpx;
+}
