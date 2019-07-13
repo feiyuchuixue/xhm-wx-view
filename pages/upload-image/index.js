@@ -123,34 +123,20 @@ Page({
         upData['url'] = config.service.upFiles;
         console.log("upData ===" ,upData)
         console.log("this is ...",_this)
-        let article={};
-        article.typeId='1';
-        article.articleLogo='';
-        article.articleTitle = _this.data.title;
-        article.articlePicture='';
-        article.articleContent=_this.data.content;
-        article.articleLabel='';
-        article.articleKeyWords='';
-        article.articleTotalView=0;
-        article.articleTotalShare=0;
-        article.articleTotalLike=0;
-        article.articleTotalLike='c0fb320807454e4fbea024d31c9c5c75'
-        article.articleCheckAdminId='';
-
-
-
-
-
-/*
-        wx.request({
-            url: app.globalData.host + 'articleCon/add',
+ /*       wx.request({
+            url: app.globalData.host + 'articleCon/create',
             data:  {
-                article:article,
+                typeId:'',
+                articleTitle:_this.data.title,
+                articleContent:_this.data.content,
+                articleTopicsId:'1',
+                articleTopics:"test",
+                userId:'c0fb320807454e4fbea024d31c9c5c75',
                 pictures:upImgArr
             },
             method: "POST",
             header: {
-                "Content-Type": "application/form-data"
+                "Content-Type": "multipart/form-data"
             },
             complete: function( res ) {
                 console.log("result ===",res);
@@ -172,40 +158,57 @@ Page({
 
                     }
 
-                    _this.setData({
-                        searchResult:searchTempArr,
-                        searchValue:inputValue,
-                        searchNot: e.detail.value
-                    })
-                    console.log("searchResult 2 == ",_this.data.searchResult)
-
-                    //  resolve(res)
-
                 }
             }
 
 
-        })
-*/
+        })*/
 
 
-        wx.uploadFile({
-            url: app.globalData.host + 'articleCon/add',
+
+       wx.uploadFile({
+            url: app.globalData.host + 'articleCon/create',
             filePath: upImgArr[0].path,
             formData: {
-                article:JSON.stringify(article),
+                typeId:'',
+                articleTitle:_this.data.title,
+                articleContent:_this.data.content,
+                articleTopicsId:'1',
+                articleTopics:"test",
+                userId:'c0fb320807454e4fbea024d31c9c5c75',
             },
             header: {
                 "Content-Type": "multipart/form-data"
             },
 
-            name: 'file',
+            name: 'pictures',
             success: function (res) {
                 var json2map = JSON.parse(res.data);
                 console.log(json2map)
 
             }
         })
+
+        upFiles.upFilesFun(_this, upData,function(res){
+            if (res.index < upImgArr.length){
+                upImgArr[res.index]['progress'] = res.progress
+
+                _this.setData({
+                    upImgArr: upImgArr,
+                })
+            }else{
+                let i = res.index - upImgArr.length;
+                upVideoArr[i]['progress'] = res.progress
+                _this.setData({
+                    upVideoArr: upVideoArr,
+                })
+            }
+            //   console.log(res)
+        }, function (arr) {
+            // success
+            console.log(arr)
+        })
+
 
 
 
