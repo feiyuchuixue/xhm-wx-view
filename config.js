@@ -3,7 +3,7 @@
  */
 
 // 此处主机域名修改成腾讯云解决方案分配的域名
-var host = '#####';
+var host = 'http://192.168.28.15:8081/xhm/';
 
 var config = {
 
@@ -12,7 +12,7 @@ var config = {
         host,
 
         // 上传图片 上传视频
-        upFiles: `${host}/product/productUploadFile`,
+        upFiles: `${host}/articleCon/picture`,
     }
 };
 

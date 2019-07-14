@@ -21,14 +21,14 @@ Page({
         count: '1',
         txt: '粉丝'
       },
-      {
-        count: '2',
-        txt: '收藏'
-      },
-      {
-        count: '3',
-        txt: '开车'
-      }
+        {
+            count: '0',
+            txt: '获赞'
+        },
+        {
+            count: '1',
+            txt: '团成员'
+        },
     ]
   },
   /**
@@ -58,7 +58,7 @@ Page({
   //跳转到上传页面
   createArticle:function (e) {
     wx.navigateTo({
-      url: '/pages/article/create',
+      url: '/pages/upload-image/index',
     })
 
 

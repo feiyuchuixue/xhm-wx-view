@@ -131,12 +131,15 @@ var upFilesFun = (t, data, progress, success) =>{
       let uploaded = t.data.uploadedPathArr || [];
       var da = JSON.parse(res.data);
       // console.log(da)
-      if (da.code == 1001) {
+      if (da.code == 0) {
         // ### 此处可能需要修改 以获取图片路径
-        uploaded.push(da.data)
+          //console.log("upFile return data is  ",da);
+        //  console.log("upFile return uuid is  ",da.data.uuid);
+        uploaded.push(da.data.path)
 
         t.setData({
-          uploadedPathArr: uploaded
+          uploadedPathArr: uploaded,
+          uuid:da.data.uuid
         })
       }
     },
@@ -164,6 +167,12 @@ var upFilesFun = (t, data, progress, success) =>{
         data.startIndex = startIndex;
         data.successNumber = successNumber;
         data.failNumber = failNumber;
+        data.formData.uuid = t.data.uuid;
+        data.formData.num = startIndex;
+        console.log("ttttttttttt =",t.data.uuid)
+
+        console.log("next upFilesFun data is ............",data);
+
         upFilesFun(t, data, progress, success);
       }
     }

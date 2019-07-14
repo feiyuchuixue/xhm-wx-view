@@ -28,7 +28,10 @@ Page({
       //话题
       topics:'',
       //话题id
-      topicsId:''
+      topicsId:'',
+      upFilesType:'',
+      uuid:'',
+      uploadedPathArr:[]
 
   },
 
@@ -111,7 +114,7 @@ Page({
       })
   },
     // 上传文件
-    subFormData:function(){
+    subFormData2:function(){
         let _this = this;
         console.log("this.data ===" ,_this.data)
         let upData = {};
@@ -213,34 +216,55 @@ Page({
 
 
     },
-  // 上传文件
-  subFormData2:function(){
+  // 上传文件或文件组
+  subFormData:function(){
       let _this = this;
       let upData = {};
       let upImgArr = _this.data.upImgArr;
       let upVideoArr = _this.data.upVideoArr;
+      let uuid = _this.data.uuid;
       _this.setData({
           upFilesProgress:true,
+          upFilesType:null,
+          uuid:''
       })
+
+      console.log("subFormData _this is ",_this)
+      console.log("subFormData uuid is ==============",uuid)
+
+
+      if(upImgArr && upImgArr.length>0){
+
+          upData.formData={type:"img",uuid:uuid,num:0};
+      } else {
+          upData.formData={type:"video",uuid:uuid,num:0};
+      }
+
+      console.log("upData ==",upData)
       upData['url'] = config.service.upFiles;
       upFiles.upFilesFun(_this, upData,function(res){
-          if (res.index < upImgArr.length){
+          if (upImgArr && res.index < upImgArr.length){
               upImgArr[res.index]['progress'] = res.progress
 
               _this.setData({
                   upImgArr: upImgArr,
+                  upFilesType:'img'
               })
           }else{
-              let i = res.index - upImgArr.length;
+              let i = res.index - upVideoArr.length;
               upVideoArr[i]['progress'] = res.progress
               _this.setData({
                   upVideoArr: upVideoArr,
+                  upFilesType:'video'
               })
           }
         //   console.log(res)
       }, function (arr) {
+
           // success
           console.log(arr)
+          console.log("图片上传成功!!!")
+          _this.createArticle();
       })
   },
     // 标题操作
@@ -276,5 +300,71 @@ Page({
             url: '/pages/search/search',
         })
     },
+    createArticle:function () {
+      console.log("init createArticle fun ... ")
+      let _this = this;
+      let articleLogo=_this.data.uploadedPathArr[0];
+      let articlePicture=''
+
+/*
+        for (const path of _this.data.uploadedPathArr) {
+            articlePicture+= path+";"
+        }*/
+
+        for (let i=0;i<_this.data.uploadedPathArr.length;i++){
+            console.log("i="+i)
+            console.log("length = "+_this.data.uploadedPathArr.length)
+            if(i<_this.data.uploadedPathArr.length-1){
+                articlePicture+= _this.data.uploadedPathArr[i]+";"
+            }else {
+                articlePicture+= _this.data.uploadedPathArr[i];
+            }
+
+
+
+        }
+
+      //  articlePicture = articlePicture.substring(0,articlePicture.lastIndexOf(";")+1);
+
+        console.log("articleLogo=",articleLogo);
+        console.log("articlePicture=",articlePicture);
+
+        wx.request({
+            url: app.globalData.host + 'articleCon/create',
+            data:  {
+                uuid:_this.data.uuid,
+                typeId:'',
+                articleTitle:_this.data.title,
+                articleContent:_this.data.content,
+                articleTopicsId:'1',
+                articleTopics:"test",
+                userId:'c0fb320807454e4fbea024d31c9c5c75',
+                articleLogo:articleLogo,
+                articlePicture:articlePicture
+            },
+            method: "POST",
+            header: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            complete: function( res ) {
+                console.log("result ===",res);
+                if( res == null || res.data == null ) {
+                    // reject(new Error('网络请求失败'))
+                }
+
+                wx.navigateBack({})
+            },
+            success: function(res) {
+                console.log("result success ===",res);
+                if(res.data.code ==0){
+                    console.log("发布文章成功！！！")
+
+
+                }
+            }
+
+
+        })
+    }
 
 })

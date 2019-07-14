@@ -202,7 +202,7 @@ Page({
 
     if (value){
       prevPage.setData({
-        topics:value,
+        topics:"#"+value,
         topicsId:id
       })
     }else{
