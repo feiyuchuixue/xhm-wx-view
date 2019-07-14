@@ -35,16 +35,34 @@
 </view>
 <swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
   <swiper-item>
-    <view class='swiper_con'>关注</view>
+    <view class='swiper_con'>
+      <view class='article_list'>
+        <view wx:for="{{article}}" wx:key="key" class="view-parent">
+          <view class="view-article">
+            <view class='a_img'>
+              <image src="{{item.articleLogo}}" bindtap="kecheng1"></image>
+            </view>
+            <view class='a_ttl'>
+              <text>{{item.articleTitle}}</text>
+            </view>
+            <view class='a_note'>
+              <view class='a_head'>
+                <image src="{{item.articleTitle}}"></image>
+              </view>
+              <view class='a_name'>
+                <text>{{item.name}}</text>
+              </view>
+              <view class='a_read'>{{item.articleTotalLike}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
   </swiper-item>
+
   <swiper-item>
     <view class='swiper_con'>粉丝</view>
   </swiper-item>
-  <swiper-item>
-    <view class='swiper_con'>获赞</view>
-  </swiper-item>
-  <swiper-item>
-    <view class='swiper_con'>团成员</view>
-  </swiper-item>
+
 
 </swiper>

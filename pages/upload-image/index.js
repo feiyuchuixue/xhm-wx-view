@@ -91,131 +91,45 @@ Page({
          }
      })
 
-
+e
   },
   // 选择图片或者视频
   uploadFiles: function (e) {
       var _this = this;
-      wx.showActionSheet({
-          itemList: ['选择图片', '选择视频'],
-          success: function (res) {
-            //   console.log(res.tapIndex)
-              let xindex = res.tapIndex;
-              if (xindex == 0){
+      //如果已经有图片的选择了，再新加文件类型只能是图片
+      if(_this.data.upImgArr && _this.data.upImgArr.length>0){
+
+          wx.showActionSheet({
+              itemList: ['选择图片'],
+              success: function (res) {
                   upFiles.chooseImage(_this, _this.data.maxUploadLen)
-              } else if (xindex == 1){
-                  upFiles.chooseVideo(_this, 1)
+
+              },
+              fail: function (res) {
+                  console.log(res.errMsg)
               }
+          })
+      //没有上传文件，可选图片或者视频其一
+      }else {
+          wx.showActionSheet({
+              itemList: ['选择图片', '选择视频'],
+              success: function (res) {
+                  //   console.log(res.tapIndex)
+                  let xindex = res.tapIndex;
+                  if (xindex == 0){
+                      upFiles.chooseImage(_this, _this.data.maxUploadLen)
+                  } else if (xindex == 1){
+                      upFiles.chooseVideo(_this, 1)
+                  }
 
-          },
-          fail: function (res) {
-              console.log(res.errMsg)
-          }
-      })
+              },
+              fail: function (res) {
+                  console.log(res.errMsg)
+              }
+          })
+      }
+
   },
-    // 上传文件
-    subFormData2:function(){
-        let _this = this;
-        console.log("this.data ===" ,_this.data)
-        let upData = {};
-        let upImgArr = _this.data.upImgArr;
-        let upVideoArr = _this.data.upVideoArr;
-        _this.setData({
-            upFilesProgress:true,
-        })
-        upData['url'] = config.service.upFiles;
-        console.log("upData ===" ,upData)
-        console.log("this is ...",_this)
- /*       wx.request({
-            url: app.globalData.host + 'articleCon/create',
-            data:  {
-                typeId:'',
-                articleTitle:_this.data.title,
-                articleContent:_this.data.content,
-                articleTopicsId:'1',
-                articleTopics:"test",
-                userId:'c0fb320807454e4fbea024d31c9c5c75',
-                pictures:upImgArr
-            },
-            method: "POST",
-            header: {
-                "Content-Type": "multipart/form-data"
-            },
-            complete: function( res ) {
-                console.log("result ===",res);
-                if( res == null || res.data == null ) {
-                    // reject(new Error('网络请求失败'))
-                }
-            },
-            success: function(res) {
-                console.log("result success ===",res);
-                if(res.data.code ==0){
-                    let result = res.data.data;
-                    let searchTempArr = [];
-
-                    for (const resultElement of result) {
-                        let tempObj = {};
-                        tempObj.codeKey = resultElement.id;
-                        tempObj.codeName = resultElement.topicName;
-                        searchTempArr.push(tempObj)
-
-                    }
-
-                }
-            }
-
-
-        })*/
-
-
-
-       wx.uploadFile({
-            url: app.globalData.host + 'articleCon/create',
-            filePath: upImgArr[0].path,
-            formData: {
-                typeId:'',
-                articleTitle:_this.data.title,
-                articleContent:_this.data.content,
-                articleTopicsId:'1',
-                articleTopics:"test",
-                userId:'c0fb320807454e4fbea024d31c9c5c75',
-            },
-            header: {
-                "Content-Type": "multipart/form-data"
-            },
-
-            name: 'pictures',
-            success: function (res) {
-                var json2map = JSON.parse(res.data);
-                console.log(json2map)
-
-            }
-        })
-
-        upFiles.upFilesFun(_this, upData,function(res){
-            if (res.index < upImgArr.length){
-                upImgArr[res.index]['progress'] = res.progress
-
-                _this.setData({
-                    upImgArr: upImgArr,
-                })
-            }else{
-                let i = res.index - upImgArr.length;
-                upVideoArr[i]['progress'] = res.progress
-                _this.setData({
-                    upVideoArr: upVideoArr,
-                })
-            }
-            //   console.log(res)
-        }, function (arr) {
-            // success
-            console.log(arr)
-        })
-
-
-
-
-    },
   // 上传文件或文件组
   subFormData:function(){
       let _this = this;
@@ -223,14 +137,56 @@ Page({
       let upImgArr = _this.data.upImgArr;
       let upVideoArr = _this.data.upVideoArr;
       let uuid = _this.data.uuid;
+
+
+      let filesPath = upData.filesPathsArr ? upData.filesPathsArr : upFiles.getPathArr(_this);
+
+      if(!filesPath || filesPath.length == 0) {
+          wx.showToast({
+              title: '请完善附件信息',
+              duration: 2000,
+              image:'../../image/warning_48.png',
+              mask:true
+          })
+          return;
+      }
+
+
+      if(!_this.data.title) {
+          wx.showToast({
+              title: '请完善标题信息',
+              duration: 2000,
+              image:'../../image/warning_48.png',
+              mask:true
+          })
+          return;
+      }
+
+      if(!_this.data.content) {
+          wx.showToast({
+              title: '请完善心情信息',
+              duration: 2000,
+              image:'../../image/warning_48.png',
+              mask:true
+          })
+          return;
+      }
+
+      if(!_this.data.topics || !_this.data.topicsId) {
+          wx.showToast({
+              title: '请完善话题信息',
+              duration: 2000,
+              image:'../../image/warning_48.png',
+              mask:true
+          })
+          return;
+      }
+
       _this.setData({
           upFilesProgress:true,
           upFilesType:null,
           uuid:''
       })
-
-      console.log("subFormData _this is ",_this)
-      console.log("subFormData uuid is ==============",uuid)
 
 
       if(upImgArr && upImgArr.length>0){
@@ -240,7 +196,6 @@ Page({
           upData.formData={type:"video",uuid:uuid,num:0};
       }
 
-      console.log("upData ==",upData)
       upData['url'] = config.service.upFiles;
       upFiles.upFilesFun(_this, upData,function(res){
           if (upImgArr && res.index < upImgArr.length){
@@ -260,7 +215,6 @@ Page({
           }
         //   console.log(res)
       }, function (arr) {
-
           // success
           console.log(arr)
           console.log("图片上传成功!!!")
@@ -306,11 +260,6 @@ Page({
       let articleLogo=_this.data.uploadedPathArr[0];
       let articlePicture=''
 
-/*
-        for (const path of _this.data.uploadedPathArr) {
-            articlePicture+= path+";"
-        }*/
-
         for (let i=0;i<_this.data.uploadedPathArr.length;i++){
             console.log("i="+i)
             console.log("length = "+_this.data.uploadedPathArr.length)
@@ -319,12 +268,7 @@ Page({
             }else {
                 articlePicture+= _this.data.uploadedPathArr[i];
             }
-
-
-
         }
-
-      //  articlePicture = articlePicture.substring(0,articlePicture.lastIndexOf(";")+1);
 
         console.log("articleLogo=",articleLogo);
         console.log("articlePicture=",articlePicture);
@@ -351,7 +295,7 @@ Page({
                 if( res == null || res.data == null ) {
                     // reject(new Error('网络请求失败'))
                 }
-
+                //跳转回前页
                 wx.navigateBack({})
             },
             success: function(res) {

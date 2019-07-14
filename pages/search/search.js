@@ -175,8 +175,6 @@ Page({
     var currPage = pages[pages.length - 1];   //当前页面
     var prevPage = pages[pages.length - 2];  //上一个页面
 
-    console.log("搜索触发 请求后端接口。。。"+value)
-    console.log("prevPage==",prevPage)
     // do your job here
     // 跳转
     prevPage.setData({
@@ -196,8 +194,6 @@ Page({
     var currPage = pages[pages.length - 1];   //当前页面
     var prevPage = pages[pages.length - 2];  //上一个页面
 
-    console.log("搜索触发 请求后端接口。。。"+value)
-    console.log("prevPage==",prevPage)
     // do your job here
 
     if (value){
