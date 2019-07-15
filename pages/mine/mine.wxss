@@ -330,3 +330,39 @@ button::after {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/*上拉刷新 start*/
+
+
+/**/
+
+scroll-view {
+  width: 100%;
+}
+
+.item {
+  width: 90%;
+  height: 300rpx;
+  margin: 20rpx auto;
+  background: brown;
+  overflow: hidden;
+}
+
+.item .img {
+  width: 430rpx;
+  margin-right: 20rpx;
+  float: left;
+}
+
+.title {
+  font-size: 30rpx;
+  display: block;
+  margin: 30rpx auto;
+}
+
+.description {
+  font-size: 26rpx;
+  line-height: 15rpx;
+}
+
+/*上拉刷新 end*/

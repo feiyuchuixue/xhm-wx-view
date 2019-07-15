@@ -206,8 +206,9 @@ e
                   upFilesType:'img'
               })
           }else{
-              let i = res.index - upVideoArr.length;
-              upVideoArr[i]['progress'] = res.progress
+            //  let i = res.index - upVideoArr.length;
+
+              upVideoArr[0]['progress'] = res.progress
               _this.setData({
                   upVideoArr: upVideoArr,
                   upFilesType:'video'
@@ -296,12 +297,24 @@ e
                     // reject(new Error('网络请求失败'))
                 }
                 //跳转回前页
-                wx.navigateBack({})
+
+                var pages = getCurrentPages();
+                var currPage = pages[pages.length - 1];   //当前页面
+                var prevPage = pages[pages.length - 2];  //上一个页面
+                prevPage.setData({
+                    page:1,
+                    article: [],
+                    loading: false,
+                    allloaded: false,
+                })
+
+                wx.navigateBack(prevPage.init());
             },
             success: function(res) {
                 console.log("result success ===",res);
                 if(res.data.code ==0){
                     console.log("发布文章成功！！！")
+
 
 
                 }

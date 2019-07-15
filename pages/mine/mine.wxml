@@ -35,7 +35,16 @@
 </view>
 <swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
   <swiper-item>
-    <view class='swiper_con'>
+<!--
+    <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;"
+                 class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad"  bindscroll="scroll">
+-->
+
+    <component-scroll style="background: red" isNeedLoadmore bind:_loadmore="loadmore" bind:_refresh="refresh" allloaded="{{allloaded}}" isEmpty="{{!loading &&list.length<=0}}">
+
+
+
+    <view class='swiper_con' >
       <view class='article_list'>
         <view wx:for="{{article}}" wx:key="key" class="view-parent">
           <view class="view-article">
@@ -43,7 +52,7 @@
               <image src="{{fileUrl + item.articleLogo}}" bindtap="kecheng1"></image>
             </view>
             <view class='a_ttl'>
-              <text>{{item.articleTopics + item.articleContent}}</text>
+              <text>{{item.articleTopics +  item.articleTitle}}</text>
    <!--           <text>{{item.articleTopics + item.articleContent}}</text>-->
             </view>
             <view class='a_note'>
@@ -59,6 +68,11 @@
         </view>
       </view>
     </view>
+
+    </component-scroll>
+
+
+
   </swiper-item>
 
   <swiper-item>
