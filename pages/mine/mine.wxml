@@ -40,17 +40,18 @@
         <view wx:for="{{article}}" wx:key="key" class="view-parent">
           <view class="view-article">
             <view class='a_img'>
-              <image src="{{item.articleLogo}}" bindtap="kecheng1"></image>
+              <image src="{{fileUrl + item.articleLogo}}" bindtap="kecheng1"></image>
             </view>
             <view class='a_ttl'>
-              <text>{{item.articleTitle}}</text>
+              <text>{{item.articleTopics + item.articleContent}}</text>
+   <!--           <text>{{item.articleTopics + item.articleContent}}</text>-->
             </view>
             <view class='a_note'>
               <view class='a_head'>
-                <image src="{{item.articleTitle}}"></image>
+                <image src="{{fileUrl + item.articleLogo}}"></image>
               </view>
               <view class='a_name'>
-                <text>{{item.name}}</text>
+                <text>{{item.articleCreateUserName}}</text>
               </view>
               <view class='a_read'>{{item.articleTotalLike}}</view>
             </view>

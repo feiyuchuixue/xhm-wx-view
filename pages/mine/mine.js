@@ -7,6 +7,10 @@ Page({
    */
   data: {
     currentData: 0,
+    start:1,
+    limit:10,
+    total:0,
+
     user: [
       {
         name: '崔迪',
@@ -75,6 +79,7 @@ Page({
               count: '12554'
           }
       ],
+      fileUrl:''
   },
   /**
    * 生命周期函数--监听页面加载
@@ -127,7 +132,7 @@ createArticle2:function (e) {
 
 
 },
- init:function () {
+ init:function (start,limit) {
      let _this = this;
      wx.request({
          url: app.globalData.host + 'articleCon/selByUserId',
@@ -152,7 +157,8 @@ createArticle2:function (e) {
              console.log("result success ===",res);
              if(res.data.recode ==0){
                  _this.setData({
-                     article : res.data.result.data.list
+                     article : res.data.result.data.list,
+                     fileUrl:res.data.result.fileUrl
                  })
                  console.log("数据初始化成功！！！");
                  console.log("data =====",res.data.result.data.list);

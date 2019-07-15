@@ -280,8 +280,8 @@ e
                 typeId:'',
                 articleTitle:_this.data.title,
                 articleContent:_this.data.content,
-                articleTopicsId:'1',
-                articleTopics:"test",
+                articleTopicsId:_this.data.topicsId,
+                articleTopics:_this.data.topics,
                 userId:'c0fb320807454e4fbea024d31c9c5c75',
                 articleLogo:articleLogo,
                 articlePicture:articlePicture

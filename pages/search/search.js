@@ -178,7 +178,7 @@ Page({
     // do your job here
     // 跳转
     prevPage.setData({
-      topics:"#"+value,
+      topics:"#"+value+"#",
       topicsId:id
     })
     wx.navigateBack();
@@ -198,13 +198,13 @@ Page({
 
     if (value){
       prevPage.setData({
-        topics:"#"+value,
+        topics:"#"+value+"#",
         topicsId:id
       })
     }else{
       var aaa= this.data.searchNot;
       prevPage.setData({
-        topics: "#"+aaa,
+        topics: "#"+aaa+"#",
         topicsId: 'noExist'
       })
     }
