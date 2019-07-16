@@ -40,8 +40,6 @@
                  class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad"  bindscroll="scroll">
 -->
 
-    <component-scroll style="background: red" isNeedLoadmore bind:_loadmore="loadmore" bind:_refresh="refresh" allloaded="{{allloaded}}" isEmpty="{{!loading &&list.length<=0}}">
-
 
 
     <view class='swiper_con' >
@@ -68,8 +66,6 @@
         </view>
       </view>
     </view>
-
-    </component-scroll>
 
 
 

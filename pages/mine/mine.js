@@ -1,16 +1,12 @@
 // pages/mine/mine.js
 const app =getApp()
-let pageIndex =0;
-let pageLimit =10;
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-      page: 1,
-      size: 10,
-      loading: false,
-      allloaded: false,
+      pageIndex:0,
+      pageLimit:10,
     user: [
       {
         name: '崔迪',
@@ -47,37 +43,115 @@ Page({
   },
   onShow:function(){
       this.setData({
-          page:1,
+          pageIndex:1,
           article: [],
-          loading: false,
-          allloaded: false,
       })
       this.init()
     },
+    // 下拉刷新
+    onPullDownRefresh: function () {
+        // 显示顶部刷新图标
+        wx.showNavigationBarLoading();
+        let _this = this;
 
-    // 加载更多
- loadmore({
-                 detail
-             }) {
-        this.init().then(res => {
-            detail.success();
-        });
-    },
-    // 刷新
-    refresh({
-              detail
-            }) {
-        this.setData({
-            article: [],
-            loading: false,
-            allloaded: false,
-            page: 0
+        wx.request({
+            url: app.globalData.host + 'articleCon/selByUserId',
+            data:  {
+                uid:'c0fb320807454e4fbea024d31c9c5c75',
+                start:1,
+                limit:10
+            },
+            method: "POST",
+            header: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            complete: function( res ) {
+                console.log("result ===",res);
+                if( res == null || res.data == null ) {
+                    // reject(new Error('网络请求失败'))
+                }
+                //跳转回前页
+                //  wx.navigateBack({})
+
+                // 隐藏导航栏加载框
+                wx.hideNavigationBarLoading();
+                // 停止下拉动作
+                wx.stopPullDownRefresh();
+
+            },
+            success: function(res) {
+                console.log("result success ===",res);
+                if(res.data.recode ==0){
+
+                    _this.setData({
+                        article: res.data.result.data.list,
+                        fileUrl:res.data.result.fileUrl,
+                    })
+
+                }
+            }
+
         })
-        this.init().then(res => {
-            detail.success();
-        });
-    },
 
+
+    },
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    onReachBottom: function () {
+        var _this = this;
+        // 显示加载图标
+        wx.showLoading({
+            title: '玩命加载中',
+        })
+        // 页数+1
+        _this.setData({
+            pageIndex: _this.data.pageIndex + 1
+        })
+
+        wx.request({
+            url: app.globalData.host + 'articleCon/selByUserId',
+            data:  {
+                uid:'c0fb320807454e4fbea024d31c9c5c75',
+                start:_this.data.pageIndex,
+                limit:_this.data.pageLimit
+            },
+            method: "POST",
+            header: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            complete: function( res ) {
+                console.log("result ===",res);
+                if( res == null || res.data == null ) {
+                    // reject(new Error('网络请求失败'))
+                }
+                //跳转回前页
+                //  wx.navigateBack({})
+
+                // 隐藏加载框
+                wx.hideLoading();
+
+            },
+            success: function(res) {
+                console.log("result success ===",res);
+                if(res.data.recode ==0){
+
+                    let article = res.data.result.data.list;
+
+                    let newList = _this.data.article.concat(article)
+
+
+                    _this.setData({
+                        article: newList,
+                        fileUrl:res.data.result.fileUrl,
+                    })
+
+                }
+            }
+
+        })
+
+    },
 
   //获取当前滑块的index
   bindchange: function (e) {
@@ -119,121 +193,50 @@ createArticle2:function (e) {
 
     let _this = this;
 
-     return new Promise((resolve, reject) => {
-         if (_this.data.loading || _this.data.allloaded) {
-             resolve();
-             return;
-         }
-         _this.setData({
-             loading: true
-         })
-
-
-         wx.request({
-             url: app.globalData.host + 'articleCon/selByUserId',
-             data:  {
-                 uid:'c0fb320807454e4fbea024d31c9c5c75',
-                 start:_this.data.page,
-                 limit:_this.data.size
-             },
-             method: "POST",
-             header: {
-                 "Content-Type": "application/x-www-form-urlencoded"
-             },
-             complete: function( res ) {
-                 console.log("result ===",res);
-                 if( res == null || res.data == null ) {
-                     // reject(new Error('网络请求失败'))
-                 }
-                 //跳转回前页
-                 //  wx.navigateBack({})
-             },
-             success: function(res) {
-                 console.log("result success ===",res);
-                 if(res.data.recode ==0){
-
-
-                     console.log("length:"+res.data.result.data.list.length);
-                     if(res.data.result.data.list.length != 0){
-
-                         let article = res.data.result.data.list;
-
-                         let newList = _this.data.article.concat(article)
-                         if (article.length < _this.data.size) {
-                             _this.setData({
-                                 allloaded: true
-                             })
-                         }
-                         _this.setData({
-                             article: newList,
-                             fileUrl:res.data.result.fileUrl,
-                             loading: false,
-                             page: _this.data.page + 1
-                         })
-
-
-                         console.log("数据初始化成功！！！");
-                         console.log("data =====",res.data.result.data.list);
-                         console.log("data =====",_this.data);
-                     }else {
-                        console.log("没有数据了")
-                         _this.setData({
-                             allloaded: true
-                         })
-
-
-                     }
-
-
-
-                 }
+     wx.request({
+         url: app.globalData.host + 'articleCon/selByUserId',
+         data:  {
+             uid:'c0fb320807454e4fbea024d31c9c5c75',
+             start:1,
+             limit:10
+         },
+         method: "POST",
+         header: {
+             "Content-Type": "application/x-www-form-urlencoded"
+         },
+         complete: function( res ) {
+             console.log("result ===",res);
+             if( res == null || res.data == null ) {
+                 // reject(new Error('网络请求失败'))
              }
+             //跳转回前页
+             //  wx.navigateBack({})
+         },
+         success: function(res) {
+             console.log("result success ===",res);
+             if(res.data.recode ==0){
+
+                 let article = res.data.result.data.list;
+                 _this.setData({
+                     article: article,
+                     fileUrl:res.data.result.fileUrl,
+                 })
 
 
-         })
-             resolve();
+                 console.log("数据初始化成功！！！");
+                 console.log("data =====",res.data.result.data.list);
+                 console.log("data =====",_this.data);
+
+             }
+         }
 
      })
 
-
-     if (_this.data.loading || _this.data.allloaded) {
-         return;
-     }
-     _this.setData({
-         loading: true
-     })
 
 
 
 
 
  },
-    //下拉加载
-    bindDownLoad: function () {
-        var that = this;
-        this.init()
-    },
-
-    scroll: function (event) {
-      console.log("scrollTop is ...",event.detail.scrollTop)
-        //该方法绑定了页面滚动时的事件，这里记录了当前的 position.y 的值,为了请求数据之后把页面定位到这里来。
-        this.setData({
-            scrollTop: event.detail.scrollTop
-        });
-    },
-
-    //上拉刷新
-    topLoad: function (event) {
-      console.log("触发上拉=============================")
-        var that = this;
-        //数据刷新
-        pageIndex = 0;
-        this.setData({
-            pageIndex: 1,
-            article: [],
-            scrollTop: 0
-        });
-        this.init()
-    }
 
 })

@@ -333,36 +333,24 @@ button::after {
 
 /*上拉刷新 start*/
 
-
-/**/
-
-scroll-view {
+.refresh_root {
+  background-color: white;
   width: 100%;
+  text-align: center;
+  margin-top: 2px;
 }
 
-.item {
-  width: 90%;
-  height: 300rpx;
-  margin: 20rpx auto;
-  background: brown;
-  overflow: hidden;
+.refresh {
+  width: 40px;
+  height: 40px;
 }
 
-.item .img {
-  width: 430rpx;
-  margin-right: 20rpx;
-  float: left;
+.showItem {
+  background-color: white;
+  text-align: center;
+  margin-top: 2px;
+  padding: 5px;
 }
 
-.title {
-  font-size: 30rpx;
-  display: block;
-  margin: 30rpx auto;
-}
-
-.description {
-  font-size: 26rpx;
-  line-height: 15rpx;
-}
 
 /*上拉刷新 end*/

@@ -1,45 +1,25 @@
-// component/component-scroll/index.js
+
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    pulldownDistance: { // 下拉距离
+    // scrollView滚动范围
+    scrollHeight: {
       type: Number,
-      value: '10'
+      value: 0
     },
-    refreshPulldownText: { // 下拉文字
-      type: String,
-      value: '下拉刷新'
-    },
-    refreshUndoText: { // 松开文字
-      type: String,
-      value: '释放刷新'
-    },
-    refreshLoadingText: { // 刷新加载文字
-      type: String,
-      value: '正在加载'
-    },
-    isNeedLoadmore: { // 是否需要加载更多
+    // 数据是否加载完成
+    isAllLoaded: {
       type: Boolean,
       value: false
     },
-    allloaded: { // 全部加载完毕
+    // 是否加载
+    isLoadingHeader: {
       type: Boolean,
-      value: false
-    },
-    isEmpty: { // 是否为空
-      type: Boolean,
-      value: false
-    },
-    loadmoreLoadingText: { // 加载更多文字
-      type: String,
-      value: '正在加载'
-    },
-    loadmoreAllloadedText: {
-      type: String,
-      value: '已经到最底部了~'
-    },
+      value: false,
+    }
+
   },
 
   /**
@@ -48,104 +28,93 @@ Component({
   data: {
     scrollTop: 0, // 是否在顶部
     touchStartY: 0, // 触摸的起始位置
-    refreshHeight: 0, // 下拉高度
-    refreshText: '', // 下拉文字
-    isRefresh: true, // 是否下拉刷新
-    loadmoreHidden: true, // 加载更多显示
-    loadmoreText: '' // 加载更多文字提示
+    isLoadingHeader: false,
+    isLoadingFooter: false,
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
-    loadmore(e) {
-      if (this.properties.allloaded && !this.properties.isEmpty) {
-        this.setData({
-          loadmoreHidden: false,
-          loadmoreText: this.properties.loadmoreAllloadedText
-        })
-        return;
+    startRefresh: function() {
+      this.setData({
+        isLoadingHeader: true
+      })
+      this.refresh()
+    },
+
+    /**
+     * 下拉刷新
+     */
+    refresh(e) {
+      var that = this
+      this.triggerEvent('refresh', {
+        success: () => {
+          setTimeout(() => {
+            that.setData({
+              isLoadingHeader: false
+            })
+          }, 400)
+        }
+      })
+    },
+
+    /**
+     * 上拉加载
+     */
+    loadMore(e) {
+      if (this.data.isAllLoaded) {
+        return
+      }
+      if (this.data.isLoadingFooter) {
+        return
       }
       this.setData({
-        loadmoreText: this.properties.loadmoreLoadingText,
-        loadmoreHidden: false
+        isLoadingFooter: true
       })
-      setTimeout(() => {
-        this.triggerEvent('_loadmore', {
-          success: () => {
-            this.setData({
-              loadmoreHidden: true
+      var that = this
+      this.triggerEvent('loadMore', {
+        success: () => {
+          setTimeout(() => {
+            that.setData({
+              isLoadingFooter: false
             })
-          }
-        })
-      }, 500)
+          }, 400)
+        }
+      })
     },
+
     scroll(e) {
-      console.log("scroll .............",e.detail.scrollTop)
       this.setData({
         scrollTop: e.detail.scrollTop
       })
     },
+
     touchStart(e) {
       this.setData({
         touchStartY: e.touches[0].pageY
       })
     },
+
     touchMove(e) {
-      if (this.data.scrollTop <= 0) {
-        let height = e.touches[0].pageY - this.data.touchStartY;
-        if (height < 0) {
-          this.setData({
-            isRefresh: false,
-            refreshHeight: 0
-          })
-        } else if (height < this.properties.pulldownDistance) {
-          this.setData({
-            refreshHeight: height,
-            isRefresh: false,
-            refreshText: this.properties.refreshPulldownText
-          })
-        } else if (height >= this.properties.pulldownDistance) {
-          this.setData({
-            refreshHeight: this.properties.pulldownDistance,
-            refreshText: this.properties.refreshUndoText,
-            isRefresh: true
-          })
-        }
-      } else {
-        this.setData({
-          refreshHeight: 0,
-          refreshText: '',
-          isRefresh: false
-        })
-      }
-    },
-    touchEnd(e) {
-      if (this.data.scrollTop <= 0 && this.data.isRefresh) {
-        this.setData({
-          refreshText: this.properties.refreshLoadingText,
-          loadmoreHidden: true
-        })
-        setTimeout(() => {
-          this.triggerEvent('_refresh', {
-            success: () => {
-              this.setData({
-                refreshHeight: 0,
-                refreshText: '',
-                isRefresh: false
-              })
-            }
-          })
-        }, 1000)
-      } else {
-        this.setData({
-          refreshHeight: 0,
-          refreshText: '',
-          isRefresh: false
-        })
-      }
+
     },
 
+    touchEnd(e) {
+      if (this.data.scrollTop <= 0) {
+        let height = e.changedTouches[0].pageY - this.data.touchStartY;
+        // 下拉超过80显示下拉刷新
+        if (height >= 80) {
+          if (this.data.isLoadingHeader) {
+            return
+          }
+          console.log('刷新中...')
+          this.setData({
+            isLoadingHeader: true
+          })
+          this.refresh()
+        }
+      }
+    },
   }
 })
