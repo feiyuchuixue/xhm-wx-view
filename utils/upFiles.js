@@ -123,12 +123,14 @@ var upFilesFun = (t, data, progress, success) =>{
     name: name,
     formData: formData,
     success: function (res) {
+      console.log("res ===",res);
       var data = res.data
       successNumber++;
       // console.log('success', successNumber)
       // console.log('success',res)
       // 把后台返回的地址链接存到一个数组
       let uploaded = t.data.uploadedPathArr || [];
+      console.log("uploaded ===",uploaded);
       var da = JSON.parse(res.data);
       // console.log(da)
       if (da.code == 0) {

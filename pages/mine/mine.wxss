@@ -129,15 +129,32 @@ button::after {
 }
 
 .topTabSwiper {
-  zoom: 1;
-  padding: 20rpx 10%;
-  height: 60rpx;
+  width: 100%;
+  float: left;
 }
 
-.topTabSwiper:after {
-  content: "";
-  clear: both;
-  display: block;
+.topTabSwiper-sub{
+  width: 49.5%;
+  height: 80rpx;
+  line-height: 80rpx;
+  float: left;
+  text-align: center;
+}
+
+.topTabSwiper-1{
+  width: 1%;
+  height: 80rpx;
+  line-height: 80rpx;
+  float: left;
+  text-align: center;
+}
+
+.topTabSwiper-sub1{
+  width: 49.5%;
+  height: 80rpx;
+  line-height: 80rpx;
+  float: left;
+  text-align: center;
 }
 
 .tabBorer {
@@ -148,13 +165,16 @@ button::after {
 .swiper {
   width: 100%;
   background: #eee;
+  position: absolute;
+  height: auto;
+  top: 423rpx;
+  bottom: 0rpx;
 }
 
 .swiper_con {
   text-align: center;
   width: 100%;
   height: 100%;
-  padding: 80rpx 0;
 }
 
 
@@ -333,36 +353,19 @@ button::after {
 
 /*上拉刷新 start*/
 
-
-/**/
-
-scroll-view {
-  width: 100%;
+.item-style{
+  padding: 30rpx;
+  font-size: 40rpx;
+  text-align: center;
+  border-top: 2rpx solid #eee;
 }
-
-.item {
-  width: 90%;
-  height: 300rpx;
-  margin: 20rpx auto;
-  background: brown;
-  overflow: hidden;
+.refresh-block {
+  padding: 15px;
+  text-align: center
 }
-
-.item .img {
-  width: 430rpx;
-  margin-right: 20rpx;
-  float: left;
-}
-
-.title {
-  font-size: 30rpx;
-  display: block;
-  margin: 30rpx auto;
-}
-
-.description {
-  font-size: 26rpx;
-  line-height: 15rpx;
+.refresh-block image {
+  width: 30px;
+  height: 30px;
 }
 
 /*上拉刷新 end*/
