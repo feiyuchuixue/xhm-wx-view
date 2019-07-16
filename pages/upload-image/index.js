@@ -302,10 +302,10 @@ e
                 var currPage = pages[pages.length - 1];   //当前页面
                 var prevPage = pages[pages.length - 2];  //上一个页面
                 prevPage.setData({
-                    page:1,
+                    pageIndex:1,
+                    currentData:0,
                     article: [],
-                    loading: false,
-                    allloaded: false,
+                    fileUrl:''
                 })
 
                 wx.navigateBack(prevPage.init());
