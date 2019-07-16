@@ -14,7 +14,7 @@
     "pages/search/search"
   ],
   "window": {
-    "backgroundTextStyle": "dark",
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#FFFFFF",
     "navigationBarTitleText": "听会儿中医demo",
     "navigationBarTextStyle": "black"

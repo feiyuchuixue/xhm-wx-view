@@ -29,16 +29,12 @@
   </view>
 </view>
 <view class='topTabSwiper'>
-  <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>笔记</view>
-  <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>收藏</view>
+  <view class='topTabSwiper-sub   {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>笔记</view>
+  <view class='topTabSwiper-sub1  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>收藏</view>
 
 </view>
-<swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
+<swiper current="{{currentData}}" class='swiper' style="height:350px;" duration="300" bindchange="bindchange">
   <swiper-item>
-<!--
-    <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;"
-                 class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad"  bindscroll="scroll">
--->
 
 
 
@@ -51,7 +47,6 @@
             </view>
             <view class='a_ttl'>
               <text>{{item.articleTopics +  item.articleTitle}}</text>
-   <!--           <text>{{item.articleTopics + item.articleContent}}</text>-->
             </view>
             <view class='a_note'>
               <view class='a_head'>

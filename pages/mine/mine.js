@@ -7,6 +7,13 @@ Page({
   data: {
       pageIndex:0,
       pageLimit:10,
+      currentData:0,
+      windowHeight: 0,//获取屏幕高度
+      refreshHeight: 0,//获取高度
+      refreshing: false,//是否在刷新中
+      refreshAnimation: {}, //加载更多旋转动画数据
+      clientY: 0,//触摸时Y轴坐标
+
     user: [
       {
         name: '崔迪',
@@ -38,121 +45,36 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+      var _this = this;
+/*
+      //获取屏幕高度
+      wx.getSystemInfo({
+          success: function (res) {
+              _this.setData({
+                  windowHeight: res.windowHeight
+              })
+              console.log("屏幕高度: " + res.windowHeight)
+          }
+      })
+*/
 
+      this.init()
 
   },
   onShow:function(){
-      this.setData({
-          pageIndex:1,
-          article: [],
-      })
+      var _this = this;
+/*      //获取屏幕高度
+      wx.getSystemInfo({
+          success: function (res) {
+              _this.setData({
+                  windowHeight: res.windowHeight
+              })
+              console.log("屏幕高度: " + res.windowHeight)
+          }
+      })*/
+
       this.init()
     },
-    // 下拉刷新
-    onPullDownRefresh: function () {
-        // 显示顶部刷新图标
-        wx.showNavigationBarLoading();
-        let _this = this;
-
-        wx.request({
-            url: app.globalData.host + 'articleCon/selByUserId',
-            data:  {
-                uid:'c0fb320807454e4fbea024d31c9c5c75',
-                start:1,
-                limit:10
-            },
-            method: "POST",
-            header: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            complete: function( res ) {
-                console.log("result ===",res);
-                if( res == null || res.data == null ) {
-                    // reject(new Error('网络请求失败'))
-                }
-                //跳转回前页
-                //  wx.navigateBack({})
-
-                // 隐藏导航栏加载框
-                wx.hideNavigationBarLoading();
-                // 停止下拉动作
-                wx.stopPullDownRefresh();
-
-            },
-            success: function(res) {
-                console.log("result success ===",res);
-                if(res.data.recode ==0){
-
-                    _this.setData({
-                        article: res.data.result.data.list,
-                        fileUrl:res.data.result.fileUrl,
-                    })
-
-                }
-            }
-
-        })
-
-
-    },
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-        var _this = this;
-        // 显示加载图标
-        wx.showLoading({
-            title: '玩命加载中',
-        })
-        // 页数+1
-        _this.setData({
-            pageIndex: _this.data.pageIndex + 1
-        })
-
-        wx.request({
-            url: app.globalData.host + 'articleCon/selByUserId',
-            data:  {
-                uid:'c0fb320807454e4fbea024d31c9c5c75',
-                start:_this.data.pageIndex,
-                limit:_this.data.pageLimit
-            },
-            method: "POST",
-            header: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            complete: function( res ) {
-                console.log("result ===",res);
-                if( res == null || res.data == null ) {
-                    // reject(new Error('网络请求失败'))
-                }
-                //跳转回前页
-                //  wx.navigateBack({})
-
-                // 隐藏加载框
-                wx.hideLoading();
-
-            },
-            success: function(res) {
-                console.log("result success ===",res);
-                if(res.data.recode ==0){
-
-                    let article = res.data.result.data.list;
-
-                    let newList = _this.data.article.concat(article)
-
-
-                    _this.setData({
-                        article: newList,
-                        fileUrl:res.data.result.fileUrl,
-                    })
-
-                }
-            }
-
-        })
-
-    },
-
   //获取当前滑块的index
   bindchange: function (e) {
     const that = this;
@@ -238,5 +160,158 @@ createArticle2:function (e) {
 
 
  },
+    scroll:function () {
+        console.log("滑动了。。。");
+    },
+    lower:function () {
+        console.log("加载了。。。");
+        let _this = this;
+        // 页数+1
+        _this.setData({
+            pageIndex: _this.data.pageIndex + 1
+        })
+
+        wx.request({
+            url: app.globalData.host + 'articleCon/selByUserId',
+            data:  {
+                uid:'c0fb320807454e4fbea024d31c9c5c75',
+                start:_this.data.pageIndex,
+                limit:_this.data.pageLimit
+            },
+            method: "POST",
+            header: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            complete: function( res ) {
+                console.log("result ===",res);
+                if( res == null || res.data == null ) {
+                    // reject(new Error('网络请求失败'))
+                }
+                //跳转回前页
+                //  wx.navigateBack({})
+
+            },
+            success: function(res) {
+                console.log("result success ===",res);
+                if(res.data.recode ==0){
+
+                    let article = res.data.result.data.list;
+
+                    let newList = _this.data.article.concat(article)
+                    _this.setData({
+                        article: newList,
+                        fileUrl:res.data.result.fileUrl,
+                    })
+
+                }
+            }
+
+        })
+
+
+    },
+    upper:function(){
+
+      console.log("下拉了。。。。。。。。。。。。。。。。。。。")
+        //获取用户Y轴下拉的位移
+
+        if (this.data.refreshing) return;
+        this.setData({ refreshing: true });
+        updateRefreshIcon.call(this);
+
+        let _this = this;
+        // 页数+1
+        _this.setData({
+            pageIndex: _this.data.pageIndex + 1
+        })
+
+        wx.request({
+            url: app.globalData.host + 'articleCon/selByUserId',
+            data:  {
+                uid:'c0fb320807454e4fbea024d31c9c5c75',
+                start:_this.data.pageIndex,
+                limit:_this.data.pageLimit
+            },
+            method: "POST",
+            header: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            complete: function( res ) {
+                console.log("result ===",res);
+                if( res == null || res.data == null ) {
+                    // reject(new Error('网络请求失败'))
+                }
+                //跳转回前页
+                //  wx.navigateBack({})
+
+                _this.setData({
+                    refreshing: false
+                })
+
+            },
+            success: function(res) {
+                console.log("result success ===",res);
+                if(res.data.recode ==0){
+
+                    let article = res.data.result.data.list;
+
+                    let newList = _this.data.article.concat(article)
+                    _this.setData({
+                        article: newList,
+                        fileUrl:res.data.result.fileUrl,
+                    })
+
+                }
+            }
+
+        })
+
+
+    },
+
+    start: function (e) {
+        var startPoint = e.touches[0]
+        var clientY = startPoint.clientY;
+        this.setData({
+            clientY: clientY,
+            refreshHeight: 0
+        })
+    },
+    end: function (e) {
+        var endPoint = e.changedTouches[0]
+        var y = (endPoint.clientY - this.data.clientY) * 0.6;
+        if (y > 50) {
+            y = 50;
+        }
+        this.setData({
+            refreshHeight: y
+        })
+    },
+    move: function (e) {
+        console.log("下拉滑动了...")
+    }
 
 })
+
+/**
+ * 旋转上拉加载图标
+ */
+function updateRefreshIcon() {
+    var deg = 0;
+    var _this = this;
+    console.log('旋转开始了.....')
+    var animation = wx.createAnimation({
+        duration: 1000
+    });
+
+    var timer = setInterval(function () {
+        if (!_this.data.refreshing)
+            clearInterval(timer);
+        animation.rotateZ(deg).step();//在Z轴旋转一个deg角度
+        deg += 360;
+        _this.setData({
+            refreshAnimation: animation.export()
+        })
+    }, 1000);
+}
+
