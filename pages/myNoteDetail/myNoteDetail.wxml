@@ -1,0 +1,48 @@
+<!--pages/myNoteDetail/myNoteDetail.wxml-->
+<cover-view class='goods_prew_select'>
+    <cover-view class='tab ' style="color:orange" hidden="{{orangeHidden}}" data-current="0" bindtap='checkCurrent'>审核中</cover-view>
+    <cover-view class='tab ' style="color:green" hidden="{{greenHidden}}" data-current="1" bindtap='checkCurrent'>审核通过</cover-view>
+    <cover-view class='tab ' style="color:red" hidden="{{redHidden}}" data-current="2" bindtap='checkCurrent'>审核失败</cover-view>
+</cover-view>
+<swiper current="{{currentData}}" class='type_swiper' duration="300" bindchange="bindchange">
+    <swiper-item hidden="true">
+        <image class='video' src="{{video}}" width="750" height="750" />
+    </swiper-item>
+    <swiper-item>
+        <view class='huandeng'>
+            <swiper indicator-dots="true" autoplay="true" interval="5000">
+                <block wx:for="{{imgUrls}}" wx:key="key">
+                    <swiper-item>
+                        <image src="{{fileUrl + item}}" width="750" height="750" />
+                    </swiper-item>
+                </block>
+            </swiper>
+        </view>
+    </swiper-item>
+</swiper>
+<view class="goods_intr">
+
+    <view class='goods_title'>
+        <text>{{articleTitle}}</text>
+    </view>
+    <view class='goods_info'>
+        <text>
+            {{articleContent}}
+        </text>
+
+        <button size='mini' class="topics goods_info " id="{{articleTopicsId}}" >{{articleTopics}}</button>
+
+    </view>
+    <view class='goods_info'>
+        <text>
+            {{articleCreateTime}}
+        </text>
+    </view>
+    <view class="line goods_info">
+        <text>
+            共 {{commentCount}} 条评论
+        </text>
+    </view>
+
+</view>
+

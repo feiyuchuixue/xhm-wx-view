@@ -282,6 +282,13 @@ createArticle2:function (e) {
     },
     move: function (e) {
         console.log("下拉滑动了...")
+    },
+    //显示文章详情
+    showArticleDetail:function (e) {
+      console.log("e====",e)
+        wx.navigateTo({
+            url: '/pages/myNoteDetail/myNoteDetail?aid='+e.target.dataset.id,
+        })
     }
 
 })
