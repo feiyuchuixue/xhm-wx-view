@@ -13,7 +13,8 @@
             <swiper indicator-dots="true" autoplay="true" interval="5000">
                 <block wx:for="{{imgUrls}}" wx:key="key">
                     <swiper-item>
-                        <image src="{{fileUrl + item}}" width="750" height="750" />
+                        <image src="{{fileUrl + item}}"  bindload="imageLoad" data-index="{{ index }}"
+                               style="width:{{ images[index].width }}rpx; height:{{ images[index].height }}rpx;"  />
                     </swiper-item>
                 </block>
             </swiper>

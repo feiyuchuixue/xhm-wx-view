@@ -37,7 +37,7 @@
   <swiper-item >
 
     <view class="refresh-block" style="height: {{refreshHeight}}px;" wx:if="{{refreshing}}">
-      <image animation="{{refreshAnimation}}" src="../images/refresh.png"></image>
+      <image animation="{{refreshAnimation}}" mode='aspectFill' lazy-load='true'  src="../images/refresh.png"></image>
     </view>
 
       <view class='swiper_con' >
@@ -46,14 +46,14 @@
           <view wx:for="{{article}}" wx:key="key" class="view-parent">
             <view class="view-article"   value="{{item.id}}" bindtap="showArticleDetail">
               <view class='a_img'>
-                <image src="{{fileUrl + item.articleLogo}}" data-id="{{item.id}}"></image>
+                <image src="{{fileUrl + item.articleLogo}}" data-id="{{item.id}}" mode='aspectFill' lazy-load='true' ></image>
               </view>
               <view class='a_ttl'>
                 <text>{{item.articleTopics +  item.articleTitle}}</text>
               </view>
               <view class='a_note'>
                 <view class='a_head'>
-                  <image src="{{fileUrl + item.articleLogo}}"></image>:
+                  <image src="{{fileUrl + item.articleLogo}}" mode='aspectFill' lazy-load='true' ></image>:
                 </view>
                 <view class='a_name'>
                   <text>{{item.articleCreateUserName}}</text>
