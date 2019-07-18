@@ -39,11 +39,45 @@
             {{articleCreateTime}}
         </text>
     </view>
-    <view class="line goods_info">
+<!--    <view class="line goods_info">
         <text>
             共 {{commentCount}} 条评论
         </text>
+    </view>-->
+
+    <view wx:if="{{comments.length>0}}" class="photo_info_box">
+        <!-- 图文评论列表 -->
+        <view class="photo_comment_box">
+            <text class="goods_info"> 共 {{commentCount}} 条评论</text>
+            <view wx:for="{{comments}}" wx:for-item="comment" wx:key="index" class="commment_list">
+                <!-- index < 3 在视频下面只显示三条记录 -->
+                <view wx:if="{{index < 3}}">
+                    <view class="comment_info">
+                        <view class="c_info_view">
+                            <image src="{{comment.userLogo}}"></image>
+                            <text class="goods_info" style="color: blue">{{comment.userName}}</text>
+                        </view>
+                        <text class="c_date_txt">{{comment.commentCreateTime}}</text>
+                    </view>
+                    <view class="goods_info" style="margin-top: 10rpx;margin-left: 40rpx">{{comment.commentContentReplace}}</view>
+                </view>
+            </view>
+
+            <!-- 查看更多评论 -->
+            <view bindtap="toggleDialogHandle">
+                <view class="load_more_box">查看更多评论</view>
+            </view>
+        </view>
+    </view>
+    <view wx:else class="no_comment">
+        <text>{{comments.length}}</text>
+        <text class="load_more_box">暂时没有评论！</text>
     </view>
 
+
+
+
 </view>
+
+
 
