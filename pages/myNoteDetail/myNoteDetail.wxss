@@ -292,12 +292,13 @@
 .comment_info {
     position: relative;
     height: 60rpx;
-    margin-top: 20rpx;
+    margin-top: 50rpx;
 }
 
 .c_info_view {
     display: flex;
     align-items: center;
+    display: -webkit-flex;
 }
 
 .c_info_view image {
@@ -313,14 +314,26 @@
 }
 
 .c_date_txt {
-    position: absolute;
+
     right: 0;
-    top: 12rpx;
-    height: 37rpx;
-    line-height: 37rpx;
+    top: 30rpx;
+    height: 24rpx;
+    line-height: 24rpx;
     color: #999;
     font-size: 24rpx;
+    margin-left: 20rpx;
 }
+
+.call_back_show {
+    color: dodgerblue;
+    right: 0;
+    top: 30rpx;
+    height: 24rpx;
+    line-height: 24rpx;
+    font-size: 24rpx;
+    margin-left: 20rpx;
+}
+
 
 .comment_content {
     line-height: 40rpx;
@@ -516,3 +529,91 @@ button::after {
     color: #66CC00;
 }
 
+.tool{
+    height: 64rpx;
+    text-align: right;
+    line-height: 64rpx;
+    margin:20rpx 28rpx 20rpx 0;
+}
+.tool-item{
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 30rpx;
+}
+.tool-item image{
+    height: 50rpx;
+    width: 50rpx;
+}
+
+/*整体样式，就是黑色的容器*/
+.comment_release{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    box-sizing: border-box;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 8px 0 8px 13px;
+    background-color: #ffffff;
+    font-size: 12px;
+    z-index: 999;
+}
+/**第一个红色的容器
+ *大概想法就是给flex-direction赋一个colomn的值，并列放置
+ */
+.comment_release.left{
+    display: flex;
+    flex-direction: column;
+}
+
+.comment_release.left{
+    display: flex;
+    flex-direction: column;
+}
+
+/*输入框*/
+.comment_release .text{
+    width: 222px;
+    min-height: 17px;
+    max-height: 51px; /*最多显示三行*/
+    line-height: 17px;
+    font-size: 12px;
+    margin-bottom: 4px;
+    margin-left: 10px;
+}
+/*线*/
+.comment_release .line{
+    margin-bottom: 0 ;
+    width: 222px;
+    height: 1rpx;
+    background-color: #4B5CD7;
+}
+/*表情图标*/
+.comment_release .emoji{
+    width: 24px;
+    height: 24px;
+    line-height: 27px;
+    padding-right: 10rpx;
+
+}
+/*发送按钮*/
+.comment_release .submit{
+    width: 60px;
+    height: 27px;
+    line-height: 27px;
+    text-align: center;
+    margin-right: 40rpx;
+    background-color: #4B5CD7;
+    color: #ffffff;
+    font-size: 12px;
+}
+
+.like-list{
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: right;
+
+}

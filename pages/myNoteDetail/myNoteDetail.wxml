@@ -51,21 +51,37 @@
             <text class="goods_info"> 共 {{commentCount}} 条评论</text>
             <view wx:for="{{comments}}" wx:for-item="comment" wx:key="index" class="commment_list">
                 <!-- index < 3 在视频下面只显示三条记录 -->
-                <view wx:if="{{index < 3}}">
+               <!-- <view wx:if="{{index <= 10}}">-->
                     <view class="comment_info">
                         <view class="c_info_view">
-                            <image src="{{comment.userLogo}}"></image>
-                            <text class="goods_info" style="color: blue">{{comment.userName}}</text>
+                            <image  src="{{comment.userLogo}}"></image>
+                            <text  class="goods_info" >{{comment.userName}}</text>
+                            <image   style="margin-left: auto;height: 16px;width: 16px"  src="../../image/xihuan_16.png" />
                         </view>
-                        <text class="c_date_txt">{{comment.commentCreateTime}}</text>
                     </view>
-                    <view class="goods_info" style="margin-top: 10rpx;margin-left: 40rpx">{{comment.commentContentReplace}}</view>
+
+                <view>
+                    <view class="goods_info" style="margin-top: 10rpx;margin-left: 40rpx">{{comment.commentContentReplace}} </view>
+
                 </view>
+
+                    <txt  class="call_back_show">2条回复 > </txt>
+
+
+                <view >
+                    <text class="c_date_txt">{{comment.commentCreateTime}} </text>
+                    <txt  class="c_date_txt"> · </txt>
+                    <text class="c_date_txt"  data-id="{{comment.id}}" bindtap="commentThis" data-name="{{comment.id}}"> 回复</text>
+                </view>
+
+
+
+                <!--     </view>-->
             </view>
 
             <!-- 查看更多评论 -->
             <view bindtap="toggleDialogHandle">
-                <view class="load_more_box">查看更多评论</view>
+                <view class="load_more_box">{{showMoreCommentTips}}</view>
             </view>
         </view>
     </view>
@@ -74,10 +90,34 @@
         <text class="load_more_box">暂时没有评论！</text>
     </view>
 
+    <view>
+    <view class="tool">
 
+    </view>
 
+ <form bindsubmit="submitForm" report-submit="true">
+        <view class="comment_release" >
+            <view class="left">
+                <textarea class="text" placeholder-class="weui-input" fixed="true" maxlength="-1" show-confirm-bar="false" name="textarea"  value="{{connectBottom}}" cursor-spacing="15" auto-height="true" bindtap="bindReply" focus="{{releaseFocus}}" placeholder="请输入你的评论" >
+                </textarea>
+                <view class="line"/>
+            </view>
+
+            <image class="emoji" src="../../image/xihuan_32.png" height="24" width="24"/>
+            <button form-type="submit" class="submit">发送</button>
+        </view>
+  </form></view>
 
 </view>
+
+
+<modal id="modal" hidden="{{hiddenmodalput}}" title="评论" confirm-text="提交" cancel-text="取消" bindcancel="cancelMox" bindconfirm="confirmMox">
+
+        <textarea class="text" placeholder-class="weui-input" fixed="true" maxlength="-1" show-confirm-bar="false" name="textareaThis"  cursor-spacing="15" auto-height="true"  bindinput="commentThisInput" placeholder="请输入你的评论" >
+        </textarea>
+
+
+</modal>
 
 
 
