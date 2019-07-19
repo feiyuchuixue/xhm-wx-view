@@ -65,7 +65,7 @@
 
                 </view>
 
-                    <txt  class="call_back_show">2条回复 > </txt>
+                    <txt  class="call_back_show" data-id="{{comment.id}}" data-userName="{{comment.userName}}" data-userLogo="{{comment.userLogo}}" bindtap="showMoreComment" >2条回复 > </txt>
 
 
                 <view >
@@ -111,9 +111,9 @@
 </view>
 
 
-<modal id="modal" hidden="{{hiddenmodalput}}" title="评论" confirm-text="提交" cancel-text="取消" bindcancel="cancelMox" bindconfirm="confirmMox">
+<modal id="modal" hidden="{{hiddenmodalput}}"  data-name="{{comment.id}}"title="评论" confirm-text="提交" cancel-text="取消" bindcancel="cancelMox" bindconfirm="confirmMox">
 
-        <textarea class="text" placeholder-class="weui-input" fixed="true" maxlength="-1" show-confirm-bar="false" name="textareaThis"  cursor-spacing="15" auto-height="true"  bindinput="commentThisInput" placeholder="请输入你的评论" >
+        <textarea class="text"   placeholder-class="weui-input" fixed="true" maxlength="-1" show-confirm-bar="false"  cursor-spacing="15" auto-height="true"  bindinput="commentThisInput"  bindtap="bindReply2" focus="{{releaseFocus2}}"  placeholder="请输入你的评论" >
         </textarea>
 
 

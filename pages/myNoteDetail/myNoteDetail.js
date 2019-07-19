@@ -14,6 +14,8 @@ Page({
         releaseFocus2: false,
         showMoreCommentTips:'查看更多评论',
         hiddenmodalput:true,
+        commentThisInputModelValue:'',
+        commentId:'',
         aid:'',
         fileUrl:'',
         currentData:1,
@@ -342,12 +344,63 @@ Page({
     },
     //评论弹出框确认按钮
     confirmMox: function (e) {
+        let _this = this;
         this.setData({
             hiddenmodalput: true
         })
-        console.log("e==",e)
-        console.log("e.detail",e.detail)
-        console.log(e.detail.value.textareaThis)
+        console.log("评论内容==",this.data.commentThisInputModelValue)
+
+        wx.request({
+            url: app.globalData.host + 'articleComment/addSecondLevelComment',
+            data:  {
+                articleId:_this.data.aid,
+                commentId:_this.data.commentId,
+                userId:'c0fb320807454e4fbea024d31c9c5c75',
+                content:_this.data.commentThisInputModelValue,
+                content_replace:''
+            },
+            method: "POST",
+            header: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            complete: function( res ) {
+                console.log("result ===",res);
+                if( res == null || res.data == null ) {
+                    // reject(new Error('网络请求失败'))
+                }
+
+                //跳转回前页
+                //  wx.navigateBack({})
+            },
+            success: function(res) {
+                console.log("result success comments ===",res.data.data.data);
+                if(res.data.code ==0){
+
+                    if(res.data.data.data.length >0){
+                        let comments = res.data.data.data;
+
+                        let newList = _this.data.comments.concat(comments)
+                        _this.setData({
+                            comments: newList
+                        })
+
+                    }else {
+                        _this.setData({
+                            showMoreCommentTips: '没有更多数据了',
+                            hasMoreComment:false
+                        })
+
+                    }
+
+
+
+
+                }
+            }
+
+        })
+
+
     },
     //对评论的回复
     commentThis:function (e) {
@@ -355,9 +408,26 @@ Page({
         console.log("e==",e);
         //显示回复弹出层
         this.setData({
-            hiddenmodalput: false
+            hiddenmodalput: false,
+            commentId:e.target.dataset.id
         });
 
+
+
+
+
+
+    },
+    commentThisInput:function (e) {
+
+        this.setData({
+            commentThisInputModelValue:e.detail.value
+        })
+
+    },
+    //显示更多评论回复
+    showMoreComment:function (e) {
+        console.log("e msg ===",e);
 
 
 
