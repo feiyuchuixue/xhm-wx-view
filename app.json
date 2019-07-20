@@ -12,7 +12,8 @@
     "pages/searchResult/searchResult",
     "pages/upload-image/index",
     "pages/search/search",
-    "pages/myNoteDetail/myNoteDetail"
+    "pages/myNoteDetail/myNoteDetail",
+    "pages/moreCommentShow/moreCommentShow"
   ],
   "window": {
     "backgroundTextStyle": "light",

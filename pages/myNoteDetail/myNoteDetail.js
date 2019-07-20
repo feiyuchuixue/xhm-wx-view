@@ -28,6 +28,7 @@ Page({
         articleTopics:'',
         articleTopicsId:'',
         articleCreateTime:'',
+        areaTextTxt:'',
         commentCount:1,
         comments:[],
         introduce:[],
@@ -63,7 +64,6 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-
     },
 
     /**
@@ -140,7 +140,8 @@ Page({
                         articleContent:deatil.articleContent,
                         articleTopics:deatil.articleTopics,
                         articleTopicsId:deatil.articleTopicsId,
-                        articleCreateTime:deatil.articleCreateTime
+                        articleCreateTime:deatil.articleCreateTime,
+                        commentCount:deatil.articleTotalComment
                     })
 
                     if(deatil.articleCheckYn == 0){
@@ -265,6 +266,8 @@ Page({
                     //重新渲染评论列表
                     _this.initComment();
 
+                    syncArticleCommentCount(_this.data.aid,_this)
+
                 }
             }
 
@@ -275,9 +278,6 @@ Page({
     //查看更多评论
     toggleDialogHandle:function () {
         let _this = this;
-
-        //showMoreCommentTips
-
         if(!_this.data.hasMoreComment){
             return;
         }
@@ -310,10 +310,8 @@ Page({
             success: function(res) {
                 console.log("result success comments ===",res.data.data.data);
                 if(res.data.code ==0){
-
                     if(res.data.data.data.length >0){
                         let comments = res.data.data.data;
-
                         let newList = _this.data.comments.concat(comments)
                         _this.setData({
                             comments: newList
@@ -326,8 +324,6 @@ Page({
                         })
 
                     }
-
-
 
 
                 }
@@ -348,14 +344,13 @@ Page({
         this.setData({
             hiddenmodalput: true
         })
-        console.log("评论内容==",this.data.commentThisInputModelValue)
 
         wx.request({
-            url: app.globalData.host + 'articleComment/addSecondLevelComment',
+            url: app.globalData.host + 'articleComment/add',
             data:  {
                 articleId:_this.data.aid,
-                commentId:_this.data.commentId,
-                userId:'c0fb320807454e4fbea024d31c9c5c75',
+                user_id:'c0fb320807454e4fbea024d31c9c5c75',
+                comment_parent_id:_this.data.commentId,
                 content:_this.data.commentThisInputModelValue,
                 content_replace:''
             },
@@ -376,25 +371,9 @@ Page({
                 console.log("result success comments ===",res.data.data.data);
                 if(res.data.code ==0){
 
-                    if(res.data.data.data.length >0){
-                        let comments = res.data.data.data;
-
-                        let newList = _this.data.comments.concat(comments)
-                        _this.setData({
-                            comments: newList
+                        wx.navigateTo({
+                            url: '/pages/moreCommentShow/moreCommentShow?commentId='+ _this.data.commentId+"&articleId="+_this.data.aid,
                         })
-
-                    }else {
-                        _this.setData({
-                            showMoreCommentTips: '没有更多数据了',
-                            hasMoreComment:false
-                        })
-
-                    }
-
-
-
-
                 }
             }
 
@@ -409,12 +388,9 @@ Page({
         //显示回复弹出层
         this.setData({
             hiddenmodalput: false,
-            commentId:e.target.dataset.id
+            commentId:e.target.dataset.id,
+            areaTextTxt:''
         });
-
-
-
-
 
 
     },
@@ -427,10 +403,42 @@ Page({
     },
     //显示更多评论回复
     showMoreComment:function (e) {
-        console.log("e msg ===",e);
-
-
-
+        console.log("commentId ===",e.target.dataset.id);
+        wx.navigateTo({
+            url: '/pages/moreCommentShow/moreCommentShow?commentId='+e.target.dataset.id+"&articleId="+this.data.aid,
+        })
     }
 
 })
+
+//同步文章评论数量
+function syncArticleCommentCount(articleId,_this){
+
+    wx.request({
+        url: app.globalData.host + 'articleComment/queryArticleCommentCount',
+        data:  {
+            articleId:articleId
+        },
+        method: "POST",
+        header: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        complete: function( res ) {
+            console.log("result ===",res);
+            if( res == null || res.data == null ) {
+                // reject(new Error('网络请求失败'))
+            }
+        },
+        success: function(res) {
+            console.log("result success ===",res);
+            if(res.data.code ==0){
+                _this.setData({
+                    commentCount:res.data.data
+                })
+
+            }
+        }
+
+    })
+
+}

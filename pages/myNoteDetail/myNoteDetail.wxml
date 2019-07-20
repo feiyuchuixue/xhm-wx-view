@@ -65,8 +65,11 @@
 
                 </view>
 
-                    <txt  class="call_back_show" data-id="{{comment.id}}" data-userName="{{comment.userName}}" data-userLogo="{{comment.userLogo}}" bindtap="showMoreComment" >2条回复 > </txt>
+                <view wx:if="{{comment.commentSum>0}}" >
+                    <txt  class="call_back_show" data-id="{{comment.id}}"  bindtap="showMoreComment" >{{comment.commentSum}}条回复 > </txt>
 
+
+                </view>
 
                 <view >
                     <text class="c_date_txt">{{comment.commentCreateTime}} </text>
@@ -86,7 +89,7 @@
         </view>
     </view>
     <view wx:else class="no_comment">
-        <text>{{comments.length}}</text>
+        <text>{{comment.length}}</text>
         <text class="load_more_box">暂时没有评论！</text>
     </view>
 
@@ -113,10 +116,8 @@
 
 <modal id="modal" hidden="{{hiddenmodalput}}"  data-name="{{comment.id}}"title="评论" confirm-text="提交" cancel-text="取消" bindcancel="cancelMox" bindconfirm="confirmMox">
 
-        <textarea class="text"   placeholder-class="weui-input" fixed="true" maxlength="-1" show-confirm-bar="false"  cursor-spacing="15" auto-height="true"  bindinput="commentThisInput"  bindtap="bindReply2" focus="{{releaseFocus2}}"  placeholder="请输入你的评论" >
+        <textarea class="text"   placeholder-class="weui-input" fixed="true" maxlength="-1" show-confirm-bar="false"  cursor-spacing="15" auto-height="true"  bindinput="commentThisInput"   value="{{areaTextTxt}}" bindtap="bindReply2" focus="{{releaseFocus2}}"  placeholder="请输入你的评论" >
         </textarea>
-
-
 </modal>
 
 
