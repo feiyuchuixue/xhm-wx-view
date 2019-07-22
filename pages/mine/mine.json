@@ -1,5 +1,8 @@
 {
-  "navigationBarTitleText": "我的"
+  "navigationBarTitleText": "我的",
+  "usingComponents": {
+    "component-scroll": "../../component/component-scroll/index"
+  }
 
 
 }

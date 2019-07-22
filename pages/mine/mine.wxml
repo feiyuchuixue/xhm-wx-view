@@ -36,11 +36,11 @@
 <swiper current="{{currentData}}" class='swiper' style="height:400px;" duration="300" bindchange="bindchange">
   <swiper-item >
 
-    <view class="refresh-block" style="height: {{refreshHeight}}px;" wx:if="{{refreshing}}">
+  <!--  <view class="refresh-block" style="height: {{refreshHeight}}px;" wx:if="{{refreshing}}">
       <image animation="{{refreshAnimation}}" mode='aspectFill' lazy-load='true'  src="../images/refresh.png"></image>
-    </view>
+    </view>-->
 
-      <view class='swiper_con' >
+<!--      <view class='swiper_con' >
         <scroll-view scroll-y="true" style="height: {{windowHeight}}px;" bindscroll="scroll" bindscrolltolower="lower" bindscrolltoupper="upper">
         <view class='article_list' >
           <view wx:for="{{article}}" wx:key="key" class="view-parent">
@@ -64,8 +64,32 @@
           </view>
         </view>
         </scroll-view>
-      </view>
-
+      </view>-->
+    <view class='swiper_con'>
+      <component-scroll isNeedLoadmore bind:_loadmore="loadmore" bind:_refresh="refresh" allloaded="{{allloaded}}" isEmpty="{{!loading &&list.length<=0}}">
+        <view class='list'>
+          <view wx:for="{{article}}" class="view-parent" wx:key="{{key}}">
+            <view class="view-article"   value="{{item.id}}" bindtap="showArticleDetail">
+              <view class='a_img'>
+                <image src="{{fileUrl + item.articleLogo}}" data-id="{{item.id}}" mode='aspectFill' lazy-load='true' ></image>
+              </view>
+              <view class='a_ttl'>
+                <text>{{item.articleTopics +  item.articleTitle}}</text>
+              </view>
+              <view class='a_note'>
+                <view class='a_head'>
+                  <image src="{{fileUrl + item.articleLogo}}" mode='aspectFill' lazy-load='true' ></image>:
+                </view>
+                <view class='a_name'>
+                  <text>{{item.articleCreateUserName}}</text>
+                </view>
+                <view class='a_read'>{{item.articleTotalLike}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </component-scroll>
+    </view>
 
 
   </swiper-item>
