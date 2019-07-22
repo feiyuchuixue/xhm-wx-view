@@ -369,3 +369,27 @@ button::after {
 }
 
 /*上拉刷新 end*/
+
+
+
+.my-scroll-refreshModule-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.my-scroll-msgModule-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.my-scroll-loadmoreModule {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.my-scroll-msgModule-icon-loading {
+    animation: loading 1s linear infinite;
+}

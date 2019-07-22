@@ -14,12 +14,10 @@ Page({
         refreshAnimation: {}, //加载更多旋转动画数据
         clientY: 0,//触摸时Y轴坐标
 
-        page: 0,
-        size: 10,
         loading: false,
         allloaded: false,
-        list: [],
-
+        isRefreshs:false,
+        isTopRefreshShow:true,
 
         user: [
             {
@@ -148,114 +146,15 @@ Page({
                     _this.setData({
                         article: newList,
                         fileUrl: res.data.result.fileUrl,
-                        pageIndex: _this.data.pageIndex + 1
+                        pageIndex: _this.data.pageIndex + 1,
+                        isRefreshHidde:true
                     })
 
-                    console.log("数据初始化成功！！！");
-                    console.log("data =====", res.data.result.data.list);
-                    console.log("data =====", _this.data);
-
-                }
-            }
-
-        })
-
-
-    },
-    scroll: function () {
-        console.log("滑动了。。。");
-    },
-    lower: function () {
-        console.log("加载了。。。");
-        let _this = this;
-        // 页数+1
-        _this.setData({
-            pageIndex: _this.data.pageIndex + 1
-        })
-
-        wx.request({
-            url: app.globalData.host + 'articleCon/selByUserId',
-            data: {
-                uid: 'c0fb320807454e4fbea024d31c9c5c75',
-                start: _this.data.pageIndex,
-                limit: _this.data.pageLimit
-            },
-            method: "POST",
-            header: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            complete: function (res) {
-                console.log("result ===", res);
-                if (res == null || res.data == null) {
-                    // reject(new Error('网络请求失败'))
-                }
-                //跳转回前页
-                //  wx.navigateBack({})
-
-            },
-            success: function (res) {
-                console.log("result success ===", res);
-                if (res.data.recode == 0) {
-
-                    let article = res.data.result.data.list;
-
-                    let newList = _this.data.article.concat(article)
-                    _this.setData({
-                        article: newList,
-                        fileUrl: res.data.result.fileUrl,
-                    })
-
-                }
-            }
-
-        })
-
-
-    },
-    upper: function () {
-
-        console.log("下拉了。。。。。。。。。。。。。。。。。。。")
-        //获取用户Y轴下拉的位移
-
-        if (this.data.refreshing) return;
-        this.setData({refreshing: true});
-        updateRefreshIcon.call(this);
-        console.log("下拉请求中。。。。。。。。。。。。。。。。。。。")
-        let _this = this;
-
-        wx.request({
-            url: app.globalData.host + 'articleCon/selByUserId',
-            data: {
-                uid: 'c0fb320807454e4fbea024d31c9c5c75',
-                start: 1,
-                limit: _this.data.pageLimit
-            },
-            method: "POST",
-            header: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            complete: function (res) {
-                console.log("result ===", res);
-                if (res == null || res.data == null) {
-                    // reject(new Error('网络请求失败'))
-                }
-                //跳转回前页
-                //  wx.navigateBack({})
-                _this.setData({
-                    refreshing: false
-                })
-
-            },
-            success: function (res) {
-                console.log("result success ===", res);
-                if (res.data.recode == 0) {
-                    let article = res.data.result.data.list;
-                    let newList = _this.data.article.concat(article)
-                    _this.setData({
-                        article: newList,
-                        fileUrl: res.data.result.fileUrl,
-                        pageIndex: 1
-                    })
+                    setTimeout(() => {
+                        _this.setData({
+                            isRefreshHidde: true
+                        })
+                    }, 2000)
 
                 }
             }
@@ -265,39 +164,7 @@ Page({
 
     },
 
-    start: function (e) {
-        console.log("start =======================================")
-        var startPoint = e.touches[0]
-        console.log("startPoint ===" + startPoint);
-        var clientY = startPoint.clientY;
-        this.setData({
-            clientY: clientY,
-            refreshHeight: 0
-        })
-    },
-    end: function (e) {
-        console.log("end =======================================")
-        var endPoint = e.changedTouches[0]
-        console.log("endPoint ===" + endPoint);
-        var y = (endPoint.clientY - this.data.clientY) * 0.6;
-        console.log("y=============" + y);
-        if (y > 50) {
-            y = 50;
-        }
-        this.setData({
-            refreshHeight: y
-        })
-    },
-    move: function (e) {
-        console.log("下拉滑动了...")
-    },
-    //显示文章详情
-    showArticleDetail: function (e) {
-        console.log("e====", e)
-        wx.navigateTo({
-            url: '/pages/myNoteDetail/myNoteDetail?aid=' + e.target.dataset.id,
-        })
-    },
+
     // 加载更多
     loadmore({
                  detail
@@ -311,18 +178,35 @@ Page({
                 detail
             }) {
         console.log("刷新。。。。")
-        this.setData({
+        let _this = this;
+        //如果当前正在刷新中，return back
+        if(!_this.data.isTopRefreshShow){
+            return;
+        }
+
+        _this.setData({
             list: [],
             loading: false,
             allloaded: false,
             start:0,
-            limit:_this.data.pageLimit
+            limit:10,
+            isTopRefreshShow:false
+
         })
-        this.getList().then(res => {
-            detail.success();
-        });
+
+
+
+
+        setTimeout(function () {
+            //要延时执行的代码
+            _this.getList('refresh').then(res => {
+                detail.success();
+            });
+        }, 2000)
+
+
     },
-    getList() {
+    getList(index) {
         let _this =this;
         return new Promise((resolve, reject) => {
             if (this.data.loading || this.data.allloaded) {
@@ -333,13 +217,20 @@ Page({
                 loading: true
             })
 
+            let start = 1;
+            let limit = 10;
+            if(!index || index != 'refresh'){
+                start= _this.data.pageIndex,
+                limit=_this.data.pageLimit
+            }
+
 
             wx.request({
                 url: app.globalData.host + 'articleCon/selByUserId',
                 data: {
                     uid: 'c0fb320807454e4fbea024d31c9c5c75',
-                    start: _this.data.pageIndex,
-                    limit: _this.data.pageLimit
+                    start: start,
+                    limit: limit
                 },
                 method: "POST",
                 header: {
@@ -361,10 +252,16 @@ Page({
                     console.log("result success ===", res);
                     if (res.data.recode == 0) {
                         let article = res.data.result.data.list;
-                        let newList = _this.data.article.concat(article)
+                        let newList = [];
+
+                        if(index && index == 'refresh'){
+                            newList =article;
+                        }else{
+                            newList = _this.data.article.concat(article)
+                        }
 
                         if (article.length<=0) {
-                            this.setData({
+                            _this.setData({
                                 allloaded: true
                             })
                         }
@@ -375,7 +272,10 @@ Page({
                             fileUrl: res.data.result.fileUrl,
                             pageIndex: _this.data.pageIndex +1,
                             loading: false,
+                            isTopRefreshShow:true
                         })
+
+
 
                     }
                 }
@@ -384,32 +284,19 @@ Page({
 
 
         })
-    }
+    },
+    //显示文章详情
+    showArticleDetail: function (e) {
+        console.log("e====", e)
+        wx.navigateTo({
+            url: '/pages/myNoteDetail/myNoteDetail?aid=' + e.target.dataset.id,
+        })
+    },
 
 
 
 
 })
 
-/**
- * 旋转上拉加载图标
- */
-function updateRefreshIcon() {
-    var deg = 0;
-    var _this = this;
-    console.log('旋转开始了.....')
-    var animation = wx.createAnimation({
-        duration: 1000
-    });
 
-    var timer = setInterval(function () {
-        if (!_this.data.refreshing)
-            clearInterval(timer);
-        animation.rotateZ(deg).step();//在Z轴旋转一个deg角度
-        deg += 360;
-        _this.setData({
-            refreshAnimation: animation.export()
-        })
-    }, 1000);
-}
 

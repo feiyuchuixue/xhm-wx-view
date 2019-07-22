@@ -65,8 +65,15 @@
         </view>
         </scroll-view>
       </view>-->
+
     <view class='swiper_con'>
-      <component-scroll isNeedLoadmore bind:_loadmore="loadmore" bind:_refresh="refresh" allloaded="{{allloaded}}" isEmpty="{{!loading &&list.length<=0}}">
+        <view class='my-scroll-refreshModule-content' hidden='{{isTopRefreshShow}}'>
+
+            <image  class='my-scroll-msgModule-icon my-scroll-msgModule-icon-loading' src='../../image/loading.png'></image>
+
+            <text class='my-scroll-msgModule-text'>刷新中。。。</text>
+        </view>
+      <component-scroll isNeedLoadmore bind:_loadmore="loadmore"  bind:_refresh="refresh"   allloaded="{{allloaded}}" isEmpty="{{!loading &&list.length<=0}}">
         <view class='list'>
           <view wx:for="{{article}}" class="view-parent" wx:key="{{key}}">
             <view class="view-article"   value="{{item.id}}" bindtap="showArticleDetail">
@@ -90,6 +97,36 @@
         </view>
       </component-scroll>
     </view>
+
+<!--
+      <view class="header" hidden="{{hideHeader}}">
+          <view>下拉刷新中……</view>
+          <view>{{refreshTime}}</view>
+          </view>
+            <scroll-view class="list" style="height: 800rpx" scroll-y="true" bindscrolltoupper="refresh" bindscrolltolower="loadMore">
+                <view wx:for="{{article}}" class="view-parent" wx:key="{{key}}">
+                    <view class="view-article"   value="{{item.id}}" bindtap="showArticleDetail">
+                        <view class='a_img'>
+                            <image src="{{fileUrl + item.articleLogo}}" data-id="{{item.id}}" mode='aspectFill' lazy-load='true' ></image>
+                        </view>
+                        <view class='a_ttl'>
+                            <text>{{item.articleTopics +  item.articleTitle}}</text>
+                        </view>
+                        <view class='a_note'>
+                            <view class='a_head'>
+                                <image src="{{fileUrl + item.articleLogo}}" mode='aspectFill' lazy-load='true' ></image>:
+                            </view>
+                            <view class='a_name'>
+                                <text>{{item.articleCreateUserName}}</text>
+                            </view>
+                            <view class='a_read'>{{item.articleTotalLike}}</view>
+                        </view>
+                    </view>
+                </view>
+            </scroll-view>
+      <view class="bottom" hidden="{{hideBottom}}">
+          <view>{{loadMoreData}}</view> <view>{{refreshTime}}</view>
+      </view>-->
 
 
   </swiper-item>
