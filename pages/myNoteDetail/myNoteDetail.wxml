@@ -4,8 +4,8 @@
     <cover-view class='tab ' style="color:green" hidden="{{greenHidden}}" data-current="1" bindtap='checkCurrent'>审核通过</cover-view>
     <cover-view class='tab ' style="color:red" hidden="{{redHidden}}" data-current="2" bindtap='checkCurrent'>审核失败</cover-view>
 </cover-view>
-<swiper current="{{currentData}}" class='type_swiper' duration="300" bindchange="bindchange">
-    <swiper-item hidden="true">
+<!--<swiper current="{{currentData}}" class='type_swiper' duration="300" bindchange="bindchange">-->
+    <!--<swiper-item hidden="true">
         <image class='video' src="{{video}}" width="750" height="750" />
     </swiper-item>
     <swiper-item>
@@ -19,8 +19,33 @@
                 </block>
             </swiper>
         </view>
-    </swiper-item>
-</swiper>
+    </swiper-item>-->
+
+<viev wx:if="{{isMP4}}">
+
+
+<view class="section">
+        <video class= "videoCss" src='{{fileUrl + imgUrls[0]}}'  objectFit='cover' show-center-play-btn = true  controls  danmu-btn page-gesture = "true" enable-progress-gesture = true></video>
+    </view>
+</viev>
+
+
+<view wx:else >
+    <view class='images'>
+        <swiper class='detail-imgs' indicator-dots="{{true}}" autoplay='{{true}}' interval="{{5000}}" duration="{{500}}" circular="{{true}}" bindchange='bindchange' style="height:{{imgheights[current]}}rpx;">
+            <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+                <swiper-item style="">
+                    <image src="{{fileUrl + item}}" class='image-view'  mode='widthFix'  style="height:{{imgheights[current]}}rpx;width:{{imgwidth}}rpx;" bindload="imageLoad" data-src='{{fileUrl + item}}' data-index='{{index}}' bindtap="previewImage"></image>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+
+
+</view>
+
+
+<!--</swiper>-->
 <view class="goods_intr">
 
     <view class='goods_title'>

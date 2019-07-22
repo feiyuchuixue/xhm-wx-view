@@ -7,6 +7,10 @@ Page({
      * 页面的初始数据
      */
     data: {
+        imgheights: [],
+        current: 0,
+        imgwidth: 750,
+
         pageIndex:0,
         pageLimit:10,
         hasMoreComment:true,
@@ -18,7 +22,7 @@ Page({
         commentId:'',
         aid:'',
         fileUrl:'',
-        currentData:1,
+        currentData:0,
         orangeHidden:true,
         greenHidden:true,
         redHidden:true,
@@ -30,6 +34,7 @@ Page({
         articleCreateTime:'',
         areaTextTxt:'',
         commentCount:1,
+        isMP4:false,
         comments:[],
         introduce:[],
         video:'http://kxdev.houaihome.com/test_img/ee.jpg',
@@ -111,6 +116,7 @@ Page({
     init:function (aid) {
         let _this = this;
 
+
         wx.request({
             url: app.globalData.host + 'articleCon/selById',
             data:  {
@@ -133,6 +139,11 @@ Page({
                     let deatil = res.data.result.obj;
                     let pictrueArr = deatil.articlePicture.split(";")
 
+                    let boolFlag = false;
+                    if(pictrueArr[0].lastIndexOf("mp4")>=0){
+                        boolFlag = true;
+                    }
+
                     _this.setData({
                         imgUrls: pictrueArr,
                         fileUrl:res.data.result.fileUrl,
@@ -141,7 +152,8 @@ Page({
                         articleTopics:deatil.articleTopics,
                         articleTopicsId:deatil.articleTopicsId,
                         articleCreateTime:deatil.articleCreateTime,
-                        commentCount:deatil.articleTotalComment
+                        commentCount:deatil.articleTotalComment,
+                        isMP4 :boolFlag
                     })
 
                     if(deatil.articleCheckYn == 0){
@@ -407,7 +419,55 @@ Page({
         wx.navigateTo({
             url: '/pages/moreCommentShow/moreCommentShow?commentId='+e.target.dataset.id+"&articleId="+this.data.aid,
         })
+    },
+    imageLoad: function (e) {
+        console.log("imageLoad...")
+        //获取图片真实宽度
+        var imgwidth = e.detail.width,
+            imgheight = e.detail.height,
+            //宽高比
+            ratio = imgwidth / imgheight;
+        //计算的高度值
+        var viewHeight = 750 / ratio;
+        var imgheight = viewHeight
+        var imgheights = this.data.imgheights
+        //把每一张图片的高度记录到数组里
+        imgheights[e.target.dataset['index']] = imgheight;// 改了这里 赋值给当前 index
+        console.log("imgheights===",imgheights)
+        this.setData({
+            imgheights: imgheights,
+        })
+    },
+    bindchange: function (e) {
+        this.setData({
+            current: e.detail.current
+        })
+    },
+    previewImage: function (e) {
+        console.log("预览 e ===",e)
+        console.log("imgUrls==",this.data.imgUrls)
+        var imgUrlTemp = this.data.imgUrls;
+        var imgUrlArr = this.data.imgUrls;
+
+        for(let i=0;i<this.data.imgUrls.length;i++){
+            if( imgUrlTemp[i].indexOf('http')<0){
+                imgUrlTemp[i] = this.data.fileUrl + imgUrlArr[i];
+            }
+
+
+        }
+        console.log("imgUrlTemp==",imgUrlTemp)
+        console.log("old imgUrls ==" ,this.data.imgUrls)
+        var current=e.target.dataset.src;
+        wx.previewImage({
+            current: current, // 当前显示图片的http链接
+            urls: imgUrlTemp // 需要预览的图片http链接列表
+        })
     }
+
+
+
+
 
 })
 
