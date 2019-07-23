@@ -1,9 +1,16 @@
 <!--pages/myNoteDetail/myNoteDetail.wxml-->
-<cover-view class='goods_prew_select'>
-    <cover-view class='tab ' style="color:orange" hidden="{{orangeHidden}}" data-current="0" bindtap='checkCurrent'>审核中</cover-view>
-    <cover-view class='tab ' style="color:green" hidden="{{greenHidden}}" data-current="1" bindtap='checkCurrent'>审核通过</cover-view>
-    <cover-view class='tab ' style="color:red" hidden="{{redHidden}}" data-current="2" bindtap='checkCurrent'>审核失败</cover-view>
-</cover-view>
+
+<!--<view class="comment_info">-->
+    <view class="guanzhu_head">
+        <view  class="guanzhu_head" bindtap="articleUserShow">
+            <image  src="{{articleUserInfo.userLogo}}"></image>
+            <text>{{articleUserInfo.userName}}</text>
+        </view>
+
+        <text   class="guanzhu_btn"  bindtap="guanzhuClick">关注</text>
+    </view>
+<!--</view>-->
+
 <!--<swiper current="{{currentData}}" class='type_swiper' duration="300" bindchange="bindchange">-->
     <!--<swiper-item hidden="true">
         <image class='video' src="{{video}}" width="750" height="750" />
@@ -24,6 +31,11 @@
 <viev wx:if="{{isMP4}}">
 
 
+    <cover-view class='goods_prew_select'>
+        <cover-view class='tab ' style="color:orange" hidden="{{orangeHidden}}" data-current="0" bindtap='checkCurrent'>审核中</cover-view>
+        <cover-view class='tab ' style="color:green" hidden="{{greenHidden}}" data-current="1" bindtap='checkCurrent'>审核通过</cover-view>
+        <cover-view class='tab ' style="color:red" hidden="{{redHidden}}" data-current="2" bindtap='checkCurrent'>审核失败</cover-view>
+    </cover-view>
 <view class="section">
         <video class= "videoCss" src='{{fileUrl + imgUrls[0]}}'  objectFit='cover' show-center-play-btn = true  controls  danmu-btn page-gesture = "true" enable-progress-gesture = true></video>
     </view>
@@ -31,7 +43,13 @@
 
 
 <view wx:else >
-    <view class='images'>
+
+    <cover-view class='goods_prew_select'>
+        <cover-view class='tab ' style="color:orange" hidden="{{orangeHidden}}" data-current="0" bindtap='checkCurrent'>审核中</cover-view>
+        <cover-view class='tab ' style="color:green" hidden="{{greenHidden}}" data-current="1" bindtap='checkCurrent'>审核通过</cover-view>
+        <cover-view class='tab ' style="color:red" hidden="{{redHidden}}" data-current="2" bindtap='checkCurrent'>审核失败</cover-view>
+    </cover-view>
+    <view class='images' style="margin-top: 20rpx">
         <swiper class='detail-imgs' indicator-dots="{{true}}" autoplay='{{true}}' interval="{{5000}}" duration="{{500}}" circular="{{true}}" bindchange='bindchange' style="height:{{imgheights[current]}}rpx;">
             <block wx:for="{{imgUrls}}" wx:key="{{index}}">
                 <swiper-item style="">

@@ -27,6 +27,7 @@ Page({
         greenHidden:true,
         redHidden:true,
         imgUrls: [],
+        articleUserInfo:{},
         articleTitle:'',
         articleContent:'',
         articleTopics:'',
@@ -153,8 +154,11 @@ Page({
                         articleTopicsId:deatil.articleTopicsId,
                         articleCreateTime:deatil.articleCreateTime,
                         commentCount:deatil.articleTotalComment,
-                        isMP4 :boolFlag
+                        isMP4 :boolFlag,
+                        articleUserInfo:res.data.result.user
                     })
+
+                    console.log("load detail is ...",_this.data.articleUserInfo)
 
                     if(deatil.articleCheckYn == 0){
                         _this.setData({
@@ -444,8 +448,6 @@ Page({
         })
     },
     previewImage: function (e) {
-        console.log("预览 e ===",e)
-        console.log("imgUrls==",this.data.imgUrls)
         var imgUrlTemp = this.data.imgUrls;
         var imgUrlArr = this.data.imgUrls;
 

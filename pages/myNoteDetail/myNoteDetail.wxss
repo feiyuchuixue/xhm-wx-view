@@ -100,7 +100,7 @@
 
 .goods_prew_select {
     position:absolute;
-    top:30rpx;
+    top:100rpx;
     left:20rpx;
     z-index: 99;
 }
@@ -631,4 +631,36 @@ button::after {
 .videoCss{
     width: 100%;
 }
+.guanzhu_btn{
+    width:88rpx;
+    height:20rpx;
+    background-color: white;
+    color: #f44336;
+    border: 1px solid #f44336;
+    line-height: 20rpx;
+    text-align: center;
+    border-radius:15px;
+    font-size:20rpx;
+
+}
+.guanzhu_head{
+    display: flex;
+    align-items: center;
+    display: -webkit-flex;
+}
+.guanzhu_head image {
+    width: 50rpx;
+    height: 50rpx;
+    border-radius: 50%;
+    margin-left: 20rpx;
+}
+
+.guanzhu_head text {
+    height: 40rpx;
+    line-height: 40rpx;
+    margin-left: 10rpx;
+    font-size:24rpx;
+
+}
+
 
