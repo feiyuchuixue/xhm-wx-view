@@ -50,10 +50,9 @@ Component({
     touchStartY: 0, // 触摸的起始位置
     refreshHeight: 0, // 下拉高度
     refreshText: '', // 下拉文字
-    isRefreshHidde : true, // 是否下拉刷新
+    isRefresh: false, // 是否下拉刷新
     loadmoreHidden: true, // 加载更多显示
     loadmoreText: '' // 加载更多文字提示
-
   },
 
   /**
@@ -61,7 +60,6 @@ Component({
    */
   methods: {
     loadmore(e) {
-      console.log("this.properties.allloaded==",this.properties.allloaded)
       if (this.properties.allloaded && !this.properties.isEmpty) {
         this.setData({
           loadmoreHidden: false,
@@ -83,20 +81,6 @@ Component({
         })
       }, 500)
     },
-    refresh(e){
-
-   /*     setTimeout(() => {
-            this.triggerEvent('_refresh', {
-                success: () => {
-                    this.setData({
-                        isRefreshHidde: false
-                    })
-                }
-            })
-        }, 500)*/
-
-
-    },
     scroll(e) {
       this.setData({
         scrollTop: e.detail.scrollTop
@@ -108,11 +92,8 @@ Component({
       })
     },
     touchMove(e) {
-
-      console.log("啊啊啊啊啊touchMove")
       if (this.data.scrollTop <= 0) {
         let height = e.touches[0].pageY - this.data.touchStartY;
-          console.log("height===",height)
         if (height < 0) {
           this.setData({
             isRefresh: false,
@@ -140,9 +121,8 @@ Component({
       }
     },
     touchEnd(e) {
-      console.log("touchEnd")
-        console.log(this.data.scrollTop );
-      if (this.data.scrollTop <= 50 ) {
+
+      if (this.data.scrollTop <= 0 && this.data.isRefresh) {
         this.setData({
           refreshText: this.properties.refreshLoadingText,
           loadmoreHidden: true

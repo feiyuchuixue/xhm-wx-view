@@ -8,11 +8,7 @@ Page({
         pageIndex: 1,
         pageLimit: 10,
         currentData: 0,
-        windowHeight: 0,//获取屏幕高度
-        refreshHeight: 0,//获取高度
-        refreshing: false,//是否在刷新中
-        refreshAnimation: {}, //加载更多旋转动画数据
-        clientY: 0,//触摸时Y轴坐标
+
 
         loading: false,
         allloaded: false,
@@ -179,10 +175,7 @@ Page({
             }) {
         console.log("刷新。。。。")
         let _this = this;
-        //如果当前正在刷新中，return back
-        if(!_this.data.isTopRefreshShow){
-            return;
-        }
+
 
         _this.setData({
             list: [],
@@ -190,19 +183,13 @@ Page({
             allloaded: false,
             start:0,
             limit:10,
-            isTopRefreshShow:false
 
         })
-
-
-
-
-        setTimeout(function () {
             //要延时执行的代码
             _this.getList('refresh').then(res => {
                 detail.success();
             });
-        }, 2000)
+
 
 
     },
@@ -261,6 +248,7 @@ Page({
                         }
 
                         if (article.length<=0) {
+                            console.log("没有数据来")
                             _this.setData({
                                 allloaded: true
                             })
@@ -275,6 +263,7 @@ Page({
                             isTopRefreshShow:true
                         })
 
+                        resolve();
 
 
                     }
