@@ -14,8 +14,8 @@
 		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.91",
-	"appid": "wx5f6e3b6a87797a53",
+	"libVersion": "2.7.7",
+	"appid": "wxa6ff759682482521",
 	"projectname": "wechat",
 	"debugOptions": {
 		"hidedInDevtools": []

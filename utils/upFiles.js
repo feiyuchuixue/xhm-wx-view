@@ -32,7 +32,7 @@ var chooseVideo = (t,count) => {
   wx.chooseVideo({
     sourceType: ['album', 'camera'],
     maxDuration: 16,
-    compressed:true,
+    compressed:false,
     camera: 'back',
     success: function (res) {
       var tempDuration = res.duration;

@@ -46,7 +46,8 @@ Page({
             {
                 src: '/image/ico_2.png'
             },
-        ]
+        ],
+        guanzhuTxt:'关注'
     },
 
     /**
@@ -465,6 +466,56 @@ Page({
             current: current, // 当前显示图片的http链接
             urls: imgUrlTemp // 需要预览的图片http链接列表
         })
+    },
+    //关注
+    guanzhuClick:function (e) {
+        let _this =this;
+        console.log("关注e===",e);
+        //临时userId
+        let userId ='53231cac4a9744aaa9f9b42d1fa936b1';
+        let guanzhuUserId = e.target.dataset.id;
+
+        wx.request({
+            url: app.globalData.host + 'userCollection/addCollection',
+            data:  {
+                userId:'c0fb320807454e4fbea024d31c9c5c75',
+                attentionUserId:guanzhuUserId
+            },
+            method: "POST",
+            header: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            complete: function( res ) {
+                console.log("result ===",res);
+                if( res == null || res.data == null ) {
+                    // reject(new Error('网络请求失败'))
+                }
+
+                //跳转回前页
+                //  wx.navigateBack({})
+            },
+            success: function(res) {
+                if(res.data.code ==0){
+                    _this.setData({
+                        guanzhuTxt:"已关注"
+                    })
+
+                    wx.showToast({
+                        title: '关注成功',
+                        icon: 'succes',
+                        duration: 1000,
+                        mask:true
+                    })
+                }
+            }
+
+        })
+
+
+    },
+    //查看用户信息
+    articleUserShow:function (e) {
+
     }
 
 

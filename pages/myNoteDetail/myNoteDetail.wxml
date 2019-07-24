@@ -7,7 +7,7 @@
             <text>{{articleUserInfo.userName}}</text>
         </view>
 
-        <text   class="guanzhu_btn"  bindtap="guanzhuClick">关注</text>
+        <text   class="guanzhu_btn"  data-id="{{articleUserInfo.id}}" bindtap="guanzhuClick">{{guanzhuTxt}}</text>
     </view>
 <!--</view>-->
 

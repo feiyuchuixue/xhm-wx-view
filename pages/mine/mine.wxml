@@ -85,7 +85,7 @@
                 <view class='a_name'>
                   <text>{{item.articleCreateUserName}}</text>
                 </view>
-                <view class='a_read'>{{item.articleTHotalLike}}</view>
+                <view class='a_read'>{{item.articleTotalLike}}</view>
               </view>
             </view>
           </view>
