@@ -36,6 +36,6 @@ App({
   },
   globalData: {
     userInfo: null,
-    host:"http://server.momjia.com/xhm/"
+    host:"https://server.momjia.com/xhm/"
   }
 })

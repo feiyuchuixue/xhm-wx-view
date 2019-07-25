@@ -2,12 +2,12 @@
 
 <!--<view class="comment_info">-->
     <view class="guanzhu_head">
-        <view  class="guanzhu_head" bindtap="articleUserShow">
+        <view  class="guanzhu_head" data-id="{{articleUserInfo.id}}"  bindtap="articleUserShow">
             <image  src="{{articleUserInfo.userLogo}}"></image>
             <text>{{articleUserInfo.userName}}</text>
         </view>
 
-        <text   class="guanzhu_btn"  data-id="{{articleUserInfo.id}}" bindtap="guanzhuClick">{{guanzhuTxt}}</text>
+        <text   class="{{ isCollection?'guanzhu_btn_green':'guanzhu_btn' }}"  data-id="{{articleUserInfo.id}}" bindtap="guanzhuClick">{{ isCollection?'已关注':'关注'}}</text>
     </view>
 <!--</view>-->
 
@@ -36,7 +36,7 @@
         <cover-view class='tab ' style="color:green" hidden="{{greenHidden}}" data-current="1" bindtap='checkCurrent'>审核通过</cover-view>
         <cover-view class='tab ' style="color:red" hidden="{{redHidden}}" data-current="2" bindtap='checkCurrent'>审核失败</cover-view>
     </cover-view>
-<view class="section">
+<view class="section"  style="margin-top: 20rpx">
         <video class= "videoCss" src='{{fileUrl + imgUrls[0]}}'  objectFit='cover' show-center-play-btn = true  controls  danmu-btn page-gesture = "true" enable-progress-gesture = true></video>
     </view>
 </viev>

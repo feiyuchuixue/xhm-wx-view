@@ -10,8 +10,8 @@ button::after {
 }
 
 .u_head {
-  width: 220rpx;
-  height: 220rpx;
+  width: 200rpx;
+  height: 200rpx;
   overflow: hidden;
   border-radius: 50%;
   text-align: center;
@@ -32,8 +32,10 @@ button::after {
 
 .count_list .view-parent {
   float: left;
-  width: 25%;
+ /* width: 25%;*/
   padding-top: 30rpx;
+ /* background: red;*/
+
 }
 
 .count_list .view-item {

@@ -7,6 +7,8 @@ Page({
     data: {
         pageIndex: 1,
         pageLimit: 10,
+        pageLikeIndex: 1,
+        pageLikeLimit: 10,
         currentData: 0,
 
 
@@ -15,32 +17,13 @@ Page({
         isRefreshs:false,
         isTopRefreshShow:true,
 
-        user: [
-            {
-                name: '崔迪',
-                head: 'http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTIIcu1NNTaxsBvV06I5orBShKEViaLia4Gd5FXNRGv1KWUgnSYDl1HaPjhQDl7QIM2O7IIraM4PXngg/132',
-            }
-        ],
-        num: [
-            {
-                count: '0',
-                txt: '关注'
-            },
-            {
-                count: '1',
-                txt: '粉丝'
-            },
-            {
-                count: '0',
-                txt: '获赞'
-            },
-            {
-                count: '1',
-                txt: '团成员'
-            },
-        ],
         article: [],
-        fileUrl: ''
+        fileUrl: '',
+        userInfo:{},
+
+        articleLike: [],
+        fileUrlLike: '',
+        userInfoLike:{}
     },
     /**
      * 生命周期函数--监听页面加载
@@ -56,21 +39,24 @@ Page({
                 console.log("屏幕高度: " + res.windowHeight)
             }
         })
-        //  this.init()
 
-    },
-    onShow: function () {
         var _this = this;
 
         _this.setData({
             pageIndex: 1,
             currentData: 0,
             article: [],
-            fileUrl: ''
+            fileUrl: '',
+            userInfo:{}
 
         })
 
         this.init()
+        //  this.init()
+
+    },
+    onShow: function () {
+
     },
     //获取当前滑块的index
     bindchange: function (e) {
@@ -82,6 +68,16 @@ Page({
     //点击切换，滑块index赋值
     checkCurrent: function (e) {
         const that = this;
+
+        that.setData({
+            loading: false,
+            allloaded: false,
+        })
+
+        if(e.target.dataset.current == 1){
+            that.initLike()
+        }e
+
 
         if (that.data.currentData === e.target.dataset.current) {
             return false;
@@ -108,7 +104,7 @@ Page({
 
 
     },
-    init: function (that) {
+    init: function () {
 
         let _this = this;
 
@@ -143,14 +139,57 @@ Page({
                         article: newList,
                         fileUrl: res.data.result.fileUrl,
                         pageIndex: _this.data.pageIndex + 1,
-                        isRefreshHidde:true
+                        userInfo:res.data.result.user
                     })
 
-                    setTimeout(() => {
-                        _this.setData({
-                            isRefreshHidde: true
-                        })
-                    }, 2000)
+
+
+                }
+            }
+
+        })
+
+
+    },
+    //收藏初始化
+    initLike: function () {
+
+        let _this = this;
+
+        wx.request({
+            url: app.globalData.host + 'articleLike/likeList',
+            data: {
+                userId: 'c0fb320807454e4fbea024d31c9c5c75',
+                page:0,
+                pageLimit:10
+            },
+            method: "POST",
+            header: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            complete: function (res) {
+                console.log("result ===", res);
+                if (res == null || res.data == null) {
+                    // reject(new Error('网络请求失败'))
+                }
+            },
+            success: function (res) {
+                if (res.data.code == 0) {
+
+                    let article = res.data.data.data;
+
+                    let newList = _this.data.articleLike.concat(article)
+
+
+
+                    _this.setData({
+
+                        articleLike: newList,
+                        fileUrlLike: res.data.data.fileUrl,
+
+                    })
+
+
 
                 }
             }
@@ -211,76 +250,171 @@ Page({
                 limit=_this.data.pageLimit
             }
 
+            let startLike =0;
+            let startLimit =10;
 
-            wx.request({
-                url: app.globalData.host + 'articleCon/selByUserId',
-                data: {
-                    uid: 'c0fb320807454e4fbea024d31c9c5c75',
-                    start: start,
-                    limit: limit
-                },
-                method: "POST",
-                header: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                complete: function (res) {
-                    console.log("result ===", res);
-                    if (res == null || res.data == null) {
-                        // reject(new Error('网络请求失败'))
-                    }
-                    //跳转回前页
-                    //  wx.navigateBack({})
-                    _this.setData({
-                        refreshing: false
-                    })
+            if(!index || index != 'refresh'){
+                    startLike=  _this.data.pageLikeIndex,
+                    startLimit= _this.data.pageLikeLimit
+            }
 
-                },
-                success: function (res) {
-                    console.log("result success ===", res);
-                    if (res.data.recode == 0) {
-                        let article = res.data.result.data.list;
-                        let newList = [];
+            //笔记页面
+            if(_this.data.currentData == 0){
 
-                        if(index && index == 'refresh'){
-                            newList =article;
-                        }else{
-                            newList = _this.data.article.concat(article)
+                wx.request({
+                    url: app.globalData.host + 'articleCon/selByUserId',
+                    data: {
+                        uid: 'c0fb320807454e4fbea024d31c9c5c75',
+                        start: start,
+                        limit: limit
+                    },
+                    method: "POST",
+                    header: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    complete: function (res) {
+                        console.log("result ===", res);
+                        if (res == null || res.data == null) {
+                            // reject(new Error('网络请求失败'))
                         }
-
-                        if (article.length<=0) {
-                            console.log("没有数据来")
-                            _this.setData({
-                                allloaded: true
-                            })
-                        }
-
-
+                        //跳转回前页
+                        //  wx.navigateBack({})
                         _this.setData({
-                            article: newList,
-                            fileUrl: res.data.result.fileUrl,
-                            pageIndex: _this.data.pageIndex +1,
-                            loading: false,
-                            isTopRefreshShow:true
+                            refreshing: false
                         })
 
-                        resolve();
+                    },
+                    success: function (res) {
+                        console.log("result success ===", res);
+                        if (res.data.recode == 0) {
+                            let article = res.data.result.data.list;
+                            let newList = [];
+
+                            if(index && index == 'refresh'){
+                                newList =article;
+                            }else{
+                                newList = _this.data.article.concat(article)
+                            }
+
+                            if (article.length<=0) {
+                                console.log("没有数据来")
+                                _this.setData({
+                                    allloaded: true
+                                })
+                            }
 
 
+                            _this.setData({
+                                article: newList,
+                                fileUrl: res.data.result.fileUrl,
+                                pageIndex: _this.data.pageIndex +1,
+                                loading: false,
+                                isTopRefreshShow:true
+                            })
+
+                            resolve();
+
+
+                        }
                     }
-                }
 
-            })
+                })
+
+            //收藏页面
+            }else{
+
+                wx.request({
+                    url: app.globalData.host + 'articleLike/likeList',
+                    data: {
+                        userId: 'c0fb320807454e4fbea024d31c9c5c75',
+                        page: startLike,
+                        pageLimit: startLimit
+                    },
+                    method: "POST",
+                    header: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    complete: function (res) {
+                        console.log("result ===", res);
+                        if (res == null || res.data == null) {
+                            // reject(new Error('网络请求失败'))
+                        }
+
+                        _this.setData({
+                            refreshing: false
+                        })
+
+                    },
+                    success: function (res) {
+                        console.log("result success ===", res);
+                        if (res.data.code == 0) {
+
+
+
+                            let article = res.data.data.data;
+                            let newList = [];
+
+                            if(index && index == 'refresh'){
+                                newList =article;
+                            }else{
+                                newList = _this.data.articleLike.concat(article)
+                            }
+
+                            if (article.length<=0) {
+                                console.log("没有数据来")
+                                _this.setData({
+                                    allloaded: true,
+                                    loading: false,
+                                })
+                            }
+
+
+                            _this.setData({
+                                articleLike: newList,
+                                fileUrlLike: res.data.data.fileUrl,
+                                pageLikeIndex: _this.data.pageLikeIndex +1,
+                                loading: false,
+                                isTopRefreshShow:true
+                            })
+
+                            resolve();
+
+
+                        }
+                    }
+
+                })
+
+
+            }
+
+
 
 
         })
     },
     //显示文章详情
     showArticleDetail: function (e) {
-        console.log("e====", e)
+        console.log("显示文章详情===",e);
+
         wx.navigateTo({
             url: '/pages/myNoteDetail/myNoteDetail?aid=' + e.target.dataset.id,
         })
     },
+    //查看关注我的人
+    showCollection:function (e) {
+        wx.navigateTo({
+            url: '/pages/myCollection/myCollection?userId=' + e.currentTarget.dataset.id,
+        })
+    },
+    //查看我的粉丝
+    showFans:function (e) {
+        console.log("关注人 e====", e)
+        console.log("id ==" +e.currentTarget.dataset.id)
+        wx.navigateTo({
+            url: '/pages/myFans/myFans?userId=' + e.currentTarget.dataset.id,
+        })
+    }
 
 
 

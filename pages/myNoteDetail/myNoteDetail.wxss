@@ -643,6 +643,19 @@ button::after {
     font-size:20rpx;
 
 }
+.guanzhu_btn_green{
+    width:88rpx;
+    height:20rpx;
+    background-color: white;
+    color: green;
+    border: 1px solid green;
+    line-height: 20rpx;
+    text-align: center;
+    border-radius:15px;
+    font-size:20rpx;
+
+}
+
 .guanzhu_head{
     display: flex;
     align-items: center;

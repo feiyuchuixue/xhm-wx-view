@@ -1,0 +1,109 @@
+/* pages/myCollection/myCollection.wxss */
+.guanzhu_btn{
+    width:88rpx;
+    height:40rpx;
+    background-color: white;
+    color:#f44336;
+    border: 1px solid #f44336;
+    line-height: 40rpx;
+    text-align: center;
+    border-radius:15px;
+    font-size:24rpx;
+    float: right;
+    margin-right: 30rpx;
+
+}
+.guanzhu_btn_green{
+    width:88rpx;
+    height:40rpx;
+    background-color: white;
+    color:#777;
+    border: 1px solid #777;
+    line-height: 40rpx;
+    text-align: center;
+    border-radius:15px;
+    font-size:24rpx;
+    float: right;
+    margin-right: 30rpx;
+
+}
+
+.guanzhu_head{
+    margin-top: 60rpx;
+
+
+}
+.guanzhu_head_image {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+    margin-left: 20rpx;
+}
+.guanzhu_head_name {
+    text-align: center;
+    font-size:30rpx;
+    margin-left: 10rpx;
+
+    line-height:32rpx;
+    color:#777;
+    padding:0 20rpx;
+}
+.line{
+    border-top: 1rpx solid rgb(206, 206, 206);
+    overflow: hidden;
+    width: 90%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:60rpx;
+
+
+}
+
+.view1{
+    height: 200rpx;
+}
+
+.view1-image{
+    float: left;
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+    margin: 60rpx 0 60rpx 30rpx;
+}
+
+.view1-text{
+    line-height: 200rpx;
+    float: left;
+    margin-left: 20rpx;
+    max-width: 300rpx;
+}
+
+.follow_yes{
+    float: right;
+    width:88rpx;
+    height:40rpx;
+    line-height: 40rpx;
+    text-align: center;
+    color:#777;
+    border: 1px solid #777;
+    background-color: white;
+    border-radius:15px;
+    font-size:24rpx;
+    margin-top: 80rpx;
+    margin-right: 30rpx;
+}
+
+.follow_no{
+    float: right;
+    width:88rpx;
+    height:40rpx;
+    line-height: 40rpx;
+    text-align: center;
+    color:red;
+    border: 1px solid red;
+    background-color: white;
+    border-radius:15px;
+    font-size:24rpx;
+    margin-top: 80rpx;
+    margin-right: 30rpx;
+}

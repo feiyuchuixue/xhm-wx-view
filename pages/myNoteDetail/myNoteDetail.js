@@ -10,7 +10,7 @@ Page({
         imgheights: [],
         current: 0,
         imgwidth: 750,
-
+        isCollection:false,
         pageIndex:0,
         pageLimit:10,
         hasMoreComment:true,
@@ -46,8 +46,7 @@ Page({
             {
                 src: '/image/ico_2.png'
             },
-        ],
-        guanzhuTxt:'关注'
+        ]
     },
 
     /**
@@ -122,7 +121,8 @@ Page({
         wx.request({
             url: app.globalData.host + 'articleCon/selById',
             data:  {
-                aid:aid
+                aid:aid,
+                userId:'53231cac4a9744aaa9f9b42d1fa936b1'
             },
             method: "POST",
             header: {
@@ -146,6 +146,7 @@ Page({
                         boolFlag = true;
                     }
 
+
                     _this.setData({
                         imgUrls: pictrueArr,
                         fileUrl:res.data.result.fileUrl,
@@ -156,7 +157,8 @@ Page({
                         articleCreateTime:deatil.articleCreateTime,
                         commentCount:deatil.articleTotalComment,
                         isMP4 :boolFlag,
-                        articleUserInfo:res.data.result.user
+                        articleUserInfo:res.data.result.user,
+                        isCollection:res.data.result.isCollection
                     })
 
                     console.log("load detail is ...",_this.data.articleUserInfo)
@@ -469,7 +471,11 @@ Page({
     },
     //关注
     guanzhuClick:function (e) {
+
         let _this =this;
+        if(_this.data.isCollection){
+            return;
+        }
         console.log("关注e===",e);
         //临时userId
         let userId ='53231cac4a9744aaa9f9b42d1fa936b1';
@@ -478,7 +484,7 @@ Page({
         wx.request({
             url: app.globalData.host + 'userCollection/addCollection',
             data:  {
-                userId:'c0fb320807454e4fbea024d31c9c5c75',
+                userId:userId,
                 attentionUserId:guanzhuUserId
             },
             method: "POST",
@@ -497,7 +503,7 @@ Page({
             success: function(res) {
                 if(res.data.code ==0){
                     _this.setData({
-                        guanzhuTxt:"已关注"
+                        isCollection:true
                     })
 
                     wx.showToast({
@@ -513,9 +519,13 @@ Page({
 
 
     },
-    //查看用户信息
+    //关注用户详情展示
     articleUserShow:function (e) {
-
+        console.log("关注用户 e====", e)
+        console.log("id ==" + e.currentTarget.dataset.id)
+        wx.navigateTo({
+            url: '/pages/userIndexDetail/userIndexDetail?userId=' + e.currentTarget.dataset.id,
+        })
     }
 
 
