@@ -14,8 +14,6 @@ Page({
 
         loading: false,
         allloaded: false,
-        isRefreshs:false,
-        isTopRefreshShow:true,
 
         article: [],
         fileUrl: '',
@@ -29,6 +27,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        console.log("我的info",  app.globalData.userInfo );
         var _this = this;
         //获取屏幕高度
         wx.getSystemInfo({
@@ -111,7 +110,7 @@ Page({
         wx.request({
             url: app.globalData.host + 'articleCon/selByUserId',
             data: {
-                uid: 'c0fb320807454e4fbea024d31c9c5c75',
+                uid: app.globalData.userInfo.id,
                 start: _this.data.pageIndex,
                 limit: _this.data.pageLimit
             },
@@ -168,7 +167,7 @@ Page({
         wx.request({
             url: app.globalData.host + 'articleLike/likeList',
             data: {
-                userId: 'c0fb320807454e4fbea024d31c9c5c75',
+                userId: app.globalData.userInfo.id,
                 page:0,
                 pageLimit:10
             },
@@ -273,7 +272,7 @@ Page({
                 wx.request({
                     url: app.globalData.host + 'articleCon/selByUserId',
                     data: {
-                        uid: 'c0fb320807454e4fbea024d31c9c5c75',
+                        uid:app.globalData.userInfo.id,
                         start: start,
                         limit: limit
                     },
@@ -335,7 +334,7 @@ Page({
                 wx.request({
                     url: app.globalData.host + 'articleLike/likeList',
                     data: {
-                        userId: 'c0fb320807454e4fbea024d31c9c5c75',
+                        userId:app.globalData.userInfo.id,
                         page: startLike,
                         pageLimit: startLimit
                     },

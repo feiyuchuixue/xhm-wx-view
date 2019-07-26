@@ -30,6 +30,12 @@ module.exports = {
     subDomain: "xhm", // https://admin.it120.cc 登录后台首页的专属域名
     appid: "wxa46b09d413fbcaff", // 您的小程序的appid，购物单功能需要使用
     requireBindMobile: true, // 是否强制绑定手机号码才能使用,
-    config:config
+    service: {
+        host,
+
+        // 上传图片 上传视频
+        upFiles: `${host}/articleCon/picture`,
+        upUserLogo: `${host}/userCon/userLogo`,
+    }
 }
 

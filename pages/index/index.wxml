@@ -22,30 +22,56 @@
   <swiper-item>
     <scroll-view class="scl" scroll-y bindscrolltolower="loadMore0">
 
-      <view class='banner'>
-        <image src='/image/dl.png'></image>
-      </view>
-      <view class='article_list'>
+
+<!--      <view class='article_list'>
         <view wx:for="{{article}}" wx:key="key" class="view-parent">
           <view class="view-article">
             <view class='a_img'>
-              <image src="{{item.img}}" bindtap="kecheng1"></image>
+              <image src="{{fileUrl + item.articleLogo}}" bindtap="kecheng1"></image>
             </view>
             <view class='a_ttl'>
-              <text>{{item.txt}}</text>
+              <text>{{item.articleTopics +  item.articleTitle}}</text>
             </view>
             <view class='a_note'>
               <view class='a_head'>
-                <image src="{{item.pic}}"></image>
+                <image src="{{item.articleCreateUserLogo}}" mode='aspectFill' lazy-load='true' ></image>:
               </view>
               <view class='a_name'>
-                <text>{{item.name}}</text>
+                <text>{{item.articleCreateUserName}}</text>
               </view>
-              <view class='a_read'>{{item.count}}</view>
+              <view class='a_read'>{{item.articleTotalLike}}</view>
             </view>
           </view>
         </view>
-      </view>
+      </view>-->
+
+      <component-scroll  pulldownDistance="100" refreshPulldownText="下拉刷新" refreshUndoText="松开刷新" refreshLoadingText="刷新中~" loadmoreLoadingText="数据加载中。。" loadmoreAllloadedText="没有更多数据了"   isNeedLoadmore bind:_loadmore="loadmore" bind:_refresh="refresh" allloaded="{{allloaded}}" isEmpty="{{!loading &&article.length<=0}}">
+
+        <view class='banner'>
+          <image src='/image/dl.png'></image>
+        </view>
+        <view class='list'>
+          <view wx:for="{{article}}" class="view-parent" wx:key="{{key}}">
+            <view class="view-article"   value="{{item.id}}" bindtap="showArticleDetail">
+              <view class='a_img'>
+                <image src="{{fileUrl + item.articleLogo}}" data-id="{{item.id}}" mode='aspectFill' lazy-load='true' ></image>
+              </view>
+              <view class='a_ttl'>
+                <text>{{item.articleTopics +  item.articleTitle}}</text>
+              </view>
+              <view class='a_note'>
+                <view class='a_head'>
+                  <image src="{{fileUrl + item.articleCreateUserLogo}}" mode='aspectFill' lazy-load='true' ></image>:
+                </view>
+                <view class='a_name'>
+                  <text>{{item.articleCreateUserName}}</text>
+                </view>
+                <view class='a_read'>{{item.articleTotalLike}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </component-scroll>
 
     <!--  <view class="scl-tab">tab0</view>-->
     </scroll-view>

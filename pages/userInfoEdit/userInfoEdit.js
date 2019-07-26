@@ -95,8 +95,10 @@ Page({
       uuid:''
     })
     upData.formData={
-      userId:'c0fb320807454e4fbea024d31c9c5c75'
+      userId:app.globalData.userInfo.id
     };
+    console.log("show config is ............",config);
+
     upData['url'] = config.service.upUserLogo;
     upFiles.upFilesFun(_this, upData,function(res){
         upImgArr[res.index]['progress'] = res.progress
@@ -125,7 +127,7 @@ function initUserInfo(_this) {
   wx.request({
     url: app.globalData.host + 'userCon/getUserInfo',
     data: {
-      userId: 'c0fb320807454e4fbea024d31c9c5c75'
+      userId: app.globalData.userInfo.id
     },
     method: "POST",
     header: {
@@ -194,7 +196,7 @@ function upgradeUser(_this,e) {
   wx.request({
     url: app.globalData.host + 'userCon/upgradeUser',
     data: {
-      userId: 'c0fb320807454e4fbea024d31c9c5c75',
+      userId:app.globalData.userInfo.id,
       userLogo:_this.data.uploadedPathArr || '',
       userName:e.detail.value.userName  || '',
       userTel:e.detail.value.userTel  || '',

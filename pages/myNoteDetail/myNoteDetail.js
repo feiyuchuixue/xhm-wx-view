@@ -114,7 +114,7 @@ Page({
             url: app.globalData.host + 'articleCon/selById',
             data:  {
                 aid:aid,
-                userId:'53231cac4a9744aaa9f9b42d1fa936b1'
+                userId:app.globalData.userInfo.id
             },
             method: "POST",
             header: {
@@ -246,7 +246,7 @@ Page({
             url: app.globalData.host + 'articleComment/addFirstLevelComment',
             data:  {
                 articleId:_this.data.aid,
-                userId:'c0fb320807454e4fbea024d31c9c5c75',
+                userId:app.globalData.userInfo.id,
                 content:e.detail.value.textarea,
                 content_replace:''
             },
@@ -361,7 +361,7 @@ Page({
             url: app.globalData.host + 'articleComment/add',
             data:  {
                 articleId:_this.data.aid,
-                user_id:'c0fb320807454e4fbea024d31c9c5c75',
+                user_id:app.globalData.userInfo.id,
                 comment_parent_id:_this.data.commentId,
                 content:_this.data.commentThisInputModelValue,
                 content_replace:''
@@ -471,7 +471,7 @@ Page({
         }
         console.log("关注e===",e);
         //临时userId
-        let userId ='53231cac4a9744aaa9f9b42d1fa936b1';
+        let userId =app.globalData.userInfo.id;
         let guanzhuUserId = e.target.dataset.id;
 
         wx.request({
@@ -523,7 +523,7 @@ Page({
     //收藏、取消收藏用户
     likeChange:function (e) {
         let _this = this;
-        let userId ='53231cac4a9744aaa9f9b42d1fa936b1';
+        let userId =app.globalData.userInfo.id;
         console.log(e)
         console.log("关注否"+ _this.data.isLike);
 

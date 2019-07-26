@@ -64,7 +64,7 @@
               </view>
               <view class='a_note'>
                 <view class='a_head'>
-                  <image src="{{fileUrl + item.articleLogo}}" mode='aspectFill' lazy-load='true' ></image>:
+                  <image src="{{fileUrl + item.articleCreateUserLogo}}" mode='aspectFill' lazy-load='true' ></image>:
                 </view>
                 <view class='a_name'>
                   <text>{{item.articleCreateUserName}}</text>

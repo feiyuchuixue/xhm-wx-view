@@ -20,7 +20,7 @@
     <block wx:for="{{guanzhuArr}}" wx:key="key">
         <view class="view1">
             <view data-id="{{item.userId}}" bindtap="articleUserShow">
-                <image class="view1-image" src="{{item.userLogo}}"></image>
+                <image class="view1-image" src="{{fileUrl + item.userLogo}}"></image>
                 <text class="view1-text">{{item.userName}}</text>
             </view>
             <text class="{{ item.isFollow ==1?'follow_yes':'follow_no' }}"  data-id="{{item.userId}}" data-index="{{index}}" bindtap="showGuanzhuUserDetail">{{ item.isFollow ==1?'已关注':'关注'}}</text>

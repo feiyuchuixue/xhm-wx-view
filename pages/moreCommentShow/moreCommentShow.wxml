@@ -3,7 +3,7 @@
 
     <view class="comment_info">
         <view class="c_info_view">
-            <image  src="{{commentThis.userLogo}}"></image>
+            <image  src="{{fileUrl + commentThis.userLogo}}"></image>
             <text  class="goods_info" >{{commentThis.userName}}</text>
             <text  class="goods_info" style="color: dodgerblue" >楼主</text>
             <image   style="margin-left: auto;height: 16px;width: 16px"  src="../../image/xihuan_16.png" />
@@ -25,7 +25,7 @@
                     <!-- <view wx:if="{{index <= 10}}">-->
                     <view class="comment_info">
                         <view class="c_info_view">
-                            <image  src="{{comment.userLogo}}"></image>
+                            <image  src="{{fileUrl +comment.userLogo}}"></image>
                             <text  class="goods_info" >{{comment.userName}}</text>
                             <image   style="margin-left: auto;height: 16px;width: 16px"  src="../../image/xihuan_16.png" />
                         </view>

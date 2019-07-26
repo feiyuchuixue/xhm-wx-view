@@ -23,10 +23,10 @@
         <view class="wxSearchMindKey">
             <view class="wxSearchMindKeyList">
                 <block wx:for="{{searchResult}}" wx:for-index="index" wx:for-item="item">
-                    <view class="wxSearchMindKeyItem" bindtap="wxSearchKeyTap" data-id="{{item.codeKey}}" data-key="{{item.codeName}}">#{{item.codeName}}# </view>
+                    <view class="wxSearchMindKeyItem" bindtap="wxSearchKeyTap" data-id="{{item.id}}" data-key="{{item.id}}">{{item.articleTopics + item.articleTitle}} </view>
                 </block>
                 <view  wx:if="{{searchValue.length > 0}}">
-                    <view class="wxSearchMindKeyItem"  wx:if="{{searchValue.length > 0}}" bindtap="wxSearchKeyTapCreate" data-id="noExist"  data-key="{{searchValue}}" style="color:#b3b3b3;font-size:11px;"><text>没有想参与的话题？\n 创建新话题: #{{searchValue}}#</text></view>
+                    <view class="wxSearchMindKeyItem"  wx:if="{{searchValue.length > 0}}"  style="color:#b3b3b3;font-size:11px;"><text>没有找到搜索记录～</text></view>
 
                 </view>
             </view>

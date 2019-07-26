@@ -83,6 +83,9 @@ Page({
   wxSearchInput: function (e) {
   let inputValue = e.detail.value;
   console.log("now search value is " + inputValue);
+  if(inputValue.trim().length==0){
+    return;
+  }
     let _this = this;
 
     if(this.data.timeoutID){
@@ -94,10 +97,11 @@ Page({
 
    let nowTimeout = setTimeout(function () {
 
+
      wx.request({
-       url: app.globalData.host + 'topics/list', //仅为示例，并非真实的接口地址
+       url: app.globalData.host + 'articleCon/search', //仅为示例，并非真实的接口地址
        data:  {
-         topicName:inputValue
+         searchWords:inputValue
        },
        method: "POST",
        header: {
@@ -115,22 +119,14 @@ Page({
            let result = res.data.data;
            let searchTempArr = [];
 
-           for (const resultElement of result) {
-             let tempObj = {};
-             tempObj.codeKey = resultElement.id;
-             tempObj.codeName = resultElement.topicName;
-             searchTempArr.push(tempObj)
 
-           }
 
            _this.setData({
-             searchResult:searchTempArr,
+             searchResult:res.data.data,
              searchValue:inputValue,
              searchNot: e.detail.value
            })
-           console.log("searchResult 2 == ",_this.data.searchResult)
 
-           //  resolve(res)
 
          }
        }
@@ -166,23 +162,15 @@ Page({
   });*/
 },
   // 点击提示或者关键字、历史记录时的操作
-  wxSearchKeyTap:function (event) {
-    console.log("e ==",event)
-    console.log("val 2 = ",event.target.dataset.key)
-    let value =event.target.dataset.key;
-    let id = event.target.dataset.id;
-    var pages = getCurrentPages();
-    var currPage = pages[pages.length - 1];   //当前页面
-    var prevPage = pages[pages.length - 2];  //上一个页面
+  wxSearchKeyTap:function (e) {
+    console.log("显示文章详情===",e);
 
-    // do your job here
-    // 跳转
-    prevPage.setData({
-      topics:"#"+value+"#",
-      topicsId:id
+    wx.navigateTo({
+      url: '/pages/myNoteDetail/myNoteDetail?aid=' + e.target.dataset.id,
     })
-    wx.navigateBack();
 },
+
+
   // 创建话题
   wxSearchKeyTapCreate: function (event) {
 

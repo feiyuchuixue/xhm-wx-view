@@ -167,16 +167,41 @@ checkCurrent: function (e) {
       let start = 0;
       let limit = 10;
       if(!index || index != 'refresh'){
-        start= _this.data.pageIndex,
-        limit=_this.data.pageLimit
+
+        if( _this.data.pageIndex ==0){
+          start =1;
+          _this.setData({
+            pageIndex:1
+          })
+        }else{
+          start= _this.data.pageIndex,
+          limit=_this.data.pageLimit
+        }
+
+      /*  start= _this.data.pageIndex,
+        limit=_this.data.pageLimit*/
       }
+
+
+
 
       let startLike =0;
       let startLimit =10;
 
       if(!index || index != 'refresh'){
-        startLike=  _this.data.pageLikeIndex,
-        startLimit= _this.data.pageLikeLimit
+
+        if( _this.data.pageIndex ==0){
+          startLike =1;
+          _this.setData({
+            pageLikeIndex:1
+          })
+        }else{
+          startLike= _this.data.pageLikeIndex,
+          startLimit=_this.data.pageLikeLimit
+        }
+
+     /*   startLike=  _this.data.pageLikeIndex,
+        startLimit= _this.data.pageLikeLimit*/
       }
 
 
@@ -247,7 +272,7 @@ checkCurrent: function (e) {
         wx.request({
           url: app.globalData.host + 'articleLike/likeList',
           data: {
-            userId: 'c0fb320807454e4fbea024d31c9c5c75',
+            userId: app.globalData.userInfo.id,
             page: startLike,
             pageLimit: startLimit
           },
@@ -339,7 +364,7 @@ checkCurrent: function (e) {
     wx.request({
       url: app.globalData.host + 'articleLike/likeList',
       data: {
-        userId: 'c0fb320807454e4fbea024d31c9c5c75',
+        userId:app.globalData.userInfo.id,
         page:0,
         pageLimit:10
       },

@@ -3,7 +3,7 @@
 <!--<view class="comment_info">-->
     <view class="guanzhu_head">
         <view  class="guanzhu_head" data-id="{{articleUserInfo.id}}"  bindtap="articleUserShow">
-            <image  src="{{articleUserInfo.userLogo}}"></image>
+            <image  src="{{fileUrl + articleUserInfo.userLogo}}"></image>
             <text>{{articleUserInfo.userName}}</text>
         </view>
 
@@ -99,7 +99,7 @@
                <!-- <view wx:if="{{index <= 10}}">-->
                     <view class="comment_info">
                         <view class="c_info_view">
-                            <image  src="{{comment.userLogo}}"></image>
+                            <image  src="{{fileUrl + comment.userLogo}}"></image>
                             <text  class="goods_info" >{{comment.userName}}</text>
                             <!--<image   style="margin-left: auto;height: 16px;width: 16px"  src="../../image/xihuan_16.png" />-->
                         </view>

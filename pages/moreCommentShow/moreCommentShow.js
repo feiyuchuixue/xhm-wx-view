@@ -20,7 +20,8 @@ Page({
       commentThisInputModelValue:'',
       areaTextTxt:'',
       hiddenmodalput:true,
-      connectBottom:''
+      connectBottom:'',
+      fileUrl:''
   },
 
   /**
@@ -109,7 +110,7 @@ Page({
       url: app.globalData.host + 'articleComment/add',
       data:  {
         articleId:_this.data.aid,
-        user_id:'c0fb320807454e4fbea024d31c9c5c75',
+        user_id:app.globalData.userInfo.id,
         content:e.detail.value.textarea,
         content_replace:'',
         comment_parent_id:_this.data.commentIdThis
@@ -225,15 +226,15 @@ Page({
     this.setData({
       hiddenmodalput: true
     })
-    console.log("评论内容==",this.data.commentThisInputModelValue)
+/*    console.log("评论内容==",this.data.commentThisInputModelValue)
     console.log("评论内容22==",_this.data.commentThisInputModelValue)
-    console.log("_this.data.commentId==",_this.data.commentId);
+    console.log("_this.data.commentId==",_this.data.commentId);*/
 
     wx.request({
       url: app.globalData.host + 'articleComment/add',
       data:  {
         articleId:_this.data.aid,
-        user_id:'c0fb320807454e4fbea024d31c9c5c75',
+        user_id:app.globalData.userInfo.id,
         comment_parent_id:_this.data.commentId,
         content:_this.data.commentThisInputModelValue,
         content_replace:''
@@ -324,7 +325,7 @@ function queryCommentById(commentId,_this) {
       if(res.data.code ==0){
 
         _this.setData({
-          //fileUrl:res.data.result.fileUrl,
+          fileUrl:res.data.data.fileUrl,
           commentThis:res.data.data.data
         })
 
