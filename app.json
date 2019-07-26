@@ -16,7 +16,8 @@
     "pages/moreCommentShow/moreCommentShow",
     "pages/myCollection/myCollection",
     "pages/userIndexDetail/userIndexDetail",
-    "pages/myFans/myFans"
+    "pages/myFans/myFans",
+    "pages/userInfoEdit/userInfoEdit"
   ],
   "window": {
     "backgroundTextStyle": "light",

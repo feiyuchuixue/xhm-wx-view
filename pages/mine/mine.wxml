@@ -4,6 +4,7 @@
     <view  class='u_head'>
       <image src='{{userInfo.userLogo}}'></image>
     </view>
+    <text>{{userInfo.userName}}</text>
 
   <view class='count'>
     <view class='count_list'>
@@ -25,7 +26,7 @@
       </view>-->
     </view>
     <view>
-      <button class='edit'>编辑资料</button>
+      <button class='edit' bindtap="editUserMsg">编辑资料</button>
 
     </view>
   </view>

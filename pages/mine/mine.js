@@ -142,6 +142,15 @@ Page({
                         userInfo:res.data.result.user
                     })
 
+                    if(res.data.result.user.userLogo.indexOf('http')<0){
+                        let changeObj='userInfo.userLogo'
+                        _this.setData({
+                           [changeObj]:res.data.result.fileUrl + res.data.result.user.userLogo
+                        })
+                    }
+
+
+
 
 
                 }
@@ -413,6 +422,13 @@ Page({
         console.log("id ==" +e.currentTarget.dataset.id)
         wx.navigateTo({
             url: '/pages/myFans/myFans?userId=' + e.currentTarget.dataset.id,
+        })
+    },
+    //编辑资料
+    editUserMsg:function (e) {
+        console.log("编辑用户资料");
+        wx.navigateTo({
+            url: '/pages/userInfoEdit/userInfoEdit',
         })
     }
 

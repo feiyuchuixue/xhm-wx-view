@@ -38,15 +38,7 @@ Page({
         isMP4:false,
         comments:[],
         introduce:[],
-        video:'http://kxdev.houaihome.com/test_img/ee.jpg',
-        iconCart:[
-            {
-                src:'/image/ico_1.png'
-            },
-            {
-                src: '/image/ico_2.png'
-            },
-        ]
+        isLike:true,
     },
 
     /**
@@ -158,7 +150,8 @@ Page({
                         commentCount:deatil.articleTotalComment,
                         isMP4 :boolFlag,
                         articleUserInfo:res.data.result.user,
-                        isCollection:res.data.result.isCollection
+                        isCollection:res.data.result.isCollection,
+                        isLike:res.data.result.isLike
                     })
 
                     console.log("load detail is ...",_this.data.articleUserInfo)
@@ -526,6 +519,103 @@ Page({
         wx.navigateTo({
             url: '/pages/userIndexDetail/userIndexDetail?userId=' + e.currentTarget.dataset.id,
         })
+    },
+    //收藏、取消收藏用户
+    likeChange:function (e) {
+        let _this = this;
+        let userId ='53231cac4a9744aaa9f9b42d1fa936b1';
+        console.log(e)
+        console.log("关注否"+ _this.data.isLike);
+
+        if(_this.data.isLike){
+
+            wx.showModal({
+                title: '提示',
+                content: '确定要取消收藏吗？',
+                success: function (sm) {
+                    if (sm.confirm) {
+                        // 用户点击了确定
+                        wx.request({
+                            url: app.globalData.host + 'articleLike/like',
+                            data:  {
+                                userId:userId,
+                                articleId:_this.data.aid
+                            },
+                            method: "POST",
+                            header: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            complete: function( res ) {
+                                console.log("result ===",res);
+                                if( res == null || res.data == null ) {
+                                    // reject(new Error('网络请求失败'))
+                                }
+                            },
+                            success: function(res) {
+                                if(res.data.code ==0){
+                                    _this.setData({
+                                        isLike:!_this.data.isLike
+                                    })
+
+                                    wx.showToast({
+                                        title: '取消收藏',
+                                        icon: 'succes',
+                                        duration: 1000,
+                                        mask:true
+                                    })
+                                }
+                            }
+
+                        })
+
+                    } else if (sm.cancel) {
+                        console.log('用户点击取消')
+                    }
+                }
+            })
+
+
+        }else {
+            wx.request({
+                url: app.globalData.host + 'articleLike/like',
+                data:  {
+                    userId:userId,
+                    articleId:_this.data.aid
+                },
+                method: "POST",
+                header: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                complete: function( res ) {
+                    console.log("result ===",res);
+                    if( res == null || res.data == null ) {
+                        // reject(new Error('网络请求失败'))
+                    }
+                },
+                success: function(res) {
+                    if(res.data.code ==0){
+                        _this.setData({
+                            isLike:!_this.data.isLike
+                        })
+
+                        wx.showToast({
+                            title: '收藏成功',
+                            icon: 'succes',
+                            duration: 1000,
+                            mask:true
+                        })
+                    }
+                }
+
+            })
+        }
+
+
+
+
+
+
+
     }
 
 

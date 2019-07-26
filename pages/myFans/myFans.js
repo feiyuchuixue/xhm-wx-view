@@ -110,39 +110,39 @@ Page({
         success: function (sm) {
           if (sm.confirm) {
             // 用户点击了确定
-            wx.request({
-              url: app.globalData.host + 'userCollection/removeCollection',
-              data: {
-                userId:_this.data.userId,
-                attentionUserId:e.target.dataset.id
-              },
-              method: "POST",
-              header: {
-                "Content-Type": "application/x-www-form-urlencoded"
-              },
-              complete: function (res) {
-                console.log("result ===", res);
-                if (res == null || res.data == null) {
-                  // reject(new Error('网络请求失败'))
+              wx.request({
+                url: app.globalData.host + 'userCollection/removeCollection',
+                data: {
+                  userId:_this.data.userId,
+                  attentionUserId:e.target.dataset.id
+                },
+                method: "POST",
+                header: {
+                  "Content-Type": "application/x-www-form-urlencoded"
+                },
+                complete: function (res) {
+                  console.log("result ===", res);
+                  if (res == null || res.data == null) {
+                    // reject(new Error('网络请求失败'))
+                  }
+                },
+                success: function (res) {
+                  console.log("result success ===", res);
+                  if (res.data.code == 0) {
+
+                    console.log("tempArr ==== ",tempArr);
+                    console.log("index ==",e.target.dataset.index)
+                    //取消关注
+                    tempArr[e.target.dataset.index].isFollow =0;
+                    console.log("atfer deal tempArr ===",tempArr)
+                    _this.setData({
+                      guanzhuArr:tempArr
+                    })
+
+                  }
                 }
-              },
-              success: function (res) {
-                console.log("result success ===", res);
-                if (res.data.code == 0) {
 
-                  console.log("tempArr ==== ",tempArr);
-                  console.log("index ==",e.target.dataset.index)
-                  //取消关注
-                  tempArr[e.target.dataset.index].isFollow =0;
-                  console.log("atfer deal tempArr ===",tempArr)
-                  _this.setData({
-                    guanzhuArr:tempArr
-                  })
-
-                }
-              }
-
-            })
+              })
 
           } else if (sm.cancel) {
             console.log('用户点击取消')

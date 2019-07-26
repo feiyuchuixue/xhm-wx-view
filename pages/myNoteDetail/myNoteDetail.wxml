@@ -81,7 +81,9 @@
         <text>
             {{articleCreateTime}}
         </text>
+
     </view>
+
 <!--    <view class="line goods_info">
         <text>
             共 {{commentCount}} 条评论
@@ -99,7 +101,7 @@
                         <view class="c_info_view">
                             <image  src="{{comment.userLogo}}"></image>
                             <text  class="goods_info" >{{comment.userName}}</text>
-                            <image   style="margin-left: auto;height: 16px;width: 16px"  src="../../image/xihuan_16.png" />
+                            <!--<image   style="margin-left: auto;height: 16px;width: 16px"  src="../../image/xihuan_16.png" />-->
                         </view>
                     </view>
 
@@ -149,7 +151,7 @@
                 <view class="line"/>
             </view>
 
-            <image class="emoji" src="../../image/xihuan_32.png" height="24" width="24"/>
+            <image class="emoji" src="{{isLike ?'../../image/xihuan1_32.png':'../../image/xihuan_32.png'}}" bindtap="likeChange" height="24" width="24"/>
             <button form-type="submit" class="submit">发送</button>
         </view>
   </form></view>

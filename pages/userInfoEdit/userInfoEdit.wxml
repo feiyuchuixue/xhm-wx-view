@@ -1,0 +1,43 @@
+
+<form bindsubmit="subFormData">
+    <view class='personal-data'>
+        <view class='list'>
+            <view class='item acea-row row-between-wrapper'>
+                <view>头像</view>
+                <view class='pictrue'  bindtap='uploadFiles'><image  src='{{upImgArr.length>0?upImgArr[0].path: userInfo.userLogo}}'></image></view>
+            </view>
+            <view class='item acea-row row-between-wrapper'>
+                <view>名字</view>
+                <view class='input'><input type='text' name='userName' value='{{userInfo.userName}}'></input></view>
+            </view>
+            <view class='item acea-row row-between-wrapper'>
+                <view>手机号码</view>
+
+                <view class='input acea-row row-between-wrapper'>
+                    <view class='input'><input type='text' name='userTel' value='{{userInfo.userTel}}'></input></view>
+                </view>
+            </view>
+            <view class='item acea-row row-between-wrapper'>
+                <view>性别</view>
+               <!-- <view class='input'><input type='text' name='nickname' value='{{userInfo.userSex}}'></input></view>-->
+                <picker class='input' name="sex" range="{{sexSelector.sexArray}}" value="{{sexSelector.sexArray[sexSelector.index]}}" bindchange="bindPickerChange">
+                    <view>
+                       {{sexSelector.sexArray[sexSelector.index]}}
+                    </view>
+                </picker>
+            </view>
+            <view class='item acea-row row-between-wrapper'>
+                <view>生日</view>
+               <!-- <view class='input'><input type='text' name='nickname' value='{{userInfo.userBirthday}}'></input></view>-->
+                <picker class='input' name="birthday" mode="date" value="{{date}}" start="1900-01-01" end="2020-12-31" bindchange="bindDateChange">
+                    <view class="picker">
+                         {{date}}
+                    </view>
+                </picker>
+            </view>
+        </view>
+        <button class='modifyBnt bg-color' formType="submit">保存修改</button>
+    </view>
+</form>
+
+<authorize bind:onLoadFun="onLoadFun"></authorize>

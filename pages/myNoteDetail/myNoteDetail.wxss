@@ -36,6 +36,7 @@
     color:#777;
     padding:0 20rpx;
 }
+
 .goods_img image{
     width: 750rpx;
 }
