@@ -1,0 +1,40 @@
+<!--mainSearch/mainSearch.wxml-->
+<view class="weui-search-bar">
+    <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+            <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+            <input type="text" class="weui-search-bar__input" placeholder="请输入查询内容" value="{{wxSearchData.value}}" bindinput="wxSearchInput" bindconfirm="wxSearchConfirm" />
+            <view class="weui-icon-clear" wx:if="{{wxSearchData.value.length > 0}}" bindtap="wxSearchClear">
+                <icon type="clear" size="14"></icon>
+            </view>
+        </view>
+    </view>
+    <view class="weui-search-bar__cancel-btn" bindtap="wxSearchConfirm">
+        <text wx:if="{{wxSearchData.value.length>0}}" data-key='search'>搜索</text>
+        <text wx:else data-key='back'>返回</text>
+    </view>
+</view>
+
+
+<view class="wxSearch" style="'block';">
+
+    <view class="wxSearchInner">
+        <!-- 搜索提示部分 -->
+        <view class="wxSearchMindKey">
+            <view class="wxSearchMindKeyList">
+                <block wx:for="{{searchResult}}" wx:for-index="index" wx:for-item="item">
+                    <view class="wxSearchMindKeyItem" bindtap="wxSearchKeyTap" data-id="{{item.codeKey}}" data-key="{{item.codeName}}">#{{item.codeName}}# </view>
+                </block>
+                <view  wx:if="{{searchValue.length > 0}}">
+                    <view class="wxSearchMindKeyItem"  wx:if="{{searchValue.length > 0}}" bindtap="wxSearchKeyTapCreate" data-id="noExist"  data-key="{{searchValue}}" style="color:#b3b3b3;font-size:11px;"><text>没有想参与的话题？\n 创建新话题: #{{searchValue}}#</text></view>
+
+                </view>
+            </view>
+        </view>
+
+    </view>
+</view>
+
+
+
+

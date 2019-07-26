@@ -1,7 +1,7 @@
 <!--mine.wxml-->
 
-<view class='page_row' bindtap="suo">
-  <view class="search">
+<view class='page_row' bindtap="handleMainSearchInput">
+  <view class="search" >
     <view class="df search_arr">
       <icon class="searchcion" size='20' type='search'></icon>
       <input class="" disabled placeholder="请输入关键字" value="{{searchValue}}" />
@@ -9,35 +9,64 @@
   </view>
   <!-- <view class='sousuo'>搜索</view> -->
 </view>
-<scroll-view scroll-x class="scroll-x">
-  <view wx:for="{{list}}" wx:key="key" class="view-parent">
-    <view class="view-item">{{item.txt}}</view>
-  </view>
-</scroll-view>
-<view class='banner'>
-  <image src='/image/dl.png'></image>
-</view>
-<view class='article_list'>
-  <view wx:for="{{article}}" wx:key="key" class="view-parent">
-    <view class="view-article">
-      <view class='a_img'>
-        <image src="{{item.img}}" bindtap="kecheng1"></image>
-      </view>
-      <view class='a_ttl'>
-        <text>{{item.txt}}</text>
-      </view>
-      <view class='a_note'>
-        <view class='a_head'>
-          <image src="{{item.pic}}"></image>
-        </view>
-        <view class='a_name'>
-          <text>{{item.name}}</text>
-        </view>
-        <view class='a_read'>{{item.count}}</view>
-      </view>
+<view class="weui-navbar">
+  <block wx:for-items="{{tabs}}">
+    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+      {{item}}
     </view>
-  </view>
+  </block>
+  <view class="weui-navbar__slider" style="transform: translateX({{sliderOffset}}px);"></view>
 </view>
+<view class="rec" />
+<swiper current="{{activeIndex}}" class="swiper-box" duration="300" bindchange="bindChange">
+  <swiper-item>
+    <scroll-view class="scl" scroll-y bindscrolltolower="loadMore0">
+
+      <view class='banner'>
+        <image src='/image/dl.png'></image>
+      </view>
+      <view class='article_list'>
+        <view wx:for="{{article}}" wx:key="key" class="view-parent">
+          <view class="view-article">
+            <view class='a_img'>
+              <image src="{{item.img}}" bindtap="kecheng1"></image>
+            </view>
+            <view class='a_ttl'>
+              <text>{{item.txt}}</text>
+            </view>
+            <view class='a_note'>
+              <view class='a_head'>
+                <image src="{{item.pic}}"></image>
+              </view>
+              <view class='a_name'>
+                <text>{{item.name}}</text>
+              </view>
+              <view class='a_read'>{{item.count}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+    <!--  <view class="scl-tab">tab0</view>-->
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <scroll-view class="scl" scroll-y bindscrolltolower="loadMore0">
+      <view class="scl-tab">tab1</view>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <scroll-view class="scl" scroll-y bindscrolltolower="loadMore0">
+      <view class="scl-tab">tab2</view>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <scroll-view class="scl" scroll-y bindscrolltolower="loadMore0">
+      <view class="scl-tab">tab3</view>
+    </scroll-view>
+  </swiper-item>
+</swiper>
+
 
 
 

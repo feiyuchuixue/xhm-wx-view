@@ -17,7 +17,8 @@
     "pages/myCollection/myCollection",
     "pages/userIndexDetail/userIndexDetail",
     "pages/myFans/myFans",
-    "pages/userInfoEdit/userInfoEdit"
+    "pages/userInfoEdit/userInfoEdit",
+    "pages/mainSearch/mainSearch"
   ],
   "window": {
     "backgroundTextStyle": "light",

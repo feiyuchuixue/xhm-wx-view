@@ -4,6 +4,11 @@ const app = getApp()
 
 Page({
   data: {
+   // tabs: ["推荐", "宝妈团", "出游", "专栏"],
+    tabs: ["推荐", "1", "2", "3"],
+    activeIndex: 0,
+    sliderOffset: 0,
+
     list: [
       {
         txt: '推荐'
@@ -116,32 +121,12 @@ Page({
     })
   },
   onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
+    var that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        that.mTabWidth = res.windowWidth / that.data.tabs.length;
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+    });
   },
   getUserInfo: function (e) {
     console.log(e)
@@ -150,5 +135,28 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-  }
+  },
+  bindChange: function (e) {
+    var that = this;
+    var curIndex = e.detail.current;
+    that.setData({
+      sliderOffset: curIndex * that.mTabWidth,
+      activeIndex: curIndex
+    });
+  },
+  tabClick: function (e) {
+    var that = this;
+    var cIndex = e.currentTarget.id;
+    that.setData({
+      sliderOffset: cIndex * that.mTabWidth,
+      activeIndex: cIndex
+    });
+  },
+  //搜索框
+  handleMainSearchInput(event){
+    console.log("init  handleTopicsInput...")
+    wx.navigateTo({
+      url: '/pages/mainSearch/mainSearch',
+    })
+  },
 })
