@@ -1,0 +1,38 @@
+<wxs src="../../utils/subutil.wxs" module="tools" />
+<view class="container">
+  <!-- <view class="page__bd">
+    <view class="weui-search-bar">
+      <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+          <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+          <input type="text " class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" confirm-type="search" bindconfirm='toSearch' />
+          <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+            <icon type="clear" size="14"></icon>
+          </view>
+        </view>
+        <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+          <icon class="weui-icon-search" type="search" size="14"></icon>
+          <view class="weui-search-bar__text">搜索</view>
+        </label>
+      </view>
+      <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+    </view>
+  </view> -->
+
+  <view class="goods-container">
+    <view class="goods-box" wx:for-items="{{goods}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item.id}}">
+      <view class="img-box">
+        <image src="{{fileUrl + tools.sub(item.goodsImg)}}" class="image" mode="aspectFill" lazy-load="true" />
+      </view>
+      <view class="goods-title">{{item.goodsName}}</view>
+      <view style='display:flex;'>
+        <view class="goods-price">¥ {{tools.toDouble(item.goodsCurrentPrice)}}</view>
+        <view class="goods-price" style='color:#aaa;text-decoration:line-through'>¥ {{tools.toDouble(item.goodsPrice)}}</view>
+      </view>
+    </view>
+  </view>
+  <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>
+</view>
+<view class='coupons-float' bindtap="goShopCar">
+  <image src="/image/shop_cart.png"></image>
+</view>

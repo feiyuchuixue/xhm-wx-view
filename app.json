@@ -18,7 +18,12 @@
     "pages/userIndexDetail/userIndexDetail",
     "pages/myFans/myFans",
     "pages/userInfoEdit/userInfoEdit",
-    "pages/mainSearch/mainSearch"
+    "pages/mainSearch/mainSearch",
+    "pages/goods-mall/goods-mall",
+    "pages/goods-details/goods-details",
+    "pages/shop-cart/shop-cart",
+    "pages/authorize/authorize"
+
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -40,7 +45,7 @@
         "selectedIconPath": "image/a2.png"
       },
       {
-        "pagePath": "pages/mall/index",
+        "pagePath": "pages/goods-mall/goods-mall",
         "text": "商城",
         "iconPath": "image/b1.png",
         "selectedIconPath": "image/b2.png"

@@ -23,7 +23,7 @@
             <view wx:if="{{wxSearchData.his[0]}}" class="wxSearchHistoryList">
                 <block wx:for="{{wxSearchData.his}}">
                     <view class="wxSearchHistoryItem">
-                        <text class="wxSearchHistoryItemText" bindtap="wxSearchKeyTap" data-key="{{item}}">{{item}}</text>
+                        <text class="wxSearchHistoryItemText" bindtap="wxSearchKeyTap" data-key="{{item}}">{{item}}</text> 
                         <text class="wxSearchHistoryItemDel" bindtap="wxSearchDeleteKey" data-key="{{item}}" data-key="{{item}}">删除</text>
                     </view>
                 </block>
