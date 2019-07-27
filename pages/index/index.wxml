@@ -46,10 +46,10 @@
       </view>-->
 
       <component-scroll  pulldownDistance="100" refreshPulldownText="下拉刷新" refreshUndoText="松开刷新" refreshLoadingText="刷新中~" loadmoreLoadingText="数据加载中。。" loadmoreAllloadedText="没有更多数据了"   isNeedLoadmore bind:_loadmore="loadmore" bind:_refresh="refresh" allloaded="{{allloaded}}" isEmpty="{{!loading &&article.length<=0}}">
-
+<!--
         <view class='banner'>
           <image src='/image/dl.png'></image>
-        </view>
+        </view>-->
         <view class='list'>
           <view wx:for="{{article}}" class="view-parent" wx:key="{{key}}">
             <view class="view-article"   value="{{item.id}}" bindtap="showArticleDetail">

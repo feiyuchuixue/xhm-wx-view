@@ -242,12 +242,12 @@ checkCurrent: function (e) {
                 newList = _this.data.articleList.concat(article)
               }
 
-              if (article.length<=0) {
+    /*          if (article.length<=0) {
                 console.log("没有数据来")
                 _this.setData({
                   allloaded: true
                 })
-              }
+              }*/
 
 
               _this.setData({
@@ -306,13 +306,13 @@ checkCurrent: function (e) {
                 newList = _this.data.articleLike.concat(article)
               }
 
-              if (article.length<=0) {
+           /*   if (article.length<=0) {
                 console.log("没有数据来")
                 _this.setData({
                   allloaded: true,
                   loading: false,
                 })
-              }
+              }*/
 
 
               _this.setData({

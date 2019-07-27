@@ -1,7 +1,7 @@
 //mine.js
 //获取应用实例
 const app = getApp()
-
+import ImgUtil from '../../utils/ImgUtils';
 Page({
   data: {
     pageIndex:0,
@@ -14,18 +14,14 @@ Page({
     fileUrl:'',
     loading: false,
     allloaded: false,
+    mariginLeft: [],
+    mariginTop: [],
+    imageWidth: [],
+    imageHeight: [],
+    screenWidth: 0,
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options,e) {
-  /*  console.log("init this ...")
-    let _this = this;
 
-     init(_this,e)*/
-
-  },
 
   onShareAppMessage: function () {
     return {
@@ -52,6 +48,14 @@ Page({
     if(_this.data.article.length>0){
       return;
     }
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          screenWidth: res.windowWidth
+        })
+      }
+    });
+
     init(_this,e)
   },
   getUserInfo: function (e) {
@@ -208,12 +212,12 @@ Page({
                 newList = _this.data.article.concat(article)
               }
 
-              if (article.length<=0) {
+         /*     if (article.length<=0) {
                 console.log("没有数据来")
                 _this.setData({
                   allloaded: true
                 })
-              }
+              }*/
 
               _this.setData({
                 article: newList,
@@ -272,13 +276,13 @@ Page({
                 newList = _this.data.articleLike.concat(article)
               }
 
-              if (article.length<=0) {
+            /*  if (article.length<=0) {
                 console.log("没有数据来")
                 _this.setData({
                   allloaded: true,
                   loading: false,
                 })
-              }
+              }*/
 
 
               _this.setData({
@@ -313,6 +317,39 @@ Page({
       url: '/pages/myNoteDetail/myNoteDetail?aid=' + e.target.dataset.id,
     })
   },
+
+  imageLoad: function (e) {
+    var index = e.currentTarget.id;
+    //获取图片的原始宽度和高度
+    let originalWidth = e.detail.width;
+    let originalHeight = e.detail.height;
+    var mariginTopSize = 0;
+    var mariginLeftSize = 0;
+    let imageSize = ImgUtil.imageZoomWidthUtil(originalWidth, originalHeight, 64);
+    //按高度180缩放
+
+    if (imageSize.imageWidth < this.data.screenWidth) {
+      imageSize = ImgUtil.imageZoomHeightUtil(originalWidth, originalHeight, this.data.screenWidth);
+      mariginTopSize = -(imageSize.imageHeight - 0) / 2;
+    } else {
+      mariginLeftSize = -(imageSize.imageWidth - this.data.screenWidth) / 2;
+    }
+    var mariginLeft = this.data.mariginLeft;
+    var imageWidth = this.data.imageWidth;
+    var imageHeight = this.data.imageHeight;
+    var mariginTop = this.data.mariginTop;
+    mariginLeft[index] = mariginLeftSize
+    imageWidth[index] = imageSize.imageWidth
+    imageHeight[index] = imageSize.imageHeight
+    mariginTop[index] = mariginTopSize
+    this.setData({
+      mariginLeft: mariginLeft,
+      mariginTop: mariginTop,
+      imageWidth: imageWidth,
+      imageHeight: imageHeight,
+    });
+  }
+
 
 })
 

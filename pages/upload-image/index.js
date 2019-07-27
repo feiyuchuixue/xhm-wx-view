@@ -31,7 +31,11 @@ Page({
       topicsId:'',
       upFilesType:'',
       uuid:'',
-      uploadedPathArr:[]
+      uploadedPathArr:[],
+      typeArray: ['~选择栏目~','1','2', '3',"出游"],
+      index: 0,
+      submitTrue:false
+
 
   },
 
@@ -138,6 +142,10 @@ e
       let upVideoArr = _this.data.upVideoArr;
       let uuid = _this.data.uuid;
 
+      if(_this.data.submitTrue){
+          return;
+      }
+
 
       let filesPath = upData.filesPathsArr ? upData.filesPathsArr : upFiles.getPathArr(_this);
 
@@ -182,6 +190,18 @@ e
           return;
       }
 
+      if(_this.data.index == 0){
+          wx.showToast({
+              title: '请完善栏目信息',
+              duration: 2000,
+              image:'../../image/warning_48.png',
+              mask:true
+          })
+          return;
+      }
+
+
+
       _this.setData({
           upFilesProgress:true,
           upFilesType:null,
@@ -198,6 +218,10 @@ e
 
       upData['url'] = config.service.upFiles;
       upFiles.upFilesFun(_this, upData,function(res){
+          //规避上传连点。
+          _this.setData({
+              submitTrue:true
+          })
           if (upImgArr && res.index < upImgArr.length){
               upImgArr[res.index]['progress'] = res.progress
 
@@ -322,6 +346,14 @@ e
 
 
         })
-    }
+    },
+    bindPickerChange: function(e) {
+        console.log("bindPickerChange e=====",e)
+
+        this.setData({
+            index: e.detail.value,
+
+        })
+    },
 
 })

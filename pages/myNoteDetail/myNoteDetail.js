@@ -8,8 +8,10 @@ Page({
      */
     data: {
         imgheights: [],
+        imgwidths: [],
         current: 0,
-        imgwidth: 750,
+        imgwidth:750,
+        maxHeight:0,
         isCollection:false,
         pageIndex:0,
         pageLimit:10,
@@ -45,6 +47,14 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+
+        var windowsWidth = wx.getSystemInfoSync().windowWidth;
+        var windowsHeight = wx.getSystemInfoSync().windowHeight;
+        console.log("屏幕宽度 windowsWidth == ",windowsWidth)
+        console.log("屏幕高度 windowsWidth == ",windowsHeight)
+
+        let maxHeight =  windowsHeight * 0.5*2;
+
         //初始化加载数据
         this.setData({
             aid:options.aid,
@@ -52,6 +62,7 @@ Page({
             hasMoreComment:true,
             pageIndex:0,
             pageLimit:10,
+            maxHeight:maxHeight
         })
         this.init(options.aid)
         this.initComment()
@@ -421,6 +432,7 @@ Page({
         })
     },
     imageLoad: function (e) {
+        let maxHeight = 1000;//rpx
         console.log("imageLoad...")
         //获取图片真实宽度
         var imgwidth = e.detail.width,
@@ -430,12 +442,37 @@ Page({
         //计算的高度值
         var viewHeight = 750 / ratio;
         var imgheight = viewHeight
-        var imgheights = this.data.imgheights
+        var imgheights = this.data.imgheights;
+        var imgwidths = this.data.imgwidths;
         //把每一张图片的高度记录到数组里
+        var windowsWidth = wx.getSystemInfoSync().windowWidth;
+        var windowsHeight = wx.getSystemInfoSync().windowHeight;
+        console.log("屏幕宽度 windowsWidth == ",windowsWidth)
+        console.log("屏幕高度 windowsWidth == ",windowsHeight)
+
+        maxHeight =  windowsHeight * 0.5*2;
+        console.log("笔记计算的屏幕高度 尺寸==" + maxHeight)
+        //如果高度大于比例计算出来的最大高度则，宽度成比例缩小
+
+        console.log("111 =" +imgheight)
+        console.log("222 max=" +maxHeight)
+        if(imgheight > maxHeight){
+            console.log("超出最大高度")
+            imgheight = maxHeight;
+            windowsWidth = maxHeight * ratio
+            console.log("计算后的宽度= "+windowsWidth)
+        }else{
+            windowsWidth = windowsWidth *2
+        }
+
+
         imgheights[e.target.dataset['index']] = imgheight;// 改了这里 赋值给当前 index
+        imgwidths[e.target.dataset['index']] = windowsWidth;
         console.log("imgheights===",imgheights)
+        console.log("imgwidths===",imgheights)
         this.setData({
             imgheights: imgheights,
+            imgwidths:imgwidths
         })
     },
     bindchange: function (e) {

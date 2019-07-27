@@ -45,6 +45,23 @@
 </view>
     </view>
 
+<!-- 栏目 -->
+<view class="optName">
+    <view class="text_area_title topics"   >
+
+
+            <picker class='' style="line-height:16px;width:1000rpx;margin-left: 30rpx" name="sex" range="{{typeArray}}" value="{{typeArray[index]}}"  bindchange="bindPickerChange">
+                <text style="color:#b3b3b3;font-size:16px;margin-left: 25rpx;margin-bottom: 10rpx">
+                    {{typeArray[index]}}
+                </text>
+            </picker>
+
+
+
+
+    </view>
+</view>
+
 <!-- 话题 -->
 <view class="optName">
 
