@@ -41,6 +41,7 @@ Page({
         comments:[],
         introduce:[],
         isLike:true,
+        globalUserId:''
     },
 
     /**
@@ -162,7 +163,8 @@ Page({
                         isMP4 :boolFlag,
                         articleUserInfo:res.data.result.user,
                         isCollection:res.data.result.isCollection,
-                        isLike:res.data.result.isLike
+                        isLike:res.data.result.isLike,
+                        globalUserId:app.globalData.userInfo.id
                     })
 
                     console.log("load detail is ...",_this.data.articleUserInfo)

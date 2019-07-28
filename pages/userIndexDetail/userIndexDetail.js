@@ -344,16 +344,16 @@ checkCurrent: function (e) {
     console.log("文章id详情==",e);
 
     wx.navigateTo({
-      url: '/pages/myNoteDetail/myNoteDetail?aid=' + e.target.dataset.id,
+      url: '/pages/myNoteDetail/myNoteDetail?aid=' + e.currentTarget.dataset.id+"&from=other",
     })
   },
   //查看关注我的人
   showCollection:function (e) {
-    console.log("关注人 e====", e)
+  /*  console.log("关注人 e====", e)
     console.log("id ==" +e.currentTarget.dataset.id)
     wx.navigateTo({
       url: '/pages/myCollection/myCollection?userId=' + e.currentTarget.dataset.id,
-    })
+    })*/
   },
 
   //收藏初始化

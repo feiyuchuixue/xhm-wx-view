@@ -406,7 +406,7 @@ Page({
         console.log("显示文章详情===",e);
 
         wx.navigateTo({
-            url: '/pages/myNoteDetail/myNoteDetail?aid=' + e.target.dataset.id,
+            url: '/pages/myNoteDetail/myNoteDetail?aid=' + e.currentTarget.dataset.id+"&from=mine",
         })
     },
     //查看关注我的人
@@ -423,6 +423,13 @@ Page({
             url: '/pages/myFans/myFans?userId=' + e.currentTarget.dataset.id,
         })
     },
+    showGroup:function(e){
+
+        wx.navigateTo({
+            url: '/pages/myGroup/myGroup?userId=' + e.currentTarget.dataset.id,
+        })
+    },
+
     //编辑资料
     editUserMsg:function (e) {
         console.log("编辑用户资料");

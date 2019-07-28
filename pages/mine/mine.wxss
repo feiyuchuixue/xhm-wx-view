@@ -137,30 +137,30 @@ button::after {
 
 .topTabSwiper-sub{
   width: 49.5%;
-  height: 80rpx;
-  line-height: 80rpx;
+  height: 75rpx;
+  line-height: 75rpx;
   float: left;
   text-align: center;
 }
 
 .topTabSwiper-1{
   width: 1%;
-  height: 80rpx;
-  line-height: 80rpx;
+  height: 75rpx;
+  line-height: 75rpx;
   float: left;
   text-align: center;
 }
 
 .topTabSwiper-sub1{
   width: 49.5%;
-  height: 80rpx;
-  line-height: 80rpx;
+  height: 75rpx;
+  line-height: 75rpx;
   float: left;
   text-align: center;
 }
 
 .tabBorer {
-  border-bottom: 6rpx solid #f00;
+  border-bottom: 10rpx solid #f00;
   color: #f00;
 }
 
@@ -169,7 +169,7 @@ button::after {
   background: #eee;
   position: absolute;
   height: auto;
-  top: 423rpx;
+  top: 380rpx;
   bottom: 0rpx;
 }
 
@@ -280,6 +280,7 @@ button::after {
   height: 460rpx;
   text-align: center;
   overflow: hidden;
+  border-radius: 10rpx;
 }
 
 .view-article .a_ttl {
@@ -395,3 +396,31 @@ button::after {
 .my-scroll-msgModule-icon-loading {
     animation: loading 1s linear infinite;
 }
+
+.showStatus {
+  background:#fff;
+  float: left;
+  width:100rpx;
+  height:40rpx;
+  display:block;
+  text-align: center;
+
+  font-size:20rpx;
+  line-height:40rpx;
+  border-radius:20rpx;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+
+  box-shadow:0 0 5rpx #bbb;
+  position: absolute;
+  /*top:50%;
+  left:32%;*/
+  z-index: 2;
+/*  width: 45%;*/
+}
+.ssxf{
+
+}
+
+
+

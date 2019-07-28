@@ -1,0 +1,40 @@
+<!--pages/myFans/myFans.wxml-->
+<!--
+<view>
+    <block wx:for="{{guanzhuArr}}" wx:key="key">
+        <view class="guanzhu_head"   >
+            <view data-id="{{item.userId}}" bindtap="articleUserShow">
+                <image class="guanzhu_head_image" src="{{item.userLogo}}"></image>
+                <text class="guanzhu_head_name">{{item.userName}}</text>
+            </view>
+
+            <text   class="{{ item.isFollow ==1?'guanzhu_btn_green':'guanzhu_btn' }}"  data-id="{{item.userId}}" data-index="{{index}}" bindtap="showGuanzhuUserDetail">{{ item.isFollow ==1?'已关注':'关注'}}</text>
+            <view class ="line"></view>
+
+        </view>
+    </block>
+</view>
+-->
+
+<view>
+    <block wx:for="{{groupArr}}" wx:key="key">
+        <view class="view1">
+            <view data-id="{{item.userId}}" bindtap="articleUserShow">
+                <image class="view1-image" src="{{fileUrl + item.userLogo}}"></image>
+                <text class="view1-text">{{item.userName}}</text>
+            </view>
+            <text class="{{ item.isFollow ==1?'follow_yes':'follow_no' }}"  data-id="{{item.userId}}" data-index="{{index}}" bindtap="showGuanzhuUserDetail">{{ item.isFollow ==1?'已关注':'关注'}}</text>
+            <view class ="line"></view>
+        </view>
+
+        <!--<view class="guanzhu_head"  >
+                <view data-id="{{item.userId}}" bindtap="articleUserShow">
+                    <image class="guanzhu_head_image" src="{{item.userLogo}}"></image>
+                    <text class="guanzhu_head_name">{{item.userName}}</text>
+                </view>
+                <text   class="{{ item.isFollow ==1?'guanzhu_btn_green':'guanzhu_btn' }}"  data-id="{{item.userId}}" data-index="{{index}}" bindtap="showGuanzhuUserDetail">{{ item.isFollow ==1?'已关注':'关注'}}</text>
+                <view class ="line"></view>
+
+      </view>-->
+    </block>
+</view>

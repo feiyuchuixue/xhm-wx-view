@@ -22,8 +22,8 @@
     "pages/goods-mall/goods-mall",
     "pages/goods-details/goods-details",
     "pages/shop-cart/shop-cart",
-    "pages/authorize/authorize"
-
+    "pages/authorize/authorize",
+    "pages/myGroup/myGroup"
   ],
   "window": {
     "backgroundTextStyle": "light",

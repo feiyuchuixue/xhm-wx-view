@@ -6,11 +6,20 @@ Page({
   data: {
     pageIndex:0,
     pageLimit:10,
+    pageIndex1:0,
+
+    pageIndex2:0,
+
+    pageIndex3:0,
+
    // tabs: ["推荐", "宝妈团", "出游", "专栏"],
-    tabs: ["推荐", "1", "2", "3"],
+    tabs: ["推荐", "宝妈团", "出游", "专栏"],
     activeIndex: 0,
     sliderOffset: 0,
     article:[],
+    article1:[],
+    article2:[],
+    article3:[],
     fileUrl:'',
     loading: false,
     allloaded: false,
@@ -73,10 +82,16 @@ Page({
       sliderOffset: curIndex * that.mTabWidth,
       activeIndex: curIndex,
       article: [],
+      article1: [],
+      article2: [],
+      article3: [],
       loading: false,
       allloaded: false,
       pageIndex:0,
       pageLimit:10,
+      pageIndex1:0,
+      pageIndex2:0,
+      pageIndex3:0
     });
 
 
@@ -90,6 +105,9 @@ Page({
       sliderOffset: cIndex * that.mTabWidth,
       activeIndex: cIndex,
       article: [],
+      article1: [],
+      article2: [],
+      article3: [],
       loading: false,
       allloaded: false,
       pageIndex:0,
@@ -152,15 +170,57 @@ Page({
       let start = 0;
       let limit = 10;
       if(!index || index != 'refresh'){
-        if( _this.data.pageIndex ==0){
-          start =1;
-          _this.setData({
-            pageIndex:1
-          })
-        }else{
-          start= _this.data.pageIndex,
-              limit=_this.data.pageLimit
+
+        if(_this.data.activeIndex == 0){
+          if( _this.data.pageIndex ==0){
+            start =1;
+            _this.setData({
+              pageIndex:1
+            })
+          }else{
+            start= _this.data.pageIndex,
+                limit=_this.data.pageLimit
+          }
         }
+
+        if(_this.data.activeIndex == 1){
+          if( _this.data.pageIndex1 ==0){
+            start =1;
+            _this.setData({
+              pageIndex1:1
+            })
+          }else{
+            start= _this.data.pageIndex1,
+                limit=_this.data.pageLimit
+          }
+        }
+
+        if(_this.data.activeIndex == 2){
+          if( _this.data.pageIndex2 ==0){
+            start =1;
+            _this.setData({
+              pageIndex2:1
+            })
+          }else{
+            start= _this.data.pageIndex2,
+                limit=_this.data.pageLimit
+          }
+        }
+
+        if(_this.data.activeIndex == 3){
+          if( _this.data.pageIndex3 ==0){
+            start =1;
+            _this.setData({
+              pageIndex3:1
+            })
+          }else{
+            start= _this.data.pageIndex3,
+                limit=_this.data.pageLimit
+          }
+        }
+
+
+
 
 
       }
@@ -173,8 +233,7 @@ Page({
         startLimit= _this.data.pageLikeLimit
       }
 
-      //笔记页面
-      if(_this.data.activeIndex == 0){
+
         console.log("切换 article ===",_this.data.article);
 
 
@@ -207,91 +266,56 @@ Page({
               let newList = [];
 
               if(index && index == 'refresh'){
-                newList =article;
+                  newList =article;
               }else{
-                newList = _this.data.article.concat(article)
+                if(_this.data.activeIndex == 0){
+                  newList = _this.data.article.concat(article)
+                }
+                if(_this.data.activeIndex == 1){
+                  newList = _this.data.article1.concat(article)
+                }
+                if(_this.data.activeIndex == 2){
+                  newList = _this.data.article2.concat(article)
+                }
+                if(_this.data.activeIndex == 3){
+                  newList = _this.data.article3.concat(article)
+                }
+
               }
 
-         /*     if (article.length<=0) {
-                console.log("没有数据来")
-                _this.setData({
-                  allloaded: true
-                })
-              }*/
-
               _this.setData({
-                article: newList,
                 fileUrl:res.data.data.fileUrl,
-                pageIndex: _this.data.pageIndex +1,
                 loading: false
               })
 
 
-
-              resolve();
-
-
-            }
-          }
-
-        })
-
-        //收藏页面
-      }else{
-
-        wx.request({
-          url: app.globalData.host + 'articleCon/mainList',
-          data: {
-            type:_this.data.tabs[_this.data.activeIndex],
-            page: 0,
-            size: 10
-          },
-          method: "POST",
-          header: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          complete: function (res) {
-            console.log("result ===", res);
-            if (res == null || res.data == null) {
-              // reject(new Error('网络请求失败'))
-            }
-
-            _this.setData({
-              refreshing: false
-            })
-
-          },
-          success: function (res) {
-            console.log("result success ===", res);
-            if (res.data.code == 0) {
-
-
-
-              let article = res.data.data.data;
-              let newList = [];
-
-              if(index && index == 'refresh'){
-                newList =article;
-              }else{
-                newList = _this.data.articleLike.concat(article)
+              if(_this.data.activeIndex == 0){
+                _this.setData({
+                  article: newList,
+                  pageIndex: _this.data.pageIndex +1,
+                })
               }
 
-            /*  if (article.length<=0) {
-                console.log("没有数据来")
+              if(_this.data.activeIndex == 1){
                 _this.setData({
-                  allloaded: true,
-                  loading: false,
+                  article1: newList,
+                  pageIndex1: _this.data.pageIndex1 +1,
                 })
-              }*/
+              }
 
+              if(_this.data.activeIndex == 2){
+                _this.setData({
+                  article2: newList,
+                  pageIndex2: _this.data.pageIndex2 +1,
+                })
+              }
 
-              _this.setData({
-                articleLike: newList,
-                fileUrlLike: res.data.data.fileUrl,
-                pageLikeIndex: _this.data.pageLikeIndex +1,
-                loading: false,
-                isTopRefreshShow:true
-              })
+              if(_this.data.activeIndex == 3){
+                _this.setData({
+                  article3: newList,
+                  pageIndex3: _this.data.pageIndex3 +1,
+                })
+              }
 
               resolve();
 
@@ -302,7 +326,6 @@ Page({
         })
 
 
-      }
 
 
 
@@ -314,7 +337,7 @@ Page({
     console.log("显示文章详情===",e);
 
     wx.navigateTo({
-      url: '/pages/myNoteDetail/myNoteDetail?aid=' + e.target.dataset.id,
+      url: '/pages/myNoteDetail/myNoteDetail?aid=' + e.currentTarget.dataset.id+"&from=other",
     })
   },
 
@@ -382,10 +405,36 @@ function init(_this,e){
       success: function (res) {
         console.log("result success ===", res);
         if (res.data.code == 0) {
-          _this.setData({
-            article:  res.data.data.data,
-            fileUrl: res.data.data.fileUrl
-          })
+
+          if(_this.data.activeIndex == 0){
+            _this.setData({
+              article:  res.data.data.data,
+              fileUrl: res.data.data.fileUrl
+            })
+          }
+
+          if(_this.data.activeIndex == 1){
+            _this.setData({
+              article1:  res.data.data.data,
+              fileUrl: res.data.data.fileUrl
+            })
+          }
+
+
+          if(_this.data.activeIndex == 2){
+            _this.setData({
+              article2:  res.data.data.data,
+              fileUrl: res.data.data.fileUrl
+            })
+          }
+
+          if(_this.data.activeIndex == 3){
+            _this.setData({
+              article3:  res.data.data.data,
+              fileUrl: res.data.data.fileUrl
+            })
+          }
+
 
         }
       }

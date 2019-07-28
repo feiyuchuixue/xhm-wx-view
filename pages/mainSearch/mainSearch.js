@@ -166,7 +166,7 @@ Page({
     console.log("显示文章详情===",e);
 
     wx.navigateTo({
-      url: '/pages/myNoteDetail/myNoteDetail?aid=' + e.target.dataset.id,
+      url: '/pages/myNoteDetail/myNoteDetail?aid=' + e.target.dataset.id+"&from=other",
     })
 },
 

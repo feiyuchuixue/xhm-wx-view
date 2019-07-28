@@ -49,7 +49,7 @@
             <component-scroll  pulldownDistance="100" refreshPulldownText="下拉刷新" refreshUndoText="松开刷新" refreshLoadingText="刷新中~" loadmoreLoadingText="数据加载中。。" loadmoreAllloadedText="没有更多数据了"   isNeedLoadmore bind:_loadmore="loadmore" bind:_refresh="refresh" allloaded="{{allloaded}}" isEmpty="{{!loading &&articleList.length<=0}}">
                 <view class='list'>
                     <view wx:for="{{articleList}}" class="view-parent" wx:key="{{key}}">
-                        <view class="view-article"   value="{{item.id}}" bindtap="showArticleDetail">
+                        <view class="view-article" data-id="{{item.id}}"  value="{{item.id}}" bindtap="showArticleDetail">
                             <view class='a_img'>
                                 <image src="{{fileUrl + item.articleLogo}}" data-id="{{item.id}}" mode='aspectFill' lazy-load='true' ></image>
                             </view>
@@ -89,7 +89,7 @@
                             </view>
                             <view class='a_note'>
                                 <view class='a_head'>
-                                    <image src="{{item.articleCreateUserLogo}}" mode='aspectFill' lazy-load='true' ></image>:
+                                    <image src="{{fileUrl + item.articleCreateUserLogo}}" mode='aspectFill' lazy-load='true' ></image>:
                                 </view>
                                 <view class='a_name'>
                                     <text>{{item.articleCreateUserName}}</text>

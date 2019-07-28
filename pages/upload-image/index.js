@@ -32,7 +32,7 @@ Page({
       upFilesType:'',
       uuid:'',
       uploadedPathArr:[],
-      typeArray: ['~选择栏目~','1','2', '3',"出游"],
+      typeArray: ['~选择栏目~','宝妈团','出游', '吃喝',"专栏"],
       index: 0,
       submitTrue:false
 
@@ -147,6 +147,9 @@ e
       }
 
 
+
+
+
       let filesPath = upData.filesPathsArr ? upData.filesPathsArr : upFiles.getPathArr(_this);
 
       if(!filesPath || filesPath.length == 0) {
@@ -169,6 +172,18 @@ e
           })
           return;
       }
+
+
+      if(_this.data.index == 0){
+          wx.showToast({
+              title: '请选择文章栏目',
+              duration: 2000,
+              image:'../../image/warning_48.png',
+              mask:true
+          })
+          return;
+      }
+
 
       if(!_this.data.content) {
           wx.showToast({
@@ -302,7 +317,7 @@ e
             url: app.globalData.host + 'articleCon/create',
             data:  {
                 uuid:_this.data.uuid,
-                typeId:'',
+                typeId:_this.data.typeArray[_this.data.index] ,
                 articleTitle:_this.data.title,
                 articleContent:_this.data.content,
                 articleTopicsId:_this.data.topicsId,

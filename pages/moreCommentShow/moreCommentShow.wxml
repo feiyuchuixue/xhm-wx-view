@@ -1,28 +1,51 @@
 <!--pages/moreCommentShow/moreCommentShow.wxml-->
 <view>
-
-    <view class="comment_info">
-        <view class="c_info_view">
-            <image  src="{{fileUrl + commentThis.userLogo}}"></image>
-            <text  class="goods_info" >{{commentThis.userName}}</text>
-            <text  class="goods_info" style="color: dodgerblue" >楼主</text>
-            <image   style="margin-left: auto;height: 16px;width: 16px"  src="../../image/xihuan_16.png" />
-        </view>
+    <view style="display: flex; padding: 20rpx 50rpx;">
+        <image style="width: 60rpx; height: 60rpx; border-radius: 50%;"  src="{{fileUrl + commentThis.userLogo}}"></image>
+        <text style="height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999; font-size: 26rpx;" >{{commentThis.userName}}</text>
+        <text style=" height: 20rpx; line-height: 20rpx; margin-top: 14rpx; margin-left: 20rpx; font-size: 22rpx; padding: 6rpx 6rpx; display: block; color: #999; border: 1px solid #999; border-radius: 10rpx; " >楼主</text>
     </view>
-
-    <view>
-        <view class="goods_info" style="margin-top: 10rpx;margin-left: 40rpx">{{commentThis.commentContentReplace}} </view>
-
+    <view style="margin: 20rpx 0 10rpx 80rpx; color: #000; font-size: 26rpx;">
+        <view>{{commentThis.commentContentReplace}} </view>
     </view>
 <!--    <view class="hengxian">-->
 
         <view wx:if="{{commentMore.length>0}}" class="photo_info_box">
             <!-- 图文评论列表 -->
             <view class="photo_comment_box">
-                <text class="goods_info"> 全部评论</text>
+                    <text style="color: #999; font-size: 30rpx;"> 全部评论</text>
+                    <view style="margin-top: 30rpx;" wx:for="{{commentMore}}" wx:for-item="comment" wx:key="index" class="commment_list">
+                        <!-- index < 3 在视频下面只显示三条记录 -->
+                        <view>
+                            <view style="display: flex;">
+                                <image style="width: 60rpx; height: 60rpx; border-radius: 50%;"  src="{{fileUrl + comment.userLogo}}"></image>
+                                <text style="height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999; font-size: 26rpx;" >{{comment.userName}}</text>
+                            </view>
+                        </view>
+                        <view style="margin: 20rpx 0 10rpx 80rpx; color: #000; font-size: 26rpx;">
+                            <view >{{comment.commentContentReplace}}<text style="color: #999;margin-left: 20rpx;">//{{comment.commentParentUserName}}:</text><text style="margin-left: 20rpx;">{{comment.commentParentContent}}</text></view>
+                        </view>
+                        <view style="margin: 20rpx 0 10rpx 80rpx; color: dodgerblue; font-size: 26rpx;" wx:if="{{comment.commentSum>0}}" >
+                            <txt data-id="{{comment.id}}"  bindtap="showMoreComment" >{{comment.commentSum}}条回复 > </txt>
+                        </view>
+                        <view style="margin: 20rpx 0 10rpx 80rpx;">
+                            <text style="color: #999; font-size: 24rpx;" >{{comment.commentCreateTime}} </text>
+                            <txt style="color: #999; font-size: 24rpx;" > · </txt>
+                            <text style="color: dodgerblue; font-size: 24rpx;"  data-id="{{comment.id}}" bindtap="commentThis" data-name="{{comment.id}}"> 回复</text>
+                        </view>
+                        <view class="line" style="margin: 10rpx 0;"/>
+                    </view>
+
+                    <!-- 查看更多评论 -->
+                    <view bindtap="toggleDialogHandle">
+                        <view class="load_more_box">{{showMoreCommentTips}}</view>
+                    </view>
+                </view>
+
+<!--                <text class="goods_info"> 全部评论</text>
                 <view wx:for="{{commentMore}}" wx:for-item="comment" wx:key="index" class="commment_list">
-                    <!-- index < 3 在视频下面只显示三条记录 -->
-                    <!-- <view wx:if="{{index <= 10}}">-->
+                    &lt;!&ndash; index < 3 在视频下面只显示三条记录 &ndash;&gt;
+                    &lt;!&ndash; <view wx:if="{{index <= 10}}">&ndash;&gt;
                     <view class="comment_info">
                         <view class="c_info_view">
                             <image  src="{{fileUrl +comment.userLogo}}"></image>
@@ -49,11 +72,11 @@
                     </view>
                 </view>
 
-                <!-- 查看更多评论 -->
+                &lt;!&ndash; 查看更多评论 &ndash;&gt;
                 <view bindtap="toggleDialogHandle">
                     <view class="load_more_box">{{showMoreCommentTips}}</view>
-                </view>
-            </view>
+                </view>-->
+
         </view>
         <view wx:else class="no_comment">
             <text>{{comment.length}}</text>

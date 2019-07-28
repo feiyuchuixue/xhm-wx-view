@@ -27,14 +27,22 @@
 .goods_title{
     padding:0 20rpx;
     line-height:40rpx;
-    font-size:30rpx;
+    font-size:32rpx;
 
 }
 .goods_info{
     line-height:32rpx;
-    font-size:24rpx;
+    font-size:28rpx;
     color:#777;
     padding:0 20rpx;
+    overflow: hidden;
+}
+
+.name_info{
+    line-height:32rpx;
+    font-size:28rpx;
+    color:#777;
+    overflow: hidden;
 }
 
 .goods_img image{
@@ -312,7 +320,6 @@
 }
 
 .c_date_txt {
-
     right: 0;
     top: 30rpx;
     height: 24rpx;
@@ -555,7 +562,7 @@ button::after {
     width: 100%;
     padding: 8px 0 8px 13px;
     background-color: #ffffff;
-    font-size: 12px;
+    font-size: 18px;
     z-index: 999;
 }
 /**第一个红色的容器
@@ -577,7 +584,7 @@ button::after {
     min-height: 17px;
     max-height: 51px; /*最多显示三行*/
     line-height: 17px;
-    font-size: 12px;
+    font-size: 16px;
     margin-bottom: 4px;
     margin-left: 10px;
 }
@@ -589,23 +596,23 @@ button::after {
     background-color: #4B5CD7;
 }
 /*表情图标*/
-.comment_release .emoji{
+.emoji{
     width: 24px;
     height: 24px;
-    line-height: 27px;
-    padding-right: 10rpx;
-
+    margin-right: 10rpx;
+    float: right;
+    margin-top: 30rpx;
 }
 /*发送按钮*/
 .comment_release .submit{
-    width: 60px;
+    width: 70px;
     height: 27px;
     line-height: 27px;
     text-align: center;
     margin-right: 40rpx;
     background-color: #4B5CD7;
     color: #ffffff;
-    font-size: 12px;
+    font-size: 18px;
 }
 
 .like-list{
@@ -633,27 +640,27 @@ button::after {
     width: 100%;
 }
 .guanzhu_btn{
-    width:88rpx;
+    width:100rpx;
     height:20rpx;
     background-color: white;
     color: #f44336;
     border: 1px solid #f44336;
-    line-height: 20rpx;
+    line-height: 24rpx;
     text-align: center;
     border-radius:15px;
-    font-size:20rpx;
+    font-size:24rpx;
 
 }
 .guanzhu_btn_green{
-    width:88rpx;
+    width:100rpx;
     height:20rpx;
     background-color: white;
     color: green;
     border: 1px solid green;
-    line-height: 20rpx;
+    line-height: 24rpx;
     text-align: center;
     border-radius:15px;
-    font-size:20rpx;
+    font-size:24rpx;
 
 }
 
@@ -663,17 +670,17 @@ button::after {
     display: -webkit-flex;
 }
 .guanzhu_head image {
-    width: 50rpx;
-    height: 50rpx;
+    width: 60rpx;
+    height: 60rpx;
     border-radius: 50%;
     margin-left: 20rpx;
 }
 
 .guanzhu_head text {
-    height: 40rpx;
+    height: 50rpx;
     line-height: 40rpx;
     margin-left: 10rpx;
-    font-size:24rpx;
+    font-size:32rpx;
 
 }
 

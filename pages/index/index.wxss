@@ -84,8 +84,8 @@
 }
 
 .view-article {
-  width: 355rpx;
-  height: 500rpx;
+  width: 345rpx;
+  height: 640rpx;
   margin:8rpx 7.5rpx;
   overflow: hidden;
   border-radius: 10rpx;
@@ -94,10 +94,11 @@
 }
 
 .view-article .a_img {
-  width: 355rpx;
-  height: 335rpx;
+  width: 345rpx;
+  height: 460rpx;
   text-align: center;
   overflow: hidden;
+  border-radius: 10rpx;
 }
 
 .view-article .a_ttl {
