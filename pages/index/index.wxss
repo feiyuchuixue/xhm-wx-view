@@ -83,46 +83,6 @@
   background: #eee;
 }
 
-.view-article {
-  width: 345rpx;
-  height: 640rpx;
-  margin:8rpx 7.5rpx;
-  overflow: hidden;
-  border-radius: 10rpx;
-  background: #fff;
-  box-shadow: 0 0 10rpx #bbb;
-}
-
-.view-article .a_img {
-  width: 345rpx;
-  height: 460rpx;
-  text-align: center;
-  overflow: hidden;
-  border-radius: 10rpx;
-}
-
-.view-article .a_ttl {
-  width: 325rpx;
-  height: 72rpx;
-  padding: 0 10rpx;
-  margin: 10rpx auto;
-  display: block;
-  overflow: hidden;
-  line-height: 36rpx;
-  font-size: 28rpx;
-}
-
-.view-article .a_ttl text {
-  width: 325rpx;
-  height: 72rpx;
-  display: -webkit-box;
-  text-overflow: ellipsis;
-  word-break: break-all;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-}
-
 .a_note {
   height: 80rpx;
   overflow: hidden;
@@ -160,17 +120,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.a_read{
-  width: 140rpx;
-  height:80rpx;
-  line-height:80rpx;
-  font-size:24rpx;
-  float: left;
-  text-indent:40rpx;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+
 
 page {
   height: 100%;
@@ -231,4 +181,74 @@ page {
   width: 126rpx;
   left: 30rpx;
 }
+
+.view-article {
+  width: 345rpx;
+  height: 640rpx;
+  margin:8rpx 7.5rpx;
+  overflow: hidden;
+  border-radius: 10rpx;
+  background: #fff;
+  box-shadow: 0 0 10rpx #bbb;
+}
+
+
+.view-article .a_ttl {
+  width: 325rpx;
+  height: 72rpx;
+  padding: 0 10rpx;
+  margin: 10rpx auto;
+  line-height: 36rpx;
+  font-size: 28rpx;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-align: left;
+}
+
+.view-article .a_ttl text {
+  width: 325rpx;
+  height: 72rpx;
+  text-align: left;
+}
+
+.view-article .a_ttl .topics{
+  color: #f00;
+}
+
+.view-article .a_ttl .title{
+  color: #0f0;
+  margin-left: 10rpx;
+}
+
+.a_read{
+  width: 140rpx;
+  height:80rpx;
+  line-height:80rpx;
+  font-size:24rpx;
+  float: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.a_read .shoucang{
+  width: 25rpx;
+  height: 25rpx;
+}
+.a_read .shoucang image{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.a_read text{
+  margin-left: 10rpx;
+}
+
 

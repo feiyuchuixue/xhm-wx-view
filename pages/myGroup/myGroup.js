@@ -84,14 +84,14 @@ Page({
       url: '/pages/userIndexDetail/userIndexDetail?userId=' + e.currentTarget.dataset.id,
     })
   },
-  //关注用户详情展示
+/*  //关注用户详情展示
   articleUserShow:function (e) {
     console.log("关注用户 e====", e)
     console.log("id ==" +e.currentTarget.dataset.id)
     wx.navigateTo({
       url: '/pages/userIndexDetail/userIndexDetail?userId=' + e.currentTarget.dataset.id,
     })
-  },
+  },*/
   //关注 取消关注按钮
   showGuanzhuUserDetail:function (e) {
     let _this = this;

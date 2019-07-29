@@ -8,13 +8,15 @@ App({
     unionid:null,
     appid:'wxa6ff759682482521',
     secret:'11ea62781d3c77e00417caf7603c5506',
-    host:"https://server.momjia.com/xhm/"
+    host:"https://server.momjia.com/xhm/",
+    os:'android'
   },
   //设置用户登录状态
   navigateToLogin: false,
   onLaunch: function () {
     this.queryOpenId();
     this.checkLoginStatus()
+    this.getOs();
   },
   checkLoginStatus() { // 检测登录状态
     if (this.globalData.userInfo==null){
@@ -55,4 +57,22 @@ App({
       })
     }, 1000)
   },
+  getOs:function () {
+    let _this =this;
+    wx.getSystemInfo({
+      success:function(res){
+        console.log("res 系统信息==",res)
+        if(res.platform == "devtools"){
+          _this.globalData.os ='devtools'
+        }else if(res.platform == "ios"){
+          _this.globalData.os ='ios'
+
+        }else if(res.platform == "android"){
+          _this.globalData.os ='android'
+        }
+      }
+    })
+
+    console.log("os is " +  _this.globalData.os);
+  }
 })

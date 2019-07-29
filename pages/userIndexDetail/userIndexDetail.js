@@ -104,11 +104,17 @@ checkCurrent: function (e) {
   that.setData({
     loading: false,
     allloaded: false,
+    article:[],
+    articleLike: [],
+    pageIndex:0,
+    pageLikeIndex: 1,
   })
 
   if(e.target.dataset.current == 1){
     that.initLike()
-  }e
+  }else{
+    init()
+  }
 
 
   if (that.data.currentData === e.target.dataset.current) {
@@ -138,7 +144,6 @@ checkCurrent: function (e) {
 
 
     _this.setData({
-      list: [],
       loading: false,
       allloaded: false,
       pageIndex:0,
@@ -253,10 +258,16 @@ checkCurrent: function (e) {
               _this.setData({
                 articleList: newList,
                 fileUrl: res.data.data.fileUrl,
-                pageIndex: _this.data.pageIndex +1,
                 loading: false,
                 isTopRefreshShow:true
               })
+
+              if(article.length>0){
+                _this.setData({
+                  pageIndex: _this.data.pageLikeIndex +1,
+                })
+              }
+
 
               resolve();
 
@@ -272,7 +283,7 @@ checkCurrent: function (e) {
         wx.request({
           url: app.globalData.host + 'articleLike/likeList',
           data: {
-            userId: app.globalData.userInfo.id,
+            userId: _this.data.userId,
             page: startLike,
             pageLimit: startLimit
           },
@@ -318,10 +329,15 @@ checkCurrent: function (e) {
               _this.setData({
                 articleLike: newList,
                 fileUrlLike: res.data.data.fileUrl,
-                pageLikeIndex: _this.data.pageLikeIndex +1,
                 loading: false,
                 isTopRefreshShow:true
               })
+              if(article.length>0){
+                _this.setData({
+                  pageLikeIndex: _this.data.pageLikeIndex +1,
+                })
+              }
+
 
               resolve();
 
@@ -364,7 +380,7 @@ checkCurrent: function (e) {
     wx.request({
       url: app.globalData.host + 'articleLike/likeList',
       data: {
-        userId:app.globalData.userInfo.id,
+        userId:_this.data.userId,
         page:0,
         pageLimit:10
       },

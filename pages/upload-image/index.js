@@ -34,7 +34,9 @@ Page({
       uploadedPathArr:[],
       typeArray: ['~选择栏目~','宝妈团','出游', '吃喝',"专栏"],
       index: 0,
-      submitTrue:false
+      submitTrue:false,
+      //文件上传类别 img/video
+      fileType:"img"
 
 
   },
@@ -102,6 +104,9 @@ e
       var _this = this;
       //如果已经有图片的选择了，再新加文件类型只能是图片
       if(_this.data.upImgArr && _this.data.upImgArr.length>0){
+          _this.setData({
+              fileType :'img'
+          })
 
           wx.showActionSheet({
               itemList: ['选择图片'],
@@ -115,6 +120,7 @@ e
           })
       //没有上传文件，可选图片或者视频其一
       }else {
+
           wx.showActionSheet({
               itemList: ['选择图片', '选择视频'],
               success: function (res) {
@@ -122,8 +128,14 @@ e
                   let xindex = res.tapIndex;
                   if (xindex == 0){
                       upFiles.chooseImage(_this, _this.data.maxUploadLen)
+                      _this.setData({
+                          fileType :'img'
+                      })
                   } else if (xindex == 1){
                       upFiles.chooseVideo(_this, 1)
+                      _this.setData({
+                          fileType :'video'
+                      })
                   }
 
               },
@@ -312,6 +324,9 @@ e
 
         console.log("articleLogo=",articleLogo);
         console.log("articlePicture=",articlePicture);
+
+
+        console.log("upFilesType 文件类型 ==",_this.data.upFilesType);
 
         wx.request({
             url: app.globalData.host + 'articleCon/create',

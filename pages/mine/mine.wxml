@@ -18,51 +18,11 @@
   </view>
 </view>
 <view style="padding-left: 200rpx;border-bottom: 1rpx solid #ddd;">
-  <button style="float: left;width: 110rpx; height: 60rpx; border-radius: 32rpx; line-height: 60rpx; font-size: 28rpx; margin: 20rpx 10rpx; border: 1rpx solid #ddd;font-size: 28rpx;" bindtap='createArticle'>上传</button>
-  <button style="float: left;width: 110rpx; height: 60rpx; border-radius: 32rpx; line-height: 60rpx; font-size: 28rpx; margin: 20rpx 10rpx; border: 1rpx solid #ddd;font-size: 28rpx;" bindtap="">积分</button>
-  <button style="float: left;width: 180rpx; height: 60rpx; border-radius: 32rpx; line-height: 60rpx; font-size: 28rpx; margin: 20rpx 10rpx; border: 1rpx solid #ddd;font-size: 28rpx;" bindtap="editUserMsg">编辑资料</button>
+  <button style="float: left;width: 120rpx; height: 60rpx; border-radius: 32rpx; line-height: 60rpx; font-size: 26rpx; margin: 20rpx 10rpx; border: 1rpx solid #ddd;font-size: 28rpx;" bindtap='createArticle'>上传</button>
+  <button style="float: left;width: 120rpx; height: 60rpx; border-radius: 32rpx; line-height: 60rpx; font-size: 26rpx; margin: 20rpx 10rpx; border: 1rpx solid #ddd;font-size: 28rpx;" bindtap="">积分</button>
+  <button style="float: left;width: 180rpx; height: 60rpx; border-radius: 32rpx; line-height: 60rpx; font-size: 26rpx; margin: 20rpx 10rpx; border: 1rpx solid #ddd;font-size: 28rpx;" bindtap="editUserMsg">编辑资料</button>
 </view>
-<!--  <view  class='user'>-->
-<!--    <view  class='u_head'>-->
-<!--      <image src='{{userInfo.userLogo}}'></image>-->
-<!--    </view>-->
-<!--    <text>{{userInfo.userName}}</text>-->
-<!--  <view class='count'>-->
-<!--    <view class='count_list'>-->
-<!--        <view  class="view-parent" data-id="{{userInfo.id}}"  bindtap="showCollection">-->
-<!--          <view class="view-item ">关注</view>-->
-<!--          <view class="view-item">{{userInfo.userFollow}}</view>-->
-<!--        </view>-->
-<!--      <view  class="view-parent"  data-id="{{userInfo.id}}" bindtap="showFans">-->
-<!--        <view class="view-item">粉丝</view>-->
-<!--        <view class="view-item">{{userInfo.userFans}}</view>-->
-<!--      </view>-->
-<!--      <view  class="view-parent"  data-id="{{userInfo.id}}" bindtap="showGroup">-->
-<!--        <view class="view-item">团成员</view>-->
-<!--        <view class="view-item">{{userInfo.userGroup}}</view>-->
-<!--      </view>-->
-<!--   &lt;!&ndash;   <view wx:for="{{num}}" wx:key="key" class="view-parent">-->
-<!--        <view class="view-item">{{item.count}}</view>-->
-<!--        <view class="view-item">{{item.txt}}</view>-->
-<!--      </view>&ndash;&gt;-->
-<!--    </view>-->
-<!--    <view>-->
-<!--      <button class='edit' bindtap="editUserMsg">编辑资料</button>-->
-<!--    </view>-->
-<!--  </view>-->
-<!--  <view class='plus'>-->
-<!--    &lt;!&ndash; <view class='sex'>♂</view>-->
-<!--    <text class='text_plus'>R加入小红猪会员></text> &ndash;&gt;-->
-<!--    <view class='btn btn_l' bindtap='createArticle'>-->
-<!--      <button>上传</button>-->
-<!--    </view>-->
-<!--    <view class='btn btn_r'  bindtap='createArticle2'>-->
-<!--      <button>积分</button>-->
-<!--    </view>-->
-<!--  </view>-->
-<!--  <view class="">-->
-<!--  </view>-->
-<!--</view>-->
+
 <view style="float: left; width: 100%;">
   <view class='topTabSwiper-sub   {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>笔记</view>
   <view class='topTabSwiper-sub1  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>收藏</view>
@@ -72,7 +32,7 @@
     <view class='swiper_con'>
 
       <component-scroll  pulldownDistance="100" refreshPulldownText="下拉刷新" refreshUndoText="松开刷新" refreshLoadingText="刷新中~" loadmoreLoadingText="数据加载中。。" loadmoreAllloadedText="没有更多数据了"   isNeedLoadmore bind:_loadmore="loadmore" bind:_refresh="refresh" allloaded="{{allloaded}}" isEmpty="{{!loading &&article.length<=0}}">
-        <view class='list'>
+        <view class='list listBox'>
           <view wx:for="{{article}}" class="view-parent" wx:key="{{key}}">
               <view class="view-article" data-id="{{item.id}}"   value="{{item.id}}" bindtap="showArticleDetail">
               <view class='a_img'>
@@ -87,18 +47,29 @@
                 </view>
                 <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.id}}" mode='aspectFill' lazy-load='true' ></image>
               </view>
-              <view class='a_ttl'>
-                <text>{{item.articleTopics +  item.articleTitle}}</text>
-              </view>
+                <view class='a_ttl'>
+                  <!-- <text>{{item.articleTopics + item.articleTitle}}</text> -->
+                  <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
+                  <text class="title" style="color: #999;">{{item.articleTitle}}</text>
+                </view>
               <view class='a_note'>
-                <view class='a_head'>
-                  <image src="{{fileUrl + item.articleCreateUserLogo}}" mode='aspectFill' lazy-load='true' ></image>:
-                </view>
-                <view class='a_name'>
-                  <text>{{item.articleCreateUserName}}</text>
-                </view>
-                <view class='a_read'>{{item.articleTotalLike}}</view>
+
+                  <view class='a_head'>
+                    <image src="{{fileUrl + item.articleCreateUserLogo}}" mode='aspectFill' lazy-load='true' ></image>:
+                  </view>
+                  <view class='a_name'>
+                    <text  style="color: #999;">{{item.articleCreateUserName}}</text>
+                  </view>
+                  <view class='a_read'>
+                    <view class="shoucang">
+                      <image src="../../image/ico_1.png"></image>
+                    </view>
+                    <text style="color: #999;">{{item.articleTotalLike}}</text>
+                  </view>
+
               </view>
+
+
             </view>
           </view>
         </view>
@@ -111,14 +82,13 @@
     <view class='swiper_con'>
 
       <component-scroll  pulldownDistance="100" refreshPulldownText="下拉刷新" refreshUndoText="松开刷新" refreshLoadingText="刷新中~" loadmoreLoadingText="数据加载中。。" loadmoreAllloadedText="没有更多数据了"   isNeedLoadmore bind:_loadmore="loadmore"  bind:_refresh="refresh" allloaded="{{allloaded}}" isEmpty="{{!loading &&articleLike.length<=0}}">
-        <view class='list'>
+        <view class='list  listBox'>
           <view wx:for="{{articleLike}}" class="view-parent" wx:key="{{key}}">
             <view class="view-article" data-id="{{item.articleId}}"   value="{{item.articleId}}" bindtap="showArticleDetail">
 
 
 
               <view class='a_img'>
-
                 <view wx:if="{{item.articleCheckYn==0}}">
                   <text class="showStatus" style="color:orange" >审核中</text>
                 </view>
@@ -128,22 +98,30 @@
                 <view wx:else="{{item.articleCheckYn==1 && item.articleOnline==1 }}">
                   <text class="showStatus" style="color:green" >审核成功</text>
                 </view>
-
-
                 <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true' ></image>
               </view>
               <view class='a_ttl'>
-                <text>{{item.articleTopics +  item.articleTitle }}</text>
+                <!-- <text>{{item.articleTopics + item.articleTitle}}</text> -->
+                <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
+                <text class="title" style="color: #999;">{{item.articleTitle}}</text>
               </view>
               <view class='a_note'>
+
                 <view class='a_head'>
                   <image src="{{fileUrl + item.articleCreateUserLogo}}" mode='aspectFill' lazy-load='true' ></image>:
                 </view>
                 <view class='a_name'>
-                  <text>{{item.articleCreateUserName}}</text>
+                  <text  style="color: #999;">{{item.articleCreateUserName}}</text>
                 </view>
-                <view class='a_read'>{{item.articleTotalLike}}</view>
+                <view class='a_read'>
+                  <view class="shoucang">
+                    <image src="../../image/ico_1.png"></image>
+                  </view>
+                  <text style="color: #999;">{{item.articleTotalLike}}</text>
+                </view>
               </view>
+
+
             </view>
           </view>
         </view>

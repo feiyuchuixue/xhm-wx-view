@@ -7,9 +7,7 @@ Page({
     pageIndex:0,
     pageLimit:10,
     pageIndex1:0,
-
     pageIndex2:0,
-
     pageIndex3:0,
 
    // tabs: ["推荐", "宝妈团", "出游", "专栏"],
@@ -146,6 +144,9 @@ Page({
       allloaded: false,
       pageIndex:0,
       pageLimit:10,
+      pageIndex1:0,
+      pageIndex2:0,
+      pageIndex3:0,
 
     })
     //要延时执行的代码
@@ -219,10 +220,6 @@ Page({
           }
         }
 
-
-
-
-
       }
 
       let startLike =0;
@@ -290,31 +287,52 @@ Page({
 
 
               if(_this.data.activeIndex == 0){
+
                 _this.setData({
                   article: newList,
-                  pageIndex: _this.data.pageIndex +1,
                 })
+
+                if(article.length>0){
+                  _this.setData({
+                    pageIndex: _this.data.pageIndex +1,
+                  })
+                }
+
               }
 
               if(_this.data.activeIndex == 1){
                 _this.setData({
                   article1: newList,
-                  pageIndex1: _this.data.pageIndex1 +1,
                 })
+                if(article.length>0){
+                  _this.setData({
+                    pageIndex1: _this.data.pageIndex1 +1,
+                  })
+                }
+
               }
 
               if(_this.data.activeIndex == 2){
                 _this.setData({
-                  article2: newList,
-                  pageIndex2: _this.data.pageIndex2 +1,
+                  article2: newList
                 })
+                if(article.length>0){
+                  _this.setData({
+                    pageIndex2: _this.data.pageIndex2 +1,
+                  })
+                }
               }
 
               if(_this.data.activeIndex == 3){
                 _this.setData({
                   article3: newList,
-                  pageIndex3: _this.data.pageIndex3 +1,
                 })
+
+                if(article.length>0){
+                  _this.setData({
+                    pageIndex3: _this.data.pageIndex3 +1,
+                  })
+                }
               }
 
               resolve();

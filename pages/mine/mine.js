@@ -7,7 +7,7 @@ Page({
     data: {
         pageIndex: 1,
         pageLimit: 10,
-        pageLikeIndex: 1,
+        pageLikeIndex: 0,
         pageLikeLimit: 10,
         currentData: 0,
 
@@ -45,8 +45,11 @@ Page({
             pageIndex: 1,
             currentData: 0,
             article: [],
+            articleLike: [],
             fileUrl: '',
-            userInfo:{}
+            userInfo:{},
+            pageIndex: 1,
+            pageLikeIndex: 1,
 
         })
 
@@ -71,11 +74,18 @@ Page({
         that.setData({
             loading: false,
             allloaded: false,
+            article: [],
+            articleLike: [],
+            pageIndex: 1,
+            pageLikeIndex: 1,
         })
+
 
         if(e.target.dataset.current == 1){
             that.initLike()
-        }e
+        }else{
+            that.init()
+        }
 
 
         if (that.data.currentData === e.target.dataset.current) {
@@ -111,6 +121,7 @@ Page({
             url: app.globalData.host + 'articleCon/selByUserId',
             data: {
                 uid: app.globalData.userInfo.id,
+               // uid:'6cd033dfe2a04aa7bb420543a598c34b',
                 start: _this.data.pageIndex,
                 limit: _this.data.pageLimit
             },
@@ -137,9 +148,16 @@ Page({
                     _this.setData({
                         article: newList,
                         fileUrl: res.data.result.fileUrl,
-                        pageIndex: _this.data.pageIndex + 1,
                         userInfo:res.data.result.user
                     })
+
+                    if(article.length>0){
+                        _this.setData({
+                            pageIndex: _this.data.pageIndex + 1,
+                        })
+                    }
+
+
 
                     if(res.data.result.user.userLogo.indexOf('http')<0){
                         let changeObj='userInfo.userLogo'
@@ -185,25 +203,14 @@ Page({
                 if (res.data.code == 0) {
 
                     let article = res.data.data.data;
-
                     let newList = _this.data.articleLike.concat(article)
-
-
-
                     _this.setData({
-
                         articleLike: newList,
                         fileUrlLike: res.data.data.fileUrl,
-
                     })
-
-
-
                 }
             }
-
         })
-
 
     },
 
@@ -225,11 +232,14 @@ Page({
 
 
         _this.setData({
-            list: [],
+            article: [],
+            articleLike: [],
             loading: false,
             allloaded: false,
-            start:0,
-            limit:10,
+            pageIndex: 1,
+            pageLimit: 10,
+            pageLikeIndex: 0,
+            pageLikeLimit: 10,
 
         })
             //要延时执行的代码
@@ -315,10 +325,16 @@ Page({
                             _this.setData({
                                 article: newList,
                                 fileUrl: res.data.result.fileUrl,
-                                pageIndex: _this.data.pageIndex +1,
                                 loading: false,
                                 isTopRefreshShow:true
                             })
+
+                            if(article.length>0){
+                                _this.setData({
+                                    pageIndex: _this.data.pageIndex +1,
+                                })
+                            }
+
 
                             resolve();
 
@@ -380,10 +396,16 @@ Page({
                             _this.setData({
                                 articleLike: newList,
                                 fileUrlLike: res.data.data.fileUrl,
-                                pageLikeIndex: _this.data.pageLikeIndex +1,
+
                                 loading: false,
                                 isTopRefreshShow:true
                             })
+
+                            if(article.length>0){
+                                _this.setData({
+                                    pageLikeIndex: _this.data.pageLikeIndex +1,
+                                })
+                            }
 
                             resolve();
 
