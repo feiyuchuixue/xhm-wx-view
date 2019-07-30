@@ -1,4 +1,4 @@
-/**mine.wxss**/
+/**pages/index/index.wxml**/
 
 /*图片轮播*/
 
@@ -136,7 +136,7 @@ page {
   display: flex;
   width: 100%;
   background: #fff;
-  border-bottom: 1px solid #00bba1;
+  border-bottom: 1px solid #f00;
 }
 
 .rec {
@@ -174,7 +174,7 @@ page {
 }
 
 .weui-navbar__item.weui-bar__item_on {
-  color: #00bba1;
+  color: #f00;
 }
 
 .weui-navbar__slider {
@@ -182,7 +182,7 @@ page {
   content: "";
   bottom: 0;
   height: 5rpx;
-  background-color: #00bba1;
+  background-color: #f00;
   transition: transform .3s;
   width: 126rpx;
   left: 30rpx;

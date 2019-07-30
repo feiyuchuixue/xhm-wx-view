@@ -34,7 +34,7 @@
     line-height:32rpx;
     font-size:28rpx;
     color:#777;
-    padding:0 20rpx;
+    padding:0 20rpx 20rpx 0;
     overflow: hidden;
 }
 
@@ -348,14 +348,13 @@
 }
 
 .no_comment {
-    margin-top: 250rpx;
+    margin-top: 10rpx;
     text-align: center;
 }
 
 .load_more_box {
     width: 168rpx;
     height: 40rpx;
-
     border-radius: 45rpx;
     margin: 27rpx auto;
     text-align: center;
@@ -641,7 +640,6 @@ button::after {
 }
 .guanzhu_btn{
     width:120rpx;
-    height:24rpx;
     background-color: white;
     color: #f44336;
     border: 1px solid #f44336;
@@ -653,7 +651,6 @@ button::after {
 }
 .guanzhu_btn_green{
     width:120rpx;
-    height:24rpx;
     background-color: white;
     color: green;
     border: 1px solid green;

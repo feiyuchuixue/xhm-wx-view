@@ -1,4 +1,4 @@
-//mine.js
+// pages/index/index.js
 //获取应用实例
 const app = getApp()
 import ImgUtil from '../../utils/ImgUtils';
@@ -26,6 +26,8 @@ Page({
     imageWidth: [],
     imageHeight: [],
     screenWidth: 0,
+    loadingHidden:false,
+    notFoundHidden:true
   },
 
 
@@ -89,8 +91,11 @@ Page({
       pageLimit:10,
       pageIndex1:0,
       pageIndex2:0,
-      pageIndex3:0
+      pageIndex3:0,
+      loadingHidden:false,
+      notFoundHidden:true
     });
+
 
 
 
@@ -110,6 +115,8 @@ Page({
       allloaded: false,
       pageIndex:0,
       pageLimit:10,
+      loadingHidden:false,
+      notFoundHidden:true
     });
 
     init(that,e)
@@ -389,7 +396,9 @@ function init(_this,e){
         console.log("result success ===", res);
         if (res.data.code == 0) {
 
+          let listArr = res.data.data.data;
           if(_this.data.activeIndex == 0){
+
             _this.setData({
               article:  res.data.data.data,
               fileUrl: res.data.data.fileUrl
@@ -415,6 +424,18 @@ function init(_this,e){
             _this.setData({
               article3:  res.data.data.data,
               fileUrl: res.data.data.fileUrl
+            })
+          }
+
+          if(listArr.length>0){
+            _this.setData({
+              loadingHidden:true,
+              notFoundHidden:true
+            })
+          }else{
+            _this.setData({
+              loadingHidden:true,
+              notFoundHidden:false
             })
           }
 

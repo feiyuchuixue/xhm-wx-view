@@ -26,7 +26,7 @@
                     <view class="wxSearchMindKeyItem" bindtap="wxSearchKeyTap" data-id="{{item.id}}" data-key="{{item.id}}">{{item.articleTopics + item.articleTitle}} </view>
                 </block>
                 <view  wx:if="{{searchValue.length > 0}}">
-                    <view class="wxSearchMindKeyItem"  wx:if="{{searchValue.length > 0}}"  style="color:#b3b3b3;font-size:11px;"><text>没有找到搜索记录～</text></view>
+                    <view class="wxSearchMindKeyItem"  wx:if="{{searchValue.length > 0}}"  style="color:#b3b3b3;font-size:30rpx;"><text>没有找到搜索记录～</text></view>
 
                 </view>
             </view>

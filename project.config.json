@@ -12,6 +12,7 @@
 		"newFeature": true,
 		"nodeModules": false,
 		"autoAudits": false,
+		"uglifyFileName": true,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,

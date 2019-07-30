@@ -255,3 +255,25 @@ page{
     width: 95%;
     height: 5rpx;
 }
+
+.input-title{
+    width: 100%;
+}
+.first{
+    font-size:16px;
+    color: #b3b3b3;
+}
+.noFirst{
+    font-size:16px;
+    color: #000;
+}
+
+.content_input_counter {
+    color:#d4d0d0;
+    font-size:30rpx;
+}
+
+.title_input_error_counter {
+    font-size:30rpx;
+    color:#ce2f2f;
+}

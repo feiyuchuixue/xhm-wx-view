@@ -22,7 +22,9 @@ Page({
 
     articleLike: [],
     fileUrlLike: '',
-    userInfoLike:{}
+    userInfoLike:{},
+    loadingHidden:false,
+    notFoundHidden:true
 
 
 
@@ -94,7 +96,9 @@ Page({
     bindchange: function (e) {
   const that = this;
   that.setData({
-    currentData: e.detail.current
+    currentData: e.detail.current,
+    loadingHidden:false,
+    notFoundHidden:true
   })
 },
 //点击切换，滑块index赋值
@@ -108,6 +112,8 @@ checkCurrent: function (e) {
     articleLike: [],
     pageIndex:0,
     pageLikeIndex: 1,
+    loadingHidden:false,
+    notFoundHidden:true
   })
 
   if(e.target.dataset.current == 1){
@@ -148,6 +154,8 @@ checkCurrent: function (e) {
       allloaded: false,
       pageIndex:0,
       pageLimit:10,
+      loadingHidden:false,
+      notFoundHidden:true
 
     })
     //要延时执行的代码
@@ -239,10 +247,24 @@ checkCurrent: function (e) {
             console.log("result success ===", res);
             if (res.data.code == 0) {
               let article = res.data.data.articleList;
+
+
+
               let newList = [];
 
               if(index && index == 'refresh'){
                 newList =article;
+                if(article.length>0){
+                  _this.setData({
+                    loadingHidden:true,
+                    notFoundHidden:true
+                  })
+                }else{
+                  _this.setData({
+                    loadingHidden:true,
+                    notFoundHidden:false
+                  })
+                }
               }else{
                 newList = _this.data.articleList.concat(article)
               }
@@ -313,6 +335,17 @@ checkCurrent: function (e) {
 
               if(index && index == 'refresh'){
                 newList =article;
+                if(article.length>0){
+                  _this.setData({
+                    loadingHidden:true,
+                    notFoundHidden:true
+                  })
+                }else{
+                  _this.setData({
+                    loadingHidden:true,
+                    notFoundHidden:false
+                  })
+                }
               }else{
                 newList = _this.data.articleLike.concat(article)
               }
@@ -398,6 +431,19 @@ checkCurrent: function (e) {
         if (res.data.code == 0) {
 
           let article = res.data.data.data;
+
+          if(article.length>0){
+            _this.setData({
+              loadingHidden:true,
+              notFoundHidden:true
+            })
+          }else{
+            _this.setData({
+              loadingHidden:true,
+              notFoundHidden:false
+            })
+          }
+
 
           let newList = _this.data.articleLike.concat(article)
 

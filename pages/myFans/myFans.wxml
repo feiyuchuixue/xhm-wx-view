@@ -26,8 +26,12 @@
         </block>
     </view>
     <view wx:else>
-        <view style="display:flex; justify-content:center; align-items:center;">
-            <image   style="width: 256rpx;height: 360rpx;  " src="../../image/4042.png"></image>
+        <view style="margin-top:100rpx;display:flex; justify-content:center; align-items:center;" >
+            <image   hidden="{{loadingHidden}}" style="width: 32rpx;height: 32rpx;  " src="../../image/loading.gif"></image>
+        </view>
+
+        <view style="display:flex; justify-content:center; align-items:center;"  >
+            <image  hidden="{{notFoundHidden}}"  style="width: 160rpx;height: 250rpx;  " src="../../image/4042.png"></image>
         </view>
     </view>
 

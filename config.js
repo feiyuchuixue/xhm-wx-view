@@ -4,7 +4,7 @@
 
 // 此处主机域名修改成腾讯云解决方案分配的域名
 var host = 'https://server.momjia.com/xhm/';
-var hosttest = 'http://192.168.1.200:8081/xhm/';
+var hosttest = 'https://server.momjia.com/xhm';
 
 
 

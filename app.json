@@ -28,12 +28,12 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#FFFFFF",
-    "navigationBarTitleText": "听会儿中医demo",
+    "navigationBarTitleText": "家乐说",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "color": "#000",
-    "selectedColor": "#1AAD19",
+    "selectedColor": "#f00",
     "backgroundColor": "#FFFFFF",
     "borderStyle": "white",
     "position": "bottom",

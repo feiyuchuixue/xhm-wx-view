@@ -11,47 +11,59 @@ App({
     host:"https://server.momjia.com/xhm/",
     os:'android'
   },
-  //设置用户登录状态
-  navigateToLogin: false,
-  onLaunch: function () {
+  onLaunch: function() {
     this.queryOpenId();
-    this.checkLoginStatus()
-    this.getOs();
+
   },
-  checkLoginStatus() { // 检测登录状态
-    if (this.globalData.userInfo==null){
-      this.goLoginPageTimeOut()
-    }
-  },
-  queryOpenId: function () {
+
+  queryOpenId: function() {
     var that = this;
     wx.login({
-      success: function (e) {
+      success: function(e) {
         if (e.code) {
-          var d = that.globalData;
-          var l = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + d.appid + '&secret=' + d.secret + '&js_code=' + e.code + '&grant_type=authorization_code'
           wx.request({
-            url: l,
-            data: {},
-            method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-            // header: {}, // 设置请求的 header
-            success: function (res) {
-              console.log(res)
-              that.globalData.openid = res.data.openid;
-              that.globalData.unionid= '11111111111111111';
+            url: that.globalData.pathURL + 'xhm/getOpenId/getOpenId',
+            data: {
+              code: e.code
+            },
+            method: 'POST',
+            header: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            success: function(res) {
+              if (res.data.recode == 0) {
+                that.globalData.openid = res.data.result.openId;
+                that.getUserInfo();
+              }
             }
           });
         }
       }
     })
   },
-  goLoginPageTimeOut: function () {
-    if (this.navigateToLogin) {
-      return
-    }
-    this.navigateToLogin = true
-    setTimeout(function () {
-      //open
+  getUserInfo: function() {
+    var that = this;
+    wx.request({
+      url: that.globalData.pathURL + 'xhm/userCon/getUserByOpenId',
+      data: {
+        userOpenId: that.globalData.openid
+      },
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      success: function(res) {
+        if (res.data.recode == 0) {
+          console.log(res)
+          that.globalData.userInfo = res.data.result;
+        } else {
+          that.goLoginPageTimeOut();
+        }
+      }
+    });
+  },
+  goLoginPageTimeOut: function() {
+    setTimeout(function() {
       wx.navigateTo({
         url: "/pages/authorize/authorize"
       })

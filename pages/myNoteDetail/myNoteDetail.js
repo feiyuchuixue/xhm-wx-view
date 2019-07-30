@@ -41,7 +41,9 @@ Page({
         comments:[],
         introduce:[],
         isLike:true,
-        globalUserId:''
+        globalUserId:'',
+        loadingHidden:false,
+        showRealHtml:true
     },
 
     /**
@@ -66,7 +68,7 @@ Page({
             maxHeight:maxHeight
         })
         this.init(options.aid)
-        this.initComment()
+
 
     },
 
@@ -194,6 +196,8 @@ Page({
                     }
 
 
+                    _this.initComment()
+
                 }
             }
 
@@ -230,7 +234,9 @@ Page({
 
 
                     _this.setData({
-                        comments:res.data.data.data
+                        comments:res.data.data.data,
+                        loadingHidden:true,
+                        showRealHtml:false
                     })
 
 
@@ -511,7 +517,7 @@ Page({
         console.log("关注e===",e);
         //临时userId
         let userId =app.globalData.userInfo.id;
-        let guanzhuUserId = e.target.dataset.id;
+        let guanzhuUserId = e.currentTarget.dataset.id;
 
         wx.request({
             url: app.globalData.host + 'userCollection/addCollection',

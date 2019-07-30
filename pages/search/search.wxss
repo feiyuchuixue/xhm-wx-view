@@ -32,9 +32,9 @@
 }
 
 .weui-search-bar__input {
-    height: 28px;
-    line-height: 28px;
-    font-size: 14px;
+    height: 70rpx;
+    line-height: 70rpx;
+    font-size: 30rpx;
 }
 .weui-search-bar__cancel-btn {
     margin-left: 10px;
@@ -46,13 +46,13 @@
 .weui-icon-search_in-box {
     position: absolute;
     left: 10px;
-    top: 7px;
+    top: 10px;
 }
 
 /** 整个区域 */
 .wxSearch{
     position: absolute;
-    top: 43px;
+    top: 50px;
     left: 0;
     width: 100%;
     height: 100%;
@@ -68,10 +68,10 @@
 
 /** 提示样式 */
 .wxSearchMindKeyItem{
-    padding: 10px 5px 10px 15px;
+    padding: 20px 5px 10px 15px;
     margin-left: 10px;
     border-bottom: 1px solid #eee;
     display: flex;
-    font-size: 13px;
+    font-size: 30rpx;
 }
 

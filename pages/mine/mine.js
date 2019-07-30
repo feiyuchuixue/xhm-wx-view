@@ -17,7 +17,12 @@ Page({
         userInfo:{},
         articleLike: [],
         fileUrlLike: '',
-        userInfoLike:{}
+        userInfoLike:{},
+        loadingHidden:false,
+        notFoundHidden:true,
+        firstLoading:false,
+        showRealHtml:true
+
     },
     /**
      * 生命周期函数--监听页面加载
@@ -46,6 +51,9 @@ Page({
             userInfo:{},
             pageIndex: 1,
             pageLikeIndex: 1,
+            loadingHidden:false,
+            notFoundHidden:true,
+            userInfo:{},
 
         })
 
@@ -60,8 +68,11 @@ Page({
     bindchange: function (e) {
         const that = this;
         that.setData({
-            currentData: e.detail.current
+            currentData: e.detail.current,
+            loadingHidden:false,
+            notFoundHidden:true
         })
+
     },
     //点击切换，滑块index赋值
     checkCurrent: function (e) {
@@ -74,6 +85,8 @@ Page({
             articleLike: [],
             pageIndex: 1,
             pageLikeIndex: 1,
+            loadingHidden:false,
+            notFoundHidden:true
         })
 
 
@@ -118,8 +131,8 @@ Page({
             data: {
                 uid: app.globalData.userInfo.id,
                // uid:'6cd033dfe2a04aa7bb420543a598c34b',
-                start: _this.data.pageIndex,
-                limit: _this.data.pageLimit
+                start: 1,
+                limit: 10
             },
             method: "POST",
             header: {
@@ -139,30 +152,26 @@ Page({
                 if (res.data.recode == 0) {
 
                     let article = res.data.result.data.list;
+                    if(article.length>0){
+                        _this.setData({
+                            loadingHidden:true,
+                            notFoundHidden:true
+                        })
+                    }else{
+                        _this.setData({
+                            loadingHidden:true,
+                            notFoundHidden:false
+                        })
+                    }
 
                     let newList = _this.data.article.concat(article)
                     _this.setData({
                         article: newList,
                         fileUrl: res.data.result.fileUrl,
-                        userInfo:res.data.result.user
+                        userInfo:res.data.result.user,
+                        firstLoading:true,
+                        showRealHtml:false
                     })
-
-                    if(article.length>0){
-                        _this.setData({
-                            pageIndex: _this.data.pageIndex + 1,
-                        })
-                    }
-
-
-
-                    if(res.data.result.user.userLogo.indexOf('http')<0){
-                        let changeObj='userInfo.userLogo'
-                        _this.setData({
-                           [changeObj]:res.data.result.fileUrl + res.data.result.user.userLogo
-                        })
-                    }
-
-
 
 
 
@@ -199,6 +208,19 @@ Page({
                 if (res.data.code == 0) {
 
                     let article = res.data.data.data;
+
+                    if(article.length>0){
+                        _this.setData({
+                            loadingHidden:true,
+                            notFoundHidden:true
+                        })
+                    }else{
+                        _this.setData({
+                            loadingHidden:true,
+                            notFoundHidden:false
+                        })
+                    }
+
                     let newList = _this.data.articleLike.concat(article)
                     _this.setData({
                         articleLike: newList,
@@ -236,6 +258,9 @@ Page({
             pageLimit: 10,
             pageLikeIndex: 0,
             pageLikeLimit: 10,
+            loadingHidden:false,
+            notFoundHidden:true
+
 
         })
             //要延时执行的代码
@@ -306,11 +331,24 @@ Page({
 
                             if(index && index == 'refresh'){
                                 newList =article;
+
+                                if(article.length>0){
+                                    _this.setData({
+                                        loadingHidden:true,
+                                        notFoundHidden:true
+                                    })
+                                }else{
+                                    _this.setData({
+                                        loadingHidden:true,
+                                        notFoundHidden:false
+                                    })
+                                }
+
                             }else{
                                 newList = _this.data.article.concat(article)
                             }
 
-                       /*     if (article.length<=0) {
+                       /*    if (article.length<=0) {
                                 console.log("没有数据来")
                                 _this.setData({
                                     allloaded: true
@@ -376,6 +414,18 @@ Page({
 
                             if(index && index == 'refresh'){
                                 newList =article;
+
+                                if(article.length>0){
+                                    _this.setData({
+                                        loadingHidden:true,
+                                        notFoundHidden:true
+                                    })
+                                }else{
+                                    _this.setData({
+                                        loadingHidden:true,
+                                        notFoundHidden:false
+                                    })
+                                }
                             }else{
                                 newList = _this.data.articleLike.concat(article)
                             }

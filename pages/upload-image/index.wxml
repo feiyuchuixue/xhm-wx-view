@@ -30,7 +30,7 @@
 <view class="optName">
 <view class="text_area_title topics" >
     <input
-            class=""
+            class="input-title"
             placeholder="请输入标题~"
             maxlength="25"
             placeholder-style="color:#b3b3b3;font-size:16px;"
@@ -40,7 +40,7 @@
     ></input>
     <!-- 标题字数限制 -->
     <view
-            style="padding-right: 10rpx" class="{{ titleCount < 25 ? 'content_textarea_counter' : 'title_input_error_counter' }}"
+            style="padding-right: 10rpx" class="{{ titleCount < 25 ? 'content_input_counter' : 'title_input_error_counter' }}"
     >{{titleCount}}/25</view>
 </view>
     </view>
@@ -50,11 +50,11 @@
     <view class="text_area_title topics"   >
 
 
-            <picker class='' style="line-height:16px;width:1000rpx;margin-left: 30rpx" name="sex" range="{{typeArray}}" value="{{typeArray[index]}}"  bindchange="bindPickerChange">
-                <text style="color:#b3b3b3;font-size:16px;margin-left: 25rpx;margin-bottom: 10rpx">
-                    {{typeArray[index]}}
-                </text>
-            </picker>
+        <picker style="width:100%;" name="sex" range="{{typeArray}}" value="{{typeArray[index]}}" bindchange="bindPickerChange">
+            <view class="picker" style="padding: 0 16px;" class="{{typeArray[index] == '~选择栏目~' ? 'first': 'noFirst'}}">
+                {{typeArray[index]}}
+            </view>
+        </picker>
 
 
 

@@ -12,6 +12,8 @@ Page({
     fileUrl:'',
     guanzhuArr:[],
     currentData: 0,
+    loadingHidden:false,
+    showRealHtml:true
 
   },
 
@@ -209,6 +211,18 @@ function init(userId,_this) {
     success: function (res) {
       console.log("result success ===", res);
       if (res.data.code == 0) {
+        if(res.data.data.data.length>0){
+          _this.setData({
+            loadingHidden:true,
+            showRealHtml:true
+          })
+        }else{
+          _this.setData({
+            loadingHidden:true,
+            showRealHtml:false
+          })
+        }
+
         _this.setData({
           fileUrl: res.data.data.fileUrl,
           guanzhuArr:res.data.data.data

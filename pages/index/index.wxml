@@ -1,4 +1,4 @@
-<!--mine.wxml-->
+<!--pages/index/index.wxml-->
 <view style="position: fixed; background: #fff; z-index: 500;width: 100%;" bindtap="handleMainSearchInput">
     <view style="position: relative;width: 90%;border: 1px solid #dedede; border-radius: 30rpx; margin: 5rpx 5%; background: #efefef;">
         <icon style="margin: 10rpx 0;position: absolute;left: 25rpx; width: 20px;height: 20px; text-align: center;" size='20' type='search'></icon>
@@ -20,46 +20,51 @@
     <scroll-view class="scl" scroll-y bindscrolltolower="loadMore0">
         <!--推荐-->
       <component-scroll  pulldownDistance="100" refreshPulldownText="下拉刷新" refreshUndoText="松开刷新" refreshLoadingText="刷新中~" loadmoreLoadingText="数据加载中。。" loadmoreAllloadedText="没有更多数据了"   isNeedLoadmore bind:_loadmore="loadmore" bind:_refresh="refresh" allloaded="{{allloaded}}" isEmpty="{{!loading &&article.length<=0}}">
-        <view class="{{article.length>0?'listBox':''}}">
             <view wx:if="{{article.length>0}}">
-                <view wx:for="{{article}}" class="view-parent" wx:key="{{key}}">
-                    <view class="view-article"  data-id="{{item.id}}" value="{{item.id}}" bindtap="showArticleDetail">
-                        <view class='a_img'>
-                            <view wx:if="{{item.articleLabel=='video'}}">
-                                <image class="showStatus2"  style="width: 48rpx;height: 48rpx" src="../../image/video3.png"></image>
-                            </view>
-
-                            <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true' ></image>
-                        </view>
-                        <view class='a_ttl'>
-                            <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
-                            <text class="title" style="color: #999;">{{item.articleTitle}}</text>
-                        </view>
-                        <view class='a_note'>
-                            <view class='a_head'>
-                                <image src="{{fileUrl + item.articleCreateUserLogo}}" mode='aspectFill' lazy-load='true' ></image>:
-                            </view>
-                            <view class='a_name'>
-                                <text  style="color: #999;">{{item.articleCreateUserName}}</text>
-                            </view>
-                            <view class='a_read'>
-                                <view class="shoucang">
-                                    <image  style="width: 48rpx;height: 48rpx;" src="../../image/naiping.png"></image>
+                <view class="listBox">
+                    <view wx:for="{{article}}" class="view-parent" wx:key="{{key}}">
+                        <view class="view-article"  data-id="{{item.id}}" value="{{item.id}}" bindtap="showArticleDetail">
+                            <view class='a_img'>
+                                <view wx:if="{{item.articleLabel=='video'}}">
+                                    <image class="showStatus2"  style="width: 48rpx;height: 48rpx" src="../../image/video3.png"></image>
                                 </view>
-                                <text style="color: #999;">{{item.articleTotalLike}}</text>
+
+                                <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true' ></image>
+                            </view>
+                            <view class='a_ttl'>
+                                <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
+                                <text class="title" style="color: #999;">{{item.articleTitle}}</text>
+                            </view>
+                            <view class='a_note'>
+                                <view class='a_head'>
+                                    <image src="{{fileUrl + item.articleCreateUserLogo}}" mode='aspectFill' lazy-load='true' ></image>:
+                                </view>
+                                <view class='a_name'>
+                                    <text  style="color: #999;">{{item.articleCreateUserName}}</text>
+                                </view>
+                                <view class='a_read'>
+                                    <view class="shoucang">
+                                        <image  style="width: 48rpx;height: 48rpx;" src="../../image/naiping.png"></image>
+                                    </view>
+                                    <text style="color: #999;">{{item.articleTotalLike}}</text>
+                                </view>
                             </view>
                         </view>
                     </view>
                 </view>
 
             </view>
-            <view wx:else>
-                <view style="display:flex; justify-content:center; align-items:center;">
-                    <image   style="width: 256rpx;height: 360rpx;  " src="../../image/4042.png"></image>
-                </view>
-            </view>
+          <view wx:else>
+              <view style="margin-top:100rpx;display:flex; justify-content:center; align-items:center;" >
+                  <image   hidden="{{loadingHidden}}" style="width: 32rpx;height: 32rpx;  " src="../../image/loading.gif"></image>
+              </view>
 
-        </view>
+              <view style="display:flex; justify-content:center; align-items:center;"  >
+                  <image  hidden="{{notFoundHidden}}"  style="width: 160rpx;height: 250rpx;  " src="../../image/4042.png"></image>
+              </view>
+          </view>
+
+
       </component-scroll>
 
 
@@ -73,56 +78,61 @@
                 <view class='banner'>
                   <image src='/image/dl.png'></image>
                 </view>-->
-          <view class="{{article1.length>0?'listBox':''}}">
+
             <view wx:if="{{article1.length}}">
-                <view wx:for="{{article1}}" class="view-parent" wx:key="{{key}}">
-                    <view class="view-article"  data-id="{{item.id}}" value="{{item.id}}" bindtap="showArticleDetail">
+                <view class="listBox">
+                    <view wx:for="{{article1}}" class="view-parent" wx:key="{{key}}">
+                        <view class="view-article"  data-id="{{item.id}}" value="{{item.id}}" bindtap="showArticleDetail">
 
-                        <view class='a_img'>
-                            <view wx:if="{{item.articleLabel=='video'}}">
-                                <image class="showStatus2"  style="width: 48rpx;height: 48rpx" src="../../image/video3.png"></image>
-                            </view>
-                            <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true' ></image>
-                        </view>
-
-                        <view class='a_ttl'>
-                            <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
-                            <text class="title" style="color: #999;">{{item.articleTitle}}</text>
-                        </view>
-
-                        <view class='a_note'>
-
-                            <view class='a_head'>
-                                <image src="{{fileUrl + item.articleCreateUserLogo}}" mode='aspectFill' lazy-load='true' ></image>:
-                            </view>
-
-                            <view class='a_name'>
-                                <text  style="color: #999;">{{item.articleCreateUserName}}</text>
-                            </view>
-
-                            <view class='a_read'>
-                                <view class="shoucang">
-                                    <image  style="width: 48rpx;height: 48rpx;" src="../../image/naiping.png"></image>
+                            <view class='a_img'>
+                                <view wx:if="{{item.articleLabel=='video'}}">
+                                    <image class="showStatus2"  style="width: 48rpx;height: 48rpx" src="../../image/video3.png"></image>
                                 </view>
-                                <text style="color: #999;">{{item.articleTotalLike}}</text>
+                                <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true' ></image>
+                            </view>
+
+                            <view class='a_ttl'>
+                                <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
+                                <text class="title" style="color: #999;">{{item.articleTitle}}</text>
+                            </view>
+
+                            <view class='a_note'>
+
+                                <view class='a_head'>
+                                    <image src="{{fileUrl + item.articleCreateUserLogo}}" mode='aspectFill' lazy-load='true' ></image>:
+                                </view>
+
+                                <view class='a_name'>
+                                    <text  style="color: #999;">{{item.articleCreateUserName}}</text>
+                                </view>
+
+                                <view class='a_read'>
+                                    <view class="shoucang">
+                                        <image  style="width: 48rpx;height: 48rpx;" src="../../image/naiping.png"></image>
+                                    </view>
+                                    <text style="color: #999;">{{item.articleTotalLike}}</text>
+                                </view>
+
                             </view>
 
                         </view>
-
                     </view>
                 </view>
 
 
             </view>
-            <view wx:else>
-                <view style="display:flex; justify-content:center; align-items:center;">
-                    <image   style="width: 256rpx;height: 360rpx;  " src="../../image/4042.png"></image>
-                </view>
-            </view>
+          <view wx:else>
+              <view style="margin-top:100rpx;display:flex; justify-content:center; align-items:center;" >
+                  <image   hidden="{{loadingHidden}}" style="width: 32rpx;height: 32rpx;  " src="../../image/loading.gif"></image>
+              </view>
+
+              <view style="display:flex; justify-content:center; align-items:center;"  >
+                  <image  hidden="{{notFoundHidden}}"  style="width: 160rpx;height: 250rpx;  " src="../../image/4042.png"></image>
+              </view>
+          </view>
 
 
 
-        </view>
       </component-scroll>
 
 
@@ -136,53 +146,53 @@
                 <view class='banner'>
                   <image src='/image/dl.png'></image>
                 </view>-->
-        <view class="{{article2.length>0?'listBox':''}}">
             <view wx:if="{{article2.length>0}}">
-                <view wx:for="{{article2}}" class="view-parent" wx:key="{{key}}">
-                    <view class="view-article"  data-id="{{item.id}}" value="{{item.id}}" bindtap="showArticleDetail">
-
-
-
-                        <view class='a_img'>
-                            <view wx:if="{{item.articleLabel=='video'}}">
-                                <image class="showStatus2"  style="width: 48rpx;height: 48rpx" src="../../image/video3.png"></image>
-                            </view>
-                            <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true' ></image>
-                        </view>
-                        <view class='a_ttl'>
-                            <!-- <text>{{item.articleTopics + item.articleTitle}}</text> -->
-                            <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
-                            <text class="title" style="color: #999;">{{item.articleTitle}}</text>
-                        </view>
-                        <view class='a_note'>
-
-                            <view class='a_head'>
-                                <image src="{{fileUrl + item.articleCreateUserLogo}}" mode='aspectFill' lazy-load='true' ></image>:
-                            </view>
-                            <view class='a_name'>
-                                <text  style="color: #999;">{{item.articleCreateUserName}}</text>
-                            </view>
-                            <view class='a_read'>
-                                <view class="shoucang">
-                                    <image  style="width: 48rpx;height: 48rpx;" src="../../image/naiping.png"></image>
+                <view class="listBox">
+                    <view wx:for="{{article2}}" class="view-parent" wx:key="{{key}}">
+                        <view class="view-article"  data-id="{{item.id}}" value="{{item.id}}" bindtap="showArticleDetail">
+                            <view class='a_img'>
+                                <view wx:if="{{item.articleLabel=='video'}}">
+                                    <image class="showStatus2"  style="width: 48rpx;height: 48rpx" src="../../image/video3.png"></image>
                                 </view>
-                                <text style="color: #999;">{{item.articleTotalLike}}</text>
+                                <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true' ></image>
                             </view>
+                            <view class='a_ttl'>
+                                <!-- <text>{{item.articleTopics + item.articleTitle}}</text> -->
+                                <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
+                                <text class="title" style="color: #999;">{{item.articleTitle}}</text>
+                            </view>
+                            <view class='a_note'>
 
+                                <view class='a_head'>
+                                    <image src="{{fileUrl + item.articleCreateUserLogo}}" mode='aspectFill' lazy-load='true' ></image>:
+                                </view>
+                                <view class='a_name'>
+                                    <text  style="color: #999;">{{item.articleCreateUserName}}</text>
+                                </view>
+                                <view class='a_read'>
+                                    <view class="shoucang">
+                                        <image  style="width: 48rpx;height: 48rpx;" src="../../image/naiping.png"></image>
+                                    </view>
+                                    <text style="color: #999;">{{item.articleTotalLike}}</text>
+                                </view>
+                            </view>
                         </view>
-
-
                     </view>
                 </view>
 
+
             </view>
             <view wx:else>
-                <view style="display:flex; justify-content:center; align-items:center;">
-                    <image   style="width: 256rpx;height: 360rpx;  " src="../../image/4042.png"></image>
+                <view style="margin-top:100rpx;display:flex; justify-content:center; align-items:center;" >
+                    <image   hidden="{{loadingHidden}}" style="width: 32rpx;height: 32rpx;  " src="../../image/loading.gif"></image>
+                </view>
+
+                <view style="display:flex; justify-content:center; align-items:center;"  >
+                    <image  hidden="{{notFoundHidden}}"  style="width: 160rpx;height: 250rpx;  " src="../../image/4042.png"></image>
                 </view>
             </view>
 
-        </view>
+
       </component-scroll>
 
     </scroll-view>
@@ -196,7 +206,6 @@
                   <image src='/image/dl.png'></image>
                 </view>-->
         <view class='list'>
-
             <view wx:if="{{article3.length>0}}">
                 <view wx:for="{{article3}}" class="view-parent" wx:key="{{key}}">
                     <view class="view-article"  data-id="{{item.id}}" value="{{item.id}}" bindtap="showArticleDetail">
@@ -228,18 +237,20 @@
                             </view>
                         </view>
                     </view>
-
-
                 </view>
             </view>
             <view wx:else>
-                <view style="display:flex; justify-content:center; align-items:center;">
-                    <image   style="width: 256rpx;height: 360rpx;  " src="../../image/4042.png"></image>
+                <view style="margin-top:100rpx;display:flex; justify-content:center; align-items:center;" >
+                    <image   hidden="{{loadingHidden}}" style="width: 32rpx;height: 32rpx;  " src="../../image/loading.gif"></image>
+                </view>
+
+                <view style="display:flex; justify-content:center; align-items:center;"  >
+                    <image  hidden="{{notFoundHidden}}"  style="width: 160rpx;height: 250rpx;  " src="../../image/4042.png"></image>
                 </view>
             </view>
-
-
         </view>
+
+
       </component-scroll>
 
     </scroll-view>
