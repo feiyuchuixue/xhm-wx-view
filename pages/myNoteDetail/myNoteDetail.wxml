@@ -1,6 +1,4 @@
 <!--pages/myNoteDetail/myNoteDetail.wxml-->
-
-<!--<view class="comment_info">-->
     <view class="guanzhu_head">
         <view  class="guanzhu_head" data-id="{{articleUserInfo.id}}"  bindtap="articleUserShow">
             <image  src="{{fileUrl + articleUserInfo.userLogo}}"></image>
@@ -10,37 +8,11 @@
         <view wx:if="{{globalUserId != articleUserInfo.id}}">
             <text   class="{{ isCollection?'guanzhu_btn_green':'guanzhu_btn' }}"  data-id="{{articleUserInfo.id}}" bindtap="guanzhuClick">{{ isCollection?'已关注':'关注'}}</text>
         </view>
-
-
-
-
     </view>
-<!--</view>-->
-
-<!--<swiper current="{{currentData}}" class='type_swiper' duration="300" bindchange="bindchange">-->
-    <!--<swiper-item hidden="true">
-        <image class='video' src="{{video}}" width="750" height="750" />
-    </swiper-item>
-    <swiper-item>
-        <view class='huandeng'>
-            <swiper indicator-dots="true" autoplay="true" interval="5000">
-                <block wx:for="{{imgUrls}}" wx:key="key">
-                    <swiper-item>
-                        <image src="{{fileUrl + item}}"  bindload="imageLoad" data-index="{{ index }}"
-                               style="width:{{ images[index].width }}rpx; height:{{ images[index].height }}rpx;"  />
-                    </swiper-item>
-                </block>
-            </swiper>
-        </view>
-    </swiper-item>-->
-
 <viev wx:if="{{isMP4}}">
 
 
     <cover-view class='goods_prew_select'>
-      <!--  <cover-view class='tab ' style="color:orange" hidden="{{orangeHidden}}" data-current="0" bindtap='checkCurrent'>审核中</cover-view>
-        <cover-view class='tab ' style="color:green" hidden="{{greenHidden}}" data-current="1" bindtap='checkCurrent'>审核通过</cover-view>
-        <cover-view class='tab ' style="color:red" hidden="{{redHidden}}" data-current="2" bindtap='checkCurrent'>审核失败</cover-view>-->
     </cover-view>
 <view class="section"  style="margin-top: 20rpx">
         <video class= "videoCss" src='{{fileUrl + imgUrls[0]}}'  objectFit='cover' show-center-play-btn = true  controls  danmu-btn page-gesture = "true" enable-progress-gesture = true></video>
@@ -51,9 +23,7 @@
 <view wx:else >
 
     <cover-view class='goods_prew_select'>
-     <!--   <cover-view class='tab ' style="color:orange" hidden="{{orangeHidden}}" data-current="0" bindtap='checkCurrent'>审核中</cover-view>
-        <cover-view class='tab ' style="color:green" hidden="{{greenHidden}}" data-current="1" bindtap='checkCurrent'>审核通过</cover-view>
-        <cover-view class='tab ' style="color:red" hidden="{{redHidden}}" data-current="2" bindtap='checkCurrent'>审核失败</cover-view>-->
+
     </cover-view>
     <view class='images' style="margin-top: 20rpx">
         <swiper class='detail-imgs' indicator-dots="{{true}}" autoplay='{{true}}' interval="{{5000}}" duration="{{500}}" circular="{{true}}" bindchange='bindchange' style="height:{{maxHeight}}rpx;">
@@ -87,14 +57,9 @@
         <text style="float: left;">
             {{articleCreateTime}}
         </text>
-        <image class="emoji" src="{{isLike ?'../../image/xihuan1_32.png':'../../image/xihuan_32.png'}}" height="24" width="24"/>
+        <image class="emoji" src="{{isLike ?'../../image/shoucang.png':'../../image/shoucang_1.png'}}" height="32" width="32"/>
     </view>
 
-<!--    <view class="line goods_info">
-        <text>
-            共 {{commentCount}} 条评论
-        </text>
-    </view>-->
 
     <view wx:if="{{comments.length>0}}" class="photo_info_box">
         <!-- 图文评论列表 -->

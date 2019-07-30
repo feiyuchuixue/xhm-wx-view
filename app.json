@@ -44,17 +44,11 @@
         "iconPath": "image/a1.png",
         "selectedIconPath": "image/a2.png"
       },
-      {
-        "pagePath": "pages/goods-mall/goods-mall",
-        "text": "商城",
-        "iconPath": "image/b1.png",
-        "selectedIconPath": "image/b2.png"
-      },
-      {
+     {
         "pagePath": "pages/mine/mine",
         "text": "我的",
-        "iconPath": "image/b1.png",
-        "selectedIconPath": "image/b2.png"
+        "iconPath": "image/c1.png",
+        "selectedIconPath": "image/c2.png"
       }
     ]
   },

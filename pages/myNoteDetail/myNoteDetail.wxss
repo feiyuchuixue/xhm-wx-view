@@ -640,8 +640,8 @@ button::after {
     width: 100%;
 }
 .guanzhu_btn{
-    width:100rpx;
-    height:20rpx;
+    width:120rpx;
+    height:24rpx;
     background-color: white;
     color: #f44336;
     border: 1px solid #f44336;
@@ -652,8 +652,8 @@ button::after {
 
 }
 .guanzhu_btn_green{
-    width:100rpx;
-    height:20rpx;
+    width:120rpx;
+    height:24rpx;
     background-color: white;
     color: green;
     border: 1px solid green;

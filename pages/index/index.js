@@ -229,11 +229,6 @@ Page({
         startLike=  _this.data.pageLikeIndex,
         startLimit= _this.data.pageLikeLimit
       }
-
-
-        console.log("切换 article ===",_this.data.article);
-
-
         wx.request({
           url: app.globalData.host + 'articleCon/mainList',
           data: {
@@ -359,37 +354,7 @@ Page({
     })
   },
 
-  imageLoad: function (e) {
-    var index = e.currentTarget.id;
-    //获取图片的原始宽度和高度
-    let originalWidth = e.detail.width;
-    let originalHeight = e.detail.height;
-    var mariginTopSize = 0;
-    var mariginLeftSize = 0;
-    let imageSize = ImgUtil.imageZoomWidthUtil(originalWidth, originalHeight, 64);
-    //按高度180缩放
 
-    if (imageSize.imageWidth < this.data.screenWidth) {
-      imageSize = ImgUtil.imageZoomHeightUtil(originalWidth, originalHeight, this.data.screenWidth);
-      mariginTopSize = -(imageSize.imageHeight - 0) / 2;
-    } else {
-      mariginLeftSize = -(imageSize.imageWidth - this.data.screenWidth) / 2;
-    }
-    var mariginLeft = this.data.mariginLeft;
-    var imageWidth = this.data.imageWidth;
-    var imageHeight = this.data.imageHeight;
-    var mariginTop = this.data.mariginTop;
-    mariginLeft[index] = mariginLeftSize
-    imageWidth[index] = imageSize.imageWidth
-    imageHeight[index] = imageSize.imageHeight
-    mariginTop[index] = mariginTopSize
-    this.setData({
-      mariginLeft: mariginLeft,
-      mariginTop: mariginTop,
-      imageWidth: imageWidth,
-      imageHeight: imageHeight,
-    });
-  }
 
 
 })

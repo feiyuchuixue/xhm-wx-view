@@ -10,15 +10,11 @@ Page({
         pageLikeIndex: 0,
         pageLikeLimit: 10,
         currentData: 0,
-
-
         loading: false,
         allloaded: false,
-
         article: [],
         fileUrl: '',
         userInfo:{},
-
         articleLike: [],
         fileUrlLike: '',
         userInfoLike:{}

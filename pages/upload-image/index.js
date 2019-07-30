@@ -238,9 +238,9 @@ e
 
       if(upImgArr && upImgArr.length>0){
 
-          upData.formData={type:"img",uuid:uuid,num:0};
+          upData.formData={type:"img",uuid:uuid,num:0,os: app.globalData.os};
       } else {
-          upData.formData={type:"video",uuid:uuid,num:0};
+          upData.formData={type:"video",uuid:uuid,num:0,os: app.globalData.os};
       }
 
       upData['url'] = config.service.upFiles;
@@ -339,7 +339,8 @@ e
                 articleTopics:_this.data.topics,
                 userId:app.globalData.userInfo.id,
                 articleLogo:articleLogo,
-                articlePicture:articlePicture
+                articlePicture:articlePicture,
+                articleLabel:_this.data.upFilesType
             },
             method: "POST",
             header: {

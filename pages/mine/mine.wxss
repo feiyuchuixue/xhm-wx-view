@@ -167,7 +167,7 @@ button::after {
 .swiper {
   width: 100%;
   background: #eee;
-  position: absolute;
+  position: fixed;
   height: auto;
   top: 380rpx;
   bottom: 0rpx;
@@ -181,7 +181,6 @@ button::after {
 .swiper_con .listBox{
   display: flex;
   flex-wrap: wrap;
-  padding: 0 18rpx
 }
 
 /**mine.wxss**/
@@ -249,6 +248,8 @@ button::after {
 }
 .view-parent {
   display: inline-block;
+  width: 48%;
+  margin: 8rpx 1%;
 }
 
 .view-item {
@@ -270,9 +271,7 @@ button::after {
 }
 
 .view-article {
-  width: 345rpx;
-  height: 640rpx;
-  margin:8rpx 7.5rpx;
+  width: 100%;
   overflow: hidden;
   border-radius: 10rpx;
   background: #fff;
@@ -280,12 +279,11 @@ button::after {
 }
 
 .view-article .a_img {
-  width: 345rpx;
-  height: 460rpx;
-  text-align: center;
-  overflow: hidden;
-  border-radius: 10rpx;
-}
+    text-align: center;
+    overflow: hidden;
+    border-radius: 10rpx;
+    position: relative;
+  }
 
 
 .a_note {
@@ -340,8 +338,8 @@ button::after {
   align-items: center;
 }
 .a_read .shoucang{
-  width: 25rpx;
-  height: 25rpx;
+  width: 48rpx;
+  height: 48rpx;
 }
 .a_read .shoucang image{
   width: 100%;
@@ -398,25 +396,34 @@ button::after {
 
 .showStatus {
   background:#fff;
-  float: left;
   width:100rpx;
   height:40rpx;
   display:block;
   text-align: center;
-
   font-size:20rpx;
   line-height:40rpx;
   border-radius:20rpx;
+  box-shadow:0 0 5rpx #bbb;
+  z-index: 2;
   margin-top: 20rpx;
   margin-left: 20rpx;
-
-  box-shadow:0 0 5rpx #bbb;
   position: absolute;
-  /*top:50%;
-  left:32%;*/
-  z-index: 2;
-/*  width: 45%;*/
 }
+
+
+.showStatus2 {
+  display:block;
+  text-align: center;
+  font-size:20rpx;
+  line-height:40rpx;
+  border-radius:20rpx;
+  top: 20rpx;
+  right: 20rpx;
+  box-shadow:0 0 5rpx #bbb;
+  z-index: 2;
+  position: absolute;
+}
+
 
 .view-article .a_ttl {
   width: 325rpx;

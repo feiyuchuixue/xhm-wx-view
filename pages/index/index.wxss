@@ -63,6 +63,8 @@
 }
 .view-parent {
   display: inline-block;
+  width: 48%;
+  margin: 8rpx 1%;
 }
 
 .view-item {
@@ -128,7 +130,8 @@ page {
 
 .weui-navbar {
   position: fixed;
-  height: 7%;
+  top: 70rpx;
+  height: 60rpx;
   z-index: 500;
   display: flex;
   width: 100%;
@@ -142,8 +145,11 @@ page {
 }
 
 .swiper-box {
-  height: 93%;
   width: 100%;
+  position: absolute;
+  height: auto;
+  top: 130rpx;
+  bottom: 0rpx;
 }
 
 .scl {
@@ -183,15 +189,12 @@ page {
 }
 
 .view-article {
-  width: 345rpx;
-  height: 640rpx;
-  margin:8rpx 7.5rpx;
+  width: 100%;
   overflow: hidden;
   border-radius: 10rpx;
   background: #fff;
   box-shadow: 0 0 10rpx #bbb;
 }
-
 
 .view-article .a_ttl {
   width: 325rpx;
@@ -238,8 +241,8 @@ page {
   align-items: center;
 }
 .a_read .shoucang{
-  width: 25rpx;
-  height: 25rpx;
+  width: 48rpx;
+  height: 48rpx;
 }
 .a_read .shoucang image{
   width: 100%;
@@ -250,5 +253,34 @@ page {
 .a_read text{
   margin-left: 10rpx;
 }
+
+
+.listBox{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.view-article .a_img {
+  text-align: center;
+  overflow: hidden;
+  border-radius: 10rpx;
+  position: relative;
+}
+
+.showStatus2 {
+  display:block;
+  text-align: center;
+  font-size:20rpx;
+  line-height:40rpx;
+  border-radius:20rpx;
+  top: 20rpx;
+  right: 20rpx;
+  box-shadow:0 0 5rpx #bbb;
+  z-index: 2;
+  position: absolute;
+}
+
+
+
 
 
