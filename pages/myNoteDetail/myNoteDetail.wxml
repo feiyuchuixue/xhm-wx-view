@@ -11,7 +11,7 @@
 
     <view class="guanzhu_head">
         <view  class="guanzhu_head" data-id="{{articleUserInfo.id}}"  bindtap="articleUserShow">
-            <image  src="{{fileUrl + articleUserInfo.userLogo}}"></image>
+            <image  src="{{ articleUserInfo.userLogo}}"></image>
             <text>{{articleUserInfo.userName}}</text>
         </view>
 
@@ -78,7 +78,7 @@
                     <!-- index < 3 在视频下面只显示三条记录 -->
                     <view>
                         <view style="display: flex;">
-                            <image style="width: 60rpx; height: 60rpx; border-radius: 50%;"  src="{{fileUrl + comment.userLogo}}"></image>
+                            <image style="width: 60rpx; height: 60rpx; border-radius: 50%;"  src="{{  comment.userLogo}}"></image>
                             <text style="height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999; font-size: 26rpx;" >{{comment.userName}}</text>
                         </view>
                     </view>

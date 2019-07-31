@@ -6,7 +6,7 @@ Component({
   properties: {
     pulldownDistance: { // 下拉距离
       type: Number,
-      value: '50'
+      value: '100'
     },
     refreshPulldownText: { // 下拉文字
       type: String,

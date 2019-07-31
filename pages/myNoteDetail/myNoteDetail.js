@@ -196,6 +196,17 @@ Page({
                     }
 
 
+                    let thisLogo = _this.data.articleUserInfo.userLogo;
+                    console.log("thisLogo ===",thisLogo)
+                    let index = "articleUserInfo.userLogo"
+                    if(thisLogo.indexOf('http')<0){
+                        _this.setData({
+                            [index]:_this.data.fileUrl + thisLogo
+                        })
+                    }
+
+
+
                     _this.initComment()
 
                 }
@@ -238,6 +249,19 @@ Page({
                         loadingHidden:true,
                         showRealHtml:false
                     })
+
+
+                    for(let i=0;i<_this.data.comments.length;i++){
+                        let thisLogo = _this.data.comments[i].userLogo;
+                        let index = "comments["+i+"].userLogo"
+                        if(thisLogo.indexOf('http')<0){
+                            _this.setData({
+                                [index]:_this.data.fileUrl + thisLogo
+                            })
+                        }
+
+                    }
+
 
 
                 }
@@ -353,6 +377,18 @@ Page({
                             showMoreCommentTips: '没有更多数据了',
                             hasMoreComment:false
                         })
+
+                    }
+
+
+                    for(let i=0;i<_this.data.comments.length;i++){
+                        let thisLogo = _this.data.comments[i].userLogo;
+                        let index = "comments["+i+"].userLogo"
+                        if(thisLogo.indexOf('http')<0){
+                            _this.setData({
+                                [index]:_this.data.fileUrl + thisLogo
+                            })
+                        }
 
                     }
 

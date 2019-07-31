@@ -42,6 +42,7 @@ App({
     })
   },
   getUserInfo: function() {
+    console.log("调用加载中")
     var that = this;
     wx.request({
       url: that.globalData.pathURL + 'xhm/userCon/getUserByOpenId',
@@ -54,20 +55,25 @@ App({
       },
       success: function(res) {
         if (res.data.recode == 0) {
-          console.log(res)
+          console.log("调用加载1。。。 res =",res)
           that.globalData.userInfo = res.data.result;
         } else {
+          console.log("调用加载2。。。 res =",res)
           that.goLoginPageTimeOut();
         }
       }
     });
   },
+
   goLoginPageTimeOut: function() {
-    setTimeout(function() {
-      wx.navigateTo({
-        url: "/pages/authorize/authorize"
-      })
-    }, 1000)
+    var that = this;
+    if (!that.globalData.userInfo){
+      setTimeout(function() {
+        wx.navigateTo({
+          url: "/pages/authorize/authorize"
+        })
+      }, 1000)
+    }
   },
   getOs:function () {
     let _this =this;

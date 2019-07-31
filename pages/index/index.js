@@ -47,6 +47,9 @@ Page({
     })
   },
   onLoad: function (e) {
+
+   app.queryOpenId();
+
     var that = this;
     wx.getSystemInfo({
       success: function (res) {
@@ -300,6 +303,17 @@ Page({
                   })
                 }
 
+                for(let i=0;i<_this.data.article.length;i++){
+                  let thisLogo = _this.data.article[i].articleCreateUserLogo;
+                  let index = "article["+i+"].articleCreateUserLogo"
+                  if(thisLogo.indexOf('http')<0){
+                    _this.setData({
+                      [index]:_this.data.fileUrl + thisLogo
+                    })
+                  }
+
+                }
+
               }
 
               if(_this.data.activeIndex == 1){
@@ -310,6 +324,18 @@ Page({
                   _this.setData({
                     pageIndex1: _this.data.pageIndex1 +1,
                   })
+                }
+
+
+                for(let i=0;i<_this.data.article1.length;i++){
+                  let thisLogo = _this.data.article1[i].articleCreateUserLogo;
+                  let index = "article1["+i+"].articleCreateUserLogo"
+                  if(thisLogo.indexOf('http')<0){
+                    _this.setData({
+                      [index]:_this.data.fileUrl + thisLogo
+                    })
+                  }
+
                 }
 
               }
@@ -323,6 +349,18 @@ Page({
                     pageIndex2: _this.data.pageIndex2 +1,
                   })
                 }
+
+                for(let i=0;i<_this.data.article2.length;i++){
+                  let thisLogo = _this.data.article2[i].articleCreateUserLogo;
+                  let index = "article2["+i+"].articleCreateUserLogo"
+                  if(thisLogo.indexOf('http')<0){
+                    _this.setData({
+                      [index]:_this.data.fileUrl + thisLogo
+                    })
+                  }
+
+                }
+
               }
 
               if(_this.data.activeIndex == 3){
@@ -335,7 +373,20 @@ Page({
                     pageIndex3: _this.data.pageIndex3 +1,
                   })
                 }
+
+                for(let i=0;i<_this.data.article3.length;i++){
+                  let thisLogo = _this.data.article3[i].articleCreateUserLogo;
+                  let index = "article3["+i+"].articleCreateUserLogo"
+                  if(thisLogo.indexOf('http')<0){
+                    _this.setData({
+                      [index]:_this.data.fileUrl + thisLogo
+                    })
+                  }
+
+                }
+
               }
+
 
               resolve();
 
@@ -403,6 +454,17 @@ function init(_this,e){
               article:  res.data.data.data,
               fileUrl: res.data.data.fileUrl
             })
+
+            for(let i=0;i<_this.data.article.length;i++){
+              let thisLogo = _this.data.article[i].articleCreateUserLogo;
+              let index = "article["+i+"].articleCreateUserLogo"
+              if(thisLogo.indexOf('http')<0){
+                _this.setData({
+                  [index]:_this.data.fileUrl + thisLogo
+                })
+              }
+
+            }
           }
 
           if(_this.data.activeIndex == 1){
@@ -410,6 +472,18 @@ function init(_this,e){
               article1:  res.data.data.data,
               fileUrl: res.data.data.fileUrl
             })
+
+            for(let i=0;i<_this.data.article1.length;i++){
+              let thisLogo = _this.data.article1[i].articleCreateUserLogo;
+              let index = "article1["+i+"].articleCreateUserLogo"
+              if(thisLogo.indexOf('http')<0){
+                _this.setData({
+                  [index]:_this.data.fileUrl + thisLogo
+                })
+              }
+
+            }
+
           }
 
 
@@ -418,6 +492,17 @@ function init(_this,e){
               article2:  res.data.data.data,
               fileUrl: res.data.data.fileUrl
             })
+            for(let i=0;i<_this.data.article2.length;i++){
+              let thisLogo = _this.data.article2[i].articleCreateUserLogo;
+              let index = "article2["+i+"].articleCreateUserLogo"
+              if(thisLogo.indexOf('http')<0){
+                _this.setData({
+                  [index]:_this.data.fileUrl + thisLogo
+                })
+              }
+
+            }
+
           }
 
           if(_this.data.activeIndex == 3){
@@ -425,6 +510,16 @@ function init(_this,e){
               article3:  res.data.data.data,
               fileUrl: res.data.data.fileUrl
             })
+            for(let i=0;i<_this.data.article3.length;i++){
+              let thisLogo = _this.data.article3[i].articleCreateUserLogo;
+              let index = "article3["+i+"].articleCreateUserLogo"
+              if(thisLogo.indexOf('http')<0){
+                _this.setData({
+                  [index]:_this.data.fileUrl + thisLogo
+                })
+              }
+
+            }
           }
 
           if(listArr.length>0){

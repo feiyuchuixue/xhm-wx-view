@@ -205,7 +205,16 @@ Page({
 
           }
 
+          for(let i=0;i<_this.data.commentMore.length;i++){
+            let thisLogo = _this.data.commentMore[i].userLogo;
+            let index = "commentMore["+i+"].userLogo"
+            if(thisLogo.indexOf('http')<0){
+              _this.setData({
+                [index]:_this.data.fileUrl + thisLogo
+              })
+            }
 
+          }
 
 
         }
@@ -328,10 +337,17 @@ function queryCommentById(commentId,_this) {
           fileUrl:res.data.data.fileUrl,
           commentThis:res.data.data.data
         })
-
-
-
       }
+
+        let thisLogo = _this.data.commentThis.userLogo;
+        let index = "commentThis.userLogo"
+        if(thisLogo.indexOf('http')<0){
+          _this.setData({
+            [index]:_this.data.fileUrl + thisLogo
+          })
+        }
+
+
     }
 
   })
@@ -367,9 +383,19 @@ function queryCommentMore(commentId,_this) {
           commentMore:res.data.data.data
         })
 
+      }
 
+      for(let i=0;i<_this.data.commentMore.length;i++){
+        let thisLogo = _this.data.commentMore[i].userLogo;
+        let index = "commentMore["+i+"].userLogo"
+        if(thisLogo.indexOf('http')<0){
+          _this.setData({
+            [index]:_this.data.fileUrl + thisLogo
+          })
+        }
 
       }
+
     }
 
   })

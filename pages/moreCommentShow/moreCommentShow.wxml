@@ -1,7 +1,7 @@
 <!--pages/moreCommentShow/moreCommentShow.wxml-->
 <view>
     <view style="display: flex; padding: 20rpx 50rpx;">
-        <image style="width: 60rpx; height: 60rpx; border-radius: 50%;"  src="{{fileUrl + commentThis.userLogo}}"></image>
+        <image style="width: 60rpx; height: 60rpx; border-radius: 50%;"  src="{{commentThis.userLogo}}"></image>
         <text style="height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999; font-size: 26rpx;" >{{commentThis.userName}}</text>
         <text style=" height: 20rpx; line-height: 20rpx; margin-top: 14rpx; margin-left: 20rpx; font-size: 22rpx; padding: 6rpx 6rpx; display: block; color: #999; border: 1px solid #999; border-radius: 10rpx; " >楼主</text>
     </view>
@@ -18,7 +18,7 @@
                         <!-- index < 3 在视频下面只显示三条记录 -->
                         <view>
                             <view style="display: flex;">
-                                <image style="width: 60rpx; height: 60rpx; border-radius: 50%;"  src="{{fileUrl + comment.userLogo}}"></image>
+                                <image style="width: 60rpx; height: 60rpx; border-radius: 50%;"  src="{{  comment.userLogo}}"></image>
                                 <text style="height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999; font-size: 26rpx;" >{{comment.userName}}</text>
                             </view>
                         </view>

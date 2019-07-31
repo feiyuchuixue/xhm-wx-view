@@ -40,7 +40,6 @@ Page({
             }
         })
 
-        var _this = this;
 
         _this.setData({
             pageIndex: 1,
@@ -173,6 +172,18 @@ Page({
                         showRealHtml:false
                     })
 
+                    for(let i=0;i<_this.data.article.length;i++){
+                        let thisLogo = _this.data.article[i].articleCreateUserLogo;
+                        let index = "article["+i+"].articleCreateUserLogo"
+                        console.log("thisLogo=============",thisLogo)
+                        if(thisLogo.indexOf('http')<0){
+                            _this.setData({
+                                [index]:_this.data.fileUrl + thisLogo
+                            })
+                        }
+
+                    }
+
 
 
                 }
@@ -226,6 +237,19 @@ Page({
                         articleLike: newList,
                         fileUrlLike: res.data.data.fileUrl,
                     })
+
+
+                    for(let i=0;i<_this.data.articleLike.length;i++){
+                        let thisLogo = _this.data.articleLike[i].articleCreateUserLogo;
+                        let index = "articleLike["+i+"].articleCreateUserLogo"
+                        if(thisLogo.indexOf('http')<0){
+                            _this.setData({
+                                [index]:_this.data.fileUrl + thisLogo
+                            })
+                        }
+
+                    }
+
                 }
             }
         })
@@ -247,22 +271,6 @@ Page({
             }) {
         console.log("刷新。。。。")
         let _this = this;
-
-
-        _this.setData({
-            article: [],
-            articleLike: [],
-            loading: false,
-            allloaded: false,
-            pageIndex: 1,
-            pageLimit: 10,
-            pageLikeIndex: 0,
-            pageLikeLimit: 10,
-            loadingHidden:false,
-            notFoundHidden:true
-
-
-        })
             //要延时执行的代码
             _this.getList('refresh').then(res => {
                 detail.success();
@@ -285,17 +293,30 @@ Page({
             let start = 1;
             let limit = 10;
             if(!index || index != 'refresh'){
-                start= _this.data.pageIndex,
+                start= _this.data.pageIndex +1,
                 limit=_this.data.pageLimit
+            }else{
+                _this.setData({
+                    loading: false,
+                    allloaded: false,
+
+                })
             }
 
             let startLike =0;
             let startLimit =10;
 
             if(!index || index != 'refresh'){
-                    startLike=  _this.data.pageLikeIndex,
+                    startLike=  _this.data.pageLikeIndex +1,
                     startLimit= _this.data.pageLikeLimit
+            }else{
+                _this.setData({
+                    loading: false,
+                    allloaded: false,
+
+                })
             }
+
 
             //笔记页面
             if(_this.data.currentData == 0){
@@ -326,6 +347,7 @@ Page({
                     success: function (res) {
                         console.log("result success ===", res);
                         if (res.data.recode == 0) {
+                            console.log("index ==",index)
                             let article = res.data.result.data.list;
                             let newList = [];
 
@@ -343,30 +365,43 @@ Page({
                                         notFoundHidden:false
                                     })
                                 }
+                                _this.setData({
+                                    loading: false,
+                                    isTopRefreshShow:true,
+                                })
 
                             }else{
-                                newList = _this.data.article.concat(article)
+                                if (article.length<=0) {
+                                    console.log("没有数据来")
+                                    _this.setData({
+                                        allloaded: true
+                                    })
+                                }else{
+                                    console.log("article ===",article)
+
+                                    newList = _this.data.article.concat(article)
+                                    console.log("newList ===",newList)
+                                    _this.setData({
+                                        article: newList,
+                                        fileUrl: res.data.result.fileUrl,
+                                        loading: false,
+                                        isTopRefreshShow:true,
+                                        pageIndex: _this.data.pageIndex +1,
+                                    })
+                                }
+
                             }
 
-                       /*    if (article.length<=0) {
-                                console.log("没有数据来")
-                                _this.setData({
-                                    allloaded: true
-                                })
-                            }*/
 
+                            for(let i=0;i<_this.data.article.length;i++){
+                                let thisLogo = _this.data.article[i].articleCreateUserLogo;
+                                let index = "article["+i+"].articleCreateUserLogo"
+                                if(thisLogo.indexOf('http')<0){
+                                    _this.setData({
+                                        [index]:_this.data.fileUrl + thisLogo
+                                    })
+                                }
 
-                            _this.setData({
-                                article: newList,
-                                fileUrl: res.data.result.fileUrl,
-                                loading: false,
-                                isTopRefreshShow:true
-                            })
-
-                            if(article.length>0){
-                                _this.setData({
-                                    pageIndex: _this.data.pageIndex +1,
-                                })
                             }
 
 
@@ -380,6 +415,7 @@ Page({
 
             //收藏页面
             }else{
+
 
                 wx.request({
                     url: app.globalData.host + 'articleLike/likeList',
@@ -426,8 +462,14 @@ Page({
                                         notFoundHidden:false
                                     })
                                 }
+
+                                _this.setData({
+                                    loading: false,
+                                    isTopRefreshShow:true
+                                })
                             }else{
                                 newList = _this.data.articleLike.concat(article)
+
                             }
 
                    /*         if (article.length<=0) {
@@ -438,20 +480,25 @@ Page({
                                 })
                             }*/
 
-
                             _this.setData({
                                 articleLike: newList,
                                 fileUrlLike: res.data.data.fileUrl,
-
+                                pageLikeIndex: _this.data.pageLikeIndex +1,
                                 loading: false,
                                 isTopRefreshShow:true
                             })
 
-                            if(article.length>0){
-                                _this.setData({
-                                    pageLikeIndex: _this.data.pageLikeIndex +1,
-                                })
+                            for(let i=0;i<_this.data.articleLike.length;i++){
+                                let thisLogo = _this.data.articleLike[i].articleCreateUserLogo;
+                                let index = "articleLike["+i+"].articleCreateUserLogo"
+                                if(thisLogo.indexOf('http')<0){
+                                    _this.setData({
+                                        [index]:_this.data.fileUrl + thisLogo
+                                    })
+                                }
+
                             }
+
 
                             resolve();
 
