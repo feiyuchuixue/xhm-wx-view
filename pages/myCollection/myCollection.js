@@ -217,6 +217,18 @@ function init(userId,_this) {
           guanzhuArr:res.data.data.data
         })
 
+        for(let i=0;i<_this.data.guanzhuArr.length;i++){
+          let thisLogo = _this.data.guanzhuArr[i].userLogo;
+          let index = "guanzhuArr["+i+"].articleCreateUserLogo"
+          if(thisLogo.indexOf('http')<0){
+            _this.setData({
+              [index]:_this.data.fileUrl + thisLogo
+            })
+          }
+
+        }
+
+
 
       }
     }

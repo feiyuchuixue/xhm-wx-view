@@ -109,8 +109,6 @@ Page({
         wx.navigateTo({
             url: '/pages/upload-image/index',
         })
-
-
     },
 //跳转到上传页面
     createArticle2: function (e) {
@@ -119,6 +117,12 @@ Page({
         })
 
 
+    },
+    toOrder:function(){
+        //跳转到订单页面
+        wx.navigateTo({
+            url: '/pages/order-list/order-list',
+        })
     },
     init: function () {
 

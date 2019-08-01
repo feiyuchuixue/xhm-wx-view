@@ -12,10 +12,10 @@
     <view class="guanzhu_head">
         <view  class="guanzhu_head" data-id="{{articleUserInfo.id}}"  bindtap="articleUserShow">
             <image  src="{{ articleUserInfo.userLogo}}"></image>
-            <text>{{articleUserInfo.userName}}</text>
+            <text class="text1">{{articleUserInfo.userName}}</text>
         </view>
 
-        <view wx:if="{{globalUserId != articleUserInfo.id}}"   bindtap="guanzhuClick"  data-id="{{articleUserInfo.id}}"  class="{{ isCollection?'guanzhu_btn_green':'guanzhu_btn' }}" >
+        <view wx:if="{{globalUserId != articleUserInfo.id}}"   bindtap="guanzhuClick"  data-id="{{articleUserInfo.id}}"  class="{{ isCollection?'follow_yes':'follow_no' }}" >
             <text >{{ isCollection?'已关注':'关注'}}</text>
         </view>
     </view>
@@ -68,7 +68,8 @@
             <text style="float: left;">
                 {{articleCreateTime}}
             </text>
-            <image class="emoji" src="{{isLike ?'../../image/shoucang.png':'../../image/shoucang_1.png'}}" height="32" width="32"/>
+            <image class="emoji" src="{{isLike ?'../../image/naiping2.png':'../../image/naiping.png'}}" height="48" width="48"/>
+
         </view>
         <view wx:if="{{comments.length>0}}" class="photo_info_box">
             <!-- 图文评论列表 -->

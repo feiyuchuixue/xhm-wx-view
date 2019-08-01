@@ -5,7 +5,7 @@
 }
 .scrollViewStyle{
   width: 100%;
-  white-space:nowrap;
+  /*white-space:nowrap;*/
   height: 100%;
 }
 

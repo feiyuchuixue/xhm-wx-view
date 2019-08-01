@@ -1,6 +1,6 @@
 <!--pages/mine/mine.wxml-->
 <view style="height:200rpx; position: fixed; width: 100%;">
-    <image style="height: 160rpx; width: 160rpx; border-radius: 50%; margin: 20rpx;" src='{{fileUrl + userInfo.userLogo}}'></image>
+    <image style="height: 160rpx; width: 160rpx; border-radius: 50%; margin: 20rpx;" src='{{  userInfo.userLogo}}'></image>
     <view style="position: absolute; top: 40rpx; left: 220rpx; text-align: center;">
         <text style="height: 30rpx; line-height: 30rpx; display: block;text-align: left;">{{userInfo.userName}}</text>
         <view style="float: left;margin: 20rpx 50rpx 0 0;" data-id="{{userInfo.id}}"  bindtap="showCollection">

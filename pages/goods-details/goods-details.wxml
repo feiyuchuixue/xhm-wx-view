@@ -1,30 +1,31 @@
 <import src="../../wxParse/wxParse.wxml" />
 <wxs src="../../utils/subutil.wxs" module="tools" />
 <view class="container">
-  <view class="swiper-container" >
+  <view class="main">
+    <view class="item item1" bindtap="onShowVideo" wx:if="{{goodsVideo}}">视频</view>
+    <view class="item item2" bindtap="onShowImg">图片</view>
+  </view>
+  <view class="swiper-container" wx:if="{{isIMG}}">
     <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
+
       <block wx:for="{{imgArr}}" wx:key="key">
         <swiper-item>
-          <image src="{{fileUrl+item}}" class="slide-image" width="355" height="150" mode="aspectFit" lazy-load="true" />
+          <image src="{{fileUrl+item}}" class="slide-image" mode="aspectFit" lazy-load="true" />
         </swiper-item>
       </block>
+
     </swiper>
-    <view class="dots">
-      <block wx:for="{{goodsDetail.pics}}" wx:key="unique">
-        <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
-      </block>
-    </view>
+
   </view>
-  <view class="swiper-container" >
-    <video src="{{fileUrl+goodsVideo}}"  loop="false" style='width:100%'></video>
+  <view class="swiper-container" wx:if="{{isVIDEO}}">
+    <video src="{{fileUrl+goodsVideo}}" loop="false" style='width:100%'></video>
   </view>
   <view class="goods-info">
     <view class="goods-title">{{goodsName}}</view>
     <view class="goods-title">{{goodsDescribe}}</view>
     <view class="goods-price" style="padding-left:35rpx;font-size:50rpx;">¥ {{tools.toDouble(goodsCurrentPrice)}}</view>
-    <!-- <view class="goods-price" style="color:#999;font-size:24rpx;">购买0次</view> -->
     <view class="goods-price" style="color:#999;font-size:50rpx;text-decoration:line-through;padding-left:35rpx;">¥ {{tools.toDouble(goodsPrice)}}</view>
-    <!-- <view class="goods-price" style="color:#999;font-size:24rpx;">共收到 {{goodsDetail.basicInfo.numberGoodReputation}} 次好评</view> -->
+
   </view>
 
 
@@ -35,16 +36,16 @@
     </view>
   </view>
   <view wx:if="{{!curGoodsKanjia}}" class="footer-box">
-     <!-- <view class="contact">
+    <!-- <view class="contact">
       <!-- <contact-button style="opacity:0;position:absolute;" type="default-dark" session-from="weapp" size="27"></contact-button> -->
-      <!-- <view style='position:absolute;bottom:10rpx;'> 客服 </view> 
+    <!-- <view style='position:absolute;bottom:10rpx;'> 客服 </view> 
     </view> -->
     <view class="shop-cart-btn" bindtap="goShopCar">
       <view class="shop-num">({{shopNum}})</view>
       <view style='position:absolute;bottom:10rpx;font-size: 22rpx;'> 购物车 </view>
     </view>
-    <view  class="join-shop-cart" bindtap="toAddShopCar">加入购物车</view>
-    <view  class="now-buy" bindtap="tobuy">立即购买</view>
+    <view class="join-shop-cart" bindtap="toAddShopCar">加入购物车</view>
+    <view class="now-buy" bindtap="tobuy">立即购买</view>
   </view>
   <view class="show-popup" hidden="{{hideShopPopup}}" catchtouchmove="true">
     <view class="popup-mask" bindtap="closePopupTap"></view>

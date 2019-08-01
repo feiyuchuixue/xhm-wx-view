@@ -1,0 +1,62 @@
+<view class="container">
+  <form bindsubmit="createOrder" report-submit="true">
+    <view class="goods-list">
+      <view class="list-title">商品列表  [注:下单时以实际价格为主]</view>
+      <view class="a-goods" wx:for-items="{{goodsList}}" wx:key="{{index}}">
+        <view class="img-box">
+          <image src="{{fileUrl + item.goodsImg}}" class="img" />
+        </view>
+        <view class="text-box">
+          <view class="arow arow01">
+            <view class="goods-name">{{item.goodsName}}</view>
+            <view class="goods-price">¥ {{item.goodsPrice}}</view>
+          </view>
+          <view class="arow">
+            <view class="goods-label">{{item.label}}</view>
+            <view class="goods-num">x {{item.count}}</view>
+          </view> 
+        </view>
+      </view>
+    </view>
+    <view class="peisong-way">
+      <view class="row-box">
+        <view class="row-label">填写收货信息</view>
+      </view>
+      <view class="row-box">
+        <view class="row-label">收货人</view>
+        <view class="right-text">
+          <input name="shrName" type="text" class="liuyan" placeholder="请填写收货人姓名" />
+        </view>
+      </view>
+      <view class="row-box">
+        <view class="row-label">联系电话</view>
+        <view class="right-text">
+          <input name="shrPhone" type="text" class="liuyan" placeholder="请填写收货人联系电话" />
+        </view>
+      </view>
+      <view class="row-box">
+        <view class="row-label">详细地址</view>
+        <view class="right-text">
+          <input name="shrAddr" type="text" class="liuyan" placeholder="请填写详细地址" />
+        </view>
+      </view>
+    </view>
+    <view class="peisong-way">
+      <view class="row-box">
+        <view class="row-label">备注信息</view>
+      </view>
+       <view class="row-box">
+        <view class="row-label">备注</view>
+        <view class="right-text">
+          <input name="remark" type="text" class="liuyan" placeholder="如需备注请输入" />
+        </view>
+      </view>
+    </view>
+    <view class="jiesuan-box">
+      <view class="left-price">
+        <view class="total">合计：¥ {{sum}}</view>
+      </view>
+      <button class="to-pay-btn" formType="submit">提交订单</button>
+    </view>
+  </form>
+</view>

@@ -522,6 +522,11 @@ function init(userId,_this) {
     success: function (res) {
       console.log("result success ===", res);
       if (res.data.code == 0) {
+
+        if(res.data.data.userInfo.userLogo.indexOf("http")){
+          res.data.data.userInfo.userLogo =  res.data.data.fileUrl + res.data.data.userInfo.userLogo;
+        }
+
         _this.setData({
           fileUrl: res.data.data.fileUrl,
           userInfo: res.data.data.userInfo,
@@ -538,6 +543,9 @@ function init(userId,_this) {
           }
 
         }
+
+
+
 
       }
     }

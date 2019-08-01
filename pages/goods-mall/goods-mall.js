@@ -25,22 +25,9 @@ Page({
 
     curPage: 1,
     pageSize: 10,
-    cateScrollTop: 0
+    cateScrollTop: 0,
   },
 
-  tabClick: function (e) {
-    let offset = e.currentTarget.offsetLeft;
-    if (offset > 150) {
-      offset = offset - 150
-    } else {
-      offset = 0;
-    }
-    this.setData({
-      curPage: 1,
-      cateScrollTop: offset
-    });
-    this.getGoodsList();
-  },
   //事件处理函数
   swiperchange: function (e) {
     this.setData({
@@ -48,7 +35,6 @@ Page({
     })
   },
   toDetailsTap: function (e) {
- 
     wx.navigateTo({
       url: "/pages/goods-details/goods-details?id=" + e.currentTarget.dataset.id
     })
@@ -63,7 +49,7 @@ Page({
     wx.showShareMenu({
       withShareTicket: true
     })
-    const that = this
+    const that = this;
     if (e && e.scene) {
       const scene = decodeURIComponent(e.scene)
       if (scene) {
@@ -77,81 +63,64 @@ Page({
       title: '商城'
     })
   },
-  // onPageScroll(e) {
-  //   let scrollTop = this.data.scrollTop
-  //   this.setData({
-  //     scrollTop: e.scrollTop
-  //   })
-  // },
-  getGoodsList: function (append) {
+  /**
+   * 下拉刷新
+   */
+  onPullDownRefresh: function () {
+    this.setData({
+      curPage: 1,
+      goods:[]
+    });
+    this.getGoodsList()
+    wx.stopPullDownRefresh()
+  },
+  //上拉加载
+  onReachBottom: function () {
+    var that = this;
+    var page = that.data.curPage;
+    var pageSize = that.data.pageSize;
+    var _count = page * pageSize;
+    if (that.data.count < _count - pageSize){
+      that.setData({
+        loadingMoreHidden: false,
+      })
+      return;
+    }else{
+      this.setData({
+        curPage: this.data.curPage + 1
+      });
+      this.getGoodsList()
+    }
+
+  },
+  getGoodsList: function () {
     var that = this;
     wx.showLoading({
       "mask": true
     })
-    console.log(app.globalData.userInfo);
     WXAPI.goods({
       name: that.data.inputVal,
       start: this.data.curPage,
       limit: this.data.pageSize
     }).then(function (res) {
       wx.hideLoading()
-      if (res.result.goodsList.length == 0 ) {
-        let newData = {
-          loadingMoreHidden: false
+      if (res.recode == 0){
+        var goods = that.data.goods;
+        let fileUrl = res.result.fileUrl;
+        let count = res.result.goodsCount;
+        for (var i = 0; i < res.result.goodsList.length; i++) {
+          goods.push(res.result.goodsList[i]);
         }
-        if (!append) {
-          newData.goods = []
-        }
-        that.setData(newData);
-        return
+        that.setData({
+          loadingMoreHidden: true,
+          goods: goods,
+          fileUrl: fileUrl,
+          count:count
+        });
       }
-      let goods = [];
-      if (append) {
-        goods = res.result.goodsList
-      }
-      let fileUrl = res.result.fileUrl;
-
-      for (var i = 0; i < res.result.goodsList.length; i++) {
-        goods.push(res.result.goodsList[i]);
-      }
-      that.setData({
-        loadingMoreHidden: true,
-        goods: goods,
-        fileUrl: fileUrl,
-      });
     })
   },
 
-
-  onShareAppMessage: function () {
-    return {
-      title: '"' + wx.getStorageSync('mallName') + '" ' + CONFIG.shareProfile,
-      path: '/pages/index/index?inviter_id=' + wx.getStorageSync('uid')
-    }
-  },
-
-  toSearch: function () {
-    this.setData({
-      curPage: 1
-    });
-    this.getGoodsList();
-  },
-  onReachBottom: function () {
-    this.setData({
-      curPage: this.data.curPage + 1
-    });
-    this.getGoodsList( true)
-  },
-  /**
-   * 下拉刷新
-   */
-  onPullDownRefresh: function () {
-    this.setData({
-      curPage: 1
-    });
-    this.getGoodsList()
-    wx.stopPullDownRefresh()
-  },
   // 以下为搜索框事件
   showInput: function () {
     this.setData({

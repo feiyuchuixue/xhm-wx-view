@@ -29,7 +29,7 @@
     </view>
     <view style="position: fixed; top: 200rpx; padding-left: 200rpx;border-bottom: 1rpx solid #ddd;width: 100%;">
         <button style="float: left;width: 120rpx; height: 60rpx; border-radius: 32rpx; line-height: 60rpx; font-size: 26rpx; margin: 20rpx 10rpx; border: 1rpx solid #ddd;font-size: 28rpx;" bindtap='createArticle'>上传</button>
-        <!--  <button style="float: left;width: 120rpx; height: 60rpx; border-radius: 32rpx; line-height: 60rpx; font-size: 26rpx; margin: 20rpx 10rpx; border: 1rpx solid #ddd;font-size: 28rpx;" bindtap="">积分</button>-->
+        <button style="float: left;width: 120rpx; height: 60rpx; border-radius: 32rpx; line-height: 60rpx; font-size: 26rpx; margin: 20rpx 10rpx; border: 1rpx solid #ddd;font-size: 28rpx;" bindtap="toOrder">订单</button>
         <button style="float: left;width: 180rpx; height: 60rpx; border-radius: 32rpx; line-height: 60rpx; font-size: 26rpx; margin: 20rpx 10rpx; border: 1rpx solid #ddd;font-size: 28rpx;" bindtap="editUserMsg">编辑资料</button>
     </view>
 

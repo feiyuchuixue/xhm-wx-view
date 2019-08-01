@@ -1,0 +1,83 @@
+<view class="container">
+  <view class="sec-wrap">
+    <view class="address-sec">
+      <view class="icon-box">
+        <image class="icon" src="/image/order-details/icon-address.png"></image>
+      </view>
+      <view class="right-box">
+        <view class="name-tel">{{orderMaster.shrName}} {{orderMaster.shrPhone}}</view>
+        <view class="text">{{orderMaster.shrAddr}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="goods-list">
+    <view class="list-title">商品信息</view>
+    <form bindsubmit="submitReputation" report-submit="true">
+      <block wx:for-items="{{orderSlaveList}}" wx:key="{{index}}">
+        <view class="a-goods">
+          <view class="img-box">
+            <image src="{{fileUrl+item.goodsImg}}" class="img" />
+          </view>
+          <view class="text-box">
+            <view class="arow arow01">
+              <view class="goods-name">{{item.goodsName}}</view>
+              <view class="goods-price">¥ {{item.goodsPrice}}</view>
+            </view>
+            <view class="arow">
+              <view class="goods-label">{{item.property}}</view>
+              <view class="goods-num">x {{item.count}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </form>
+  </view>
+  <view class="order-list">
+    <view class="list-title">订单信息</view>
+    <view class="btn-row">
+      <view class="row-box" style="margin-top:15rpx;">
+        <view class="order-number" style="font-size:24rpx;color:#000">订单编号：{{orderMaster.orderNo}}</view>
+      </view>
+      <view class="row-box" style="margin-top:15rpx;" wx:if="{{orderMaster.orderStatus!=1}}">
+        <view class="order-number" style="font-size:24rpx;color:#000">微信支付订单号：{{orderMaster.wxTransactionId}}</view>
+      </view>
+      <view class="row-box" style="margin-top:15rpx;">
+        <view class="order-number" style="font-size:24rpx;color:#000">下单时间：{{orderMaster.createTime}}</view>
+      </view>
+      <view class="row-box" style="margin-top:15rpx;">
+        <view class="order-number" style="font-size:24rpx;color:#000">备注：{{orderMaster.remark}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="goods-info">
+    <view class="row-box">
+      <view class="row-label">应付金额</view>
+      <view class="right-text">¥ {{orderMaster.orderMoney}} </view>
+    </view>
+    <view class="row-box">
+      <view class="row-label">商品总额</view>
+      <view class="right-text">¥ {{orderMaster.orderMoney}} </view>
+    </view>
+    <view class="row-box">
+      <view class="row-label">运费</view>
+      <view class="right-text">免运费</view>
+    </view>
+  </view>
+
+
+  <view class="jiesuan-box" wx:if="{{orderMaster.orderStatus==1}}">
+    <view class="left-price">
+      <view class="total">合计：¥ {{orderMaster.orderMoney}} </view>
+    </view>
+    <button class="to-pay-btn" bindtap="orderPay">立即支付</button>
+  </view>
+
+  <view class="jiesuan-box" wx:if="{{orderMaster.orderStatus==2}}">
+    <view class="left-price">
+      <view class="total">合计：¥ {{orderMaster.orderMoney}} </view>
+    </view>
+    <button class="to-pay-btn" bindtap="ordeeReceive">确认收货</button>
+  </view>
+
+
+</view>

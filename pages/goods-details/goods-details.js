@@ -30,7 +30,9 @@ Page({
     shopType: "addShopCar", //购物类型，加入购物车或立即购买，默认为加入购物车
     currentPages: undefined,
 
-    openShare: false
+    openShare: false,
+    isIMG:true,
+    isVIDEO:false,
   },
 
   //事件处理函数
@@ -41,7 +43,7 @@ Page({
   },
     async onLoad(e) {
     if (e && e.scene) {
-      const scene = decodeURIComponent(e.scene) // 处理扫码进商品详情页面的逻辑
+      const scene = decodeURIComponent(e.scene) 
       if (scene) {
         e.id = scene.split(',')[0]
         wx.setStorageSync('referrer', scene.split(',')[1])
@@ -92,6 +94,21 @@ Page({
     wx.navigateTo({
       url: "/pages/shop-cart/shop-cart",
     });
+  },
+  onShowVideo:function(){
+
+    this.setData({
+      isIMG: false,
+      isVIDEO: true,
+    })
+     
+    
+  },
+  onShowImg: function () {
+    this.setData({
+      isIMG: true,
+      isVIDEO: false,
+    })
   },
   /**
    * 加入购物车
@@ -156,7 +173,6 @@ Page({
    * @param {Object} e
    */
   labelItemTap: function (e) {
-    console.log(4444);
     var that = this;
     // 取消该分类下的子栏目所有的选中状态
     var childs = that.data.goodsDetail.properties[e.currentTarget.dataset.propertyindex].childsCurGoods;
@@ -280,7 +296,6 @@ Page({
    * 组建购物车信息
    */
   bulidShopCarInfo: function () {
-    console.log(this.data);
     // 加入购物车
     var shopCarMap = {};
     shopCarMap.goodsId = this.data.goodsId;
