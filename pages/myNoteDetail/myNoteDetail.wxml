@@ -74,6 +74,13 @@
             <!-- 图文评论列表 -->
             <view class="photo_comment_box">
                 <text style="color: #999; font-size: 30rpx;"> 共 {{commentCount}} 条评论</text>
+                <view bindtap="commentMyself">
+                    <view style="display: flex;margin-top: 20rpx">
+                        <image style="width: 60rpx; height: 60rpx; border-radius: 50%;"  src="{{globalUserLogo}}"></image>
+                      <input  style="height: 60rpx; width:80%;  line-height: 60rpx; margin-left: 20rpx; border: 1px solid #efefef;  border-radius:15px;" placeholder="   说点什么吧..." placeholder-style="margin-left:10rpx; color: #999;background-color:#efefef" disabled="true"/>
+<!--                        <text style="height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999; font-size: 26rpx;   border: 1px solid #999;  border-radius:15px;" >说点什么吧。。。</text>
+             -->       </view>
+                </view>
                 <view style="margin-top: 30rpx;" wx:for="{{comments}}" wx:for-item="comment" wx:key="index" class="commment_list">
                     <!-- index < 3 在视频下面只显示三条记录 -->
                     <view>
@@ -91,7 +98,7 @@
                     <view style="margin: 20rpx 0 10rpx 80rpx;">
                         <text style="color: #999; font-size: 24rpx;" >{{comment.commentCreateTime}} </text>
                         <txt style="color: #999; font-size: 24rpx;" > · </txt>
-                        <text style="color: dodgerblue; font-size: 24rpx;"  data-id="{{comment.id}}" bindtap="commentThis" data-name="{{comment.id}}"> 回复</text>
+                        <text style="color: dodgerblue; font-size: 24rpx;"  data-id="{{comment.id}}" bindtap="commentThis"  data-name="{{comment.userName}}"> 回复</text>
                     </view>
                     <view class="line" style="margin: 10rpx 0;"/>
                 </view>
@@ -116,7 +123,7 @@
             <form bindsubmit="submitForm" report-submit="true">
                 <view class="comment_release" >
                     <view class="left">
-                <textarea class="text" placeholder-class="weui-input" fixed="true" maxlength="-1" show-confirm-bar="false" name="textarea"  value="{{connectBottom}}" cursor-spacing="15" auto-height="true" bindtap="bindReply" focus="{{releaseFocus}}" placeholder="请输入你的评论" >
+                <textarea class="text" placeholder-class="weui-input" fixed="true" maxlength="250" show-confirm-bar="false" name="textarea"  value="{{connectBottom}}" cursor-spacing="15" auto-height="true" bindtap="bindReply"  bindblur="textareaBlur" focus="{{releaseFocus}}" placeholder="{{placeholder}}" >
                 </textarea>
                         <view class="line"/>
                     </view>

@@ -21,7 +21,16 @@ Page({
       areaTextTxt:'',
       hiddenmodalput:true,
       connectBottom:'',
-      fileUrl:''
+      fileUrl:'',
+      firstLoading:false,
+      showRealHtml:true,
+      placeholder:'请输入您的回复',
+      //回复的用户id
+      selectBackCommentId:'',
+      //评论类型 1级评论和2级评论
+      commentType:1,
+      //当前账户的用户头像
+      globalUserLogo:''
   },
 
   /**
@@ -39,7 +48,7 @@ Page({
     console.log("moreCommentShow ",options.commentId)
     queryCommentById(options.commentId,_this);
 
-    queryCommentMore(options.commentId,_this);
+
 
   },
 
@@ -96,6 +105,19 @@ Page({
       releaseFocus: true
     })
   },
+  //对文章的评论
+  commentMyself:function(e){
+    //拉起键盘，设置评论类别为一级评论
+    this.setData({
+      releaseFocus: true,
+      placeholder:'请输入您的回复',
+      commentType:1,
+      //清空评论框内容
+      connectBottom:''
+    })
+
+
+  },
   bindReply2: function (e) {
     this.setData({
       releaseFocus2: true
@@ -105,48 +127,105 @@ Page({
   submitForm:function (e) {
     let _this = this;
     console.log("aid==",_this.data.aid)
+    if(e.detail.value.textarea.trim().length<=0){
+      return;
+    }
 
-    wx.request({
-      url: app.globalData.host + 'articleComment/add',
-      data:  {
-        articleId:_this.data.aid,
-        user_id:app.globalData.userInfo.id,
-        content:e.detail.value.textarea,
-        content_replace:'',
-        comment_parent_id:_this.data.commentIdThis
-      },
-      method: "POST",
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      complete: function( res ) {
-        console.log("result ===",res);
-        if( res == null || res.data == null ) {
-          // reject(new Error('网络请求失败'))
-        }
-      },
-      success: function(res) {
-        if(res.data.code ==0){
-          //清空评论框
-          _this.setData({
-            connectBottom:''
+    //对楼主的评论
+    if(_this.data.commentType == 1){
+          wx.request({
+            url: app.globalData.host + 'articleComment/add',
+            data:  {
+              articleId:_this.data.aid,
+              user_id:app.globalData.userInfo.id,
+              content:e.detail.value.textarea,
+              content_replace:'',
+              comment_parent_id:_this.data.commentIdThis
+            },
+            method: "POST",
+            header: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            complete: function( res ) {
+              console.log("result ===",res);
+              if( res == null || res.data == null ) {
+                // reject(new Error('网络请求失败'))
+              }
+            },
+            success: function(res) {
+              if(res.data.code ==0){
+                //清空评论框
+                _this.setData({
+                  connectBottom:''
+                })
+
+                //初始化页面数据
+                _this.setData({
+                  showMoreCommentTips: '查看更多评论',
+                  hasMoreComment:true,
+                  pageIndex:0,
+                  pageLimit:10,
+                })
+
+                //重新渲染评论列表
+                queryCommentMore(_this.data.commentIdThis,_this);
+
+              }
+            }
+
           })
+    //对评论内容的回复
+    }else{
 
-          //初始化页面数据
-          _this.setData({
-            showMoreCommentTips: '查看更多评论',
-            hasMoreComment:true,
-            pageIndex:0,
-            pageLimit:10,
-          })
+      wx.request({
+        url: app.globalData.host + 'articleComment/add',
+        data:  {
+          articleId:_this.data.aid,
+          user_id:app.globalData.userInfo.id,
+          comment_parent_id:_this.data.selectBackCommentId,
+          content:e.detail.value.textarea,
+          content_replace:''
+        },
+        method: "POST",
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        complete: function( res ) {
+          console.log("result ===",res);
+          if( res == null || res.data == null ) {
+            // reject(new Error('网络请求失败'))
+          }
 
-          //重新渲染评论列表
-          queryCommentMore(_this.data.commentIdThis,_this);
+          //跳转回前页
+          //  wx.navigateBack({})
+        },
+        success: function(res) {
+          console.log("result success comments ===",res.data.data.data);
+          if(res.data.code ==0){
+            //清空评论框
+            _this.setData({
+              areaTextTxt:''
+            })
 
+            //初始化页面数据
+            _this.setData({
+              showMoreCommentTips: '查看更多评论',
+              hasMoreComment:true,
+              pageIndex:0,
+              pageLimit:10,
+            })
+
+            //重新渲染评论列表
+            queryCommentMore(_this.data.commentIdThis,_this);
+          }
         }
-      }
 
-    })
+      })
+
+
+    }
+
+
 
 
   },
@@ -288,7 +367,19 @@ Page({
   },
   //对评论的回复
   commentThis:function (e) {
+    console.log("e==",e);
+    let userName = e.target.dataset.name;
+    let commentId =e.target.dataset.id;
+    //获取焦点事件，键盘拉起
+    this.setData({
+      releaseFocus: true,
+      placeholder:'对 '+userName+' 的回复：',
+      selectBackCommentId:commentId,
+      //设置评论类型 2级评论
+      commentType:2
+    })
 
+    /*
     console.log("e==",e);
     console.log("e.target.dataset.id==",e.target.dataset.id)
     //显示回复弹出层
@@ -296,7 +387,8 @@ Page({
       hiddenmodalput: false,
       commentId:e.target.dataset.id,
       areaTextTxt:''
-    });
+    });*/
+
 
 
   },
@@ -347,6 +439,8 @@ function queryCommentById(commentId,_this) {
           })
         }
 
+      queryCommentMore(commentId,_this);
+
 
     }
 
@@ -395,6 +489,30 @@ function queryCommentMore(commentId,_this) {
         }
 
       }
+
+      let globalUserLogo = app.globalData.userInfo.userLogo
+      if(globalUserLogo.indexOf('http')<0){
+        globalUserLogo = _this.data.fileUrl + globalUserLogo;
+        _this.setData({
+          globalUserLogo : globalUserLogo
+        })
+      }
+
+
+
+      _this.setData({
+      //  releaseFocus: true,
+        placeholder:'请输入您的回复',
+        commentType:1,
+        //清空评论框内容
+        connectBottom:''
+      })
+
+      _this.setData({
+        firstLoading:true,
+        showRealHtml:false
+      })
+
 
     }
 

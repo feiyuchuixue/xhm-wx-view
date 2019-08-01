@@ -6,7 +6,7 @@ Component({
   properties: {
     pulldownDistance: { // 下拉距离
       type: Number,
-      value: '100'
+      value: '40'
     },
     refreshPulldownText: { // 下拉文字
       type: String,
@@ -47,7 +47,7 @@ Component({
    */
   data: {
     scrollTop: 0, // 是否在顶部
-    touchStartY: 0, // 触摸的起始位置
+    touchStartY:40, // 触摸的起始位置
     refreshHeight: 0, // 下拉高度
     refreshText: '', // 下拉文字
     isRefresh: false, // 是否下拉刷新
@@ -60,7 +60,9 @@ Component({
    */
   methods: {
     loadmore(e) {
+      console.log("loadmore...............")
       if (this.properties.allloaded && !this.properties.isEmpty) {
+        console.log("return 111")
         this.setData({
           loadmoreHidden: false,
           loadmoreText: this.properties.loadmoreAllloadedText
@@ -71,6 +73,7 @@ Component({
         loadmoreText: this.properties.loadmoreLoadingText,
         loadmoreHidden: false
       })
+      console.log("return 222")
       setTimeout(() => {
         this.triggerEvent('_loadmore', {
           success: () => {
@@ -92,20 +95,25 @@ Component({
       })
     },
     touchMove(e) {
+      console.log("touchMove ...")
       if (this.data.scrollTop <= 0) {
+        console.log("touchMove 111")
         let height = e.touches[0].pageY - this.data.touchStartY;
+        console.log("height ===========",height)
         if (height < 0) {
           this.setData({
             isRefresh: false,
             refreshHeight: 0
           })
         } else if (height < this.properties.pulldownDistance) {
+          console.log("touchMove 2222")
           this.setData({
             refreshHeight: height,
             isRefresh: false,
             refreshText: this.properties.refreshPulldownText
           })
         } else if (height >= this.properties.pulldownDistance) {
+          console.log("touchMove 3333")
           this.setData({
             refreshHeight: this.properties.pulldownDistance,
             refreshText: this.properties.refreshUndoText,
@@ -113,16 +121,20 @@ Component({
           })
         }
       } else {
+        console.log("touchMove else")
         this.setData({
           refreshHeight: 0,
           refreshText: '',
           isRefresh: false
         })
       }
+
+      console.log("refreshHeight === " + this.data.refreshHeight);
     },
     touchEnd(e) {
-
+      console.log("touch end...............")
       if (this.data.scrollTop <= 0 && this.data.isRefresh) {
+        console.log("touch 111111111")
         this.setData({
           refreshText: this.properties.refreshLoadingText,
           loadmoreHidden: true
@@ -139,6 +151,7 @@ Component({
           })
         }, 1000)
       } else {
+        console.log("touch 2222")
         this.setData({
           refreshHeight: 0,
           refreshText: '',

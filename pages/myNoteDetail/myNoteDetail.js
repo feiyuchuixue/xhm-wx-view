@@ -43,7 +43,14 @@ Page({
         isLike:true,
         globalUserId:'',
         loadingHidden:false,
-        showRealHtml:true
+        showRealHtml:true,
+        placeholder:'请输入您的回复',
+        //回复的用户id
+        selectBackCommentId:'',
+        //评论类型 1级评论和2级评论
+        commentType:1,
+        //当前账户的用户头像
+        globalUserLogo:''
     },
 
     /**
@@ -57,6 +64,7 @@ Page({
         console.log("屏幕高度 windowsWidth == ",windowsHeight)
 
         let maxHeight =  windowsHeight * 0.5*2;
+
 
         //初始化加载数据
         this.setData({
@@ -169,7 +177,17 @@ Page({
                         globalUserId:app.globalData.userInfo.id
                     })
 
-                    console.log("load detail is ...",_this.data.articleUserInfo)
+                //    console.log("load detail is ...",_this.data.articleUserInfo)
+
+                    console.log("userInfo == ",app.globalData.userInfo)
+                    let globalUserLogo = app.globalData.userInfo.userLogo
+                    if(globalUserLogo.indexOf('http')<0){
+                        globalUserLogo = _this.data.fileUrl + globalUserLogo;
+                        _this.setData({
+                            globalUserLogo : globalUserLogo
+                        })
+                    }
+
 
                     if(deatil.articleCheckYn == 0){
                         _this.setData({
@@ -272,6 +290,7 @@ Page({
 
     },
     bindReply: function (e) {
+        console.log("e ======================",e)
         this.setData({
             releaseFocus: true
         })
@@ -281,52 +300,120 @@ Page({
             releaseFocus2: true
         })
     },
+    //失焦事件
+    textareaBlur:function(e){
+        console.log("失去焦点...");
+        console.log("e ===",e);
+/*
+        this.setData({
+            releaseFocus: false,
+           // placeholder:'请输入您的评论',
+            //重置评论类型为一级评论
+        })*/
+
+    },
+
     //底部发送评论
     submitForm:function (e) {
         let _this = this;
+        if(e.detail.value.textarea.trim().length<=0){
+            return;
+        }
+        console.log("(_this.data.commentType == " + _this.data.commentType )
 
-        wx.request({
-            url: app.globalData.host + 'articleComment/addFirstLevelComment',
-            data:  {
-                articleId:_this.data.aid,
-                userId:app.globalData.userInfo.id,
-                content:e.detail.value.textarea,
-                content_replace:''
-            },
-            method: "POST",
-            header: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            complete: function( res ) {
-                console.log("result ===",res);
-                if( res == null || res.data == null ) {
-                    // reject(new Error('网络请求失败'))
+        //一级评论
+        if(_this.data.commentType == 1){
+            wx.request({
+                url: app.globalData.host + 'articleComment/addFirstLevelComment',
+                data:  {
+                    articleId:_this.data.aid,
+                    userId:app.globalData.userInfo.id,
+                    content:e.detail.value.textarea,
+                    content_replace:''
+                },
+                method: "POST",
+                header: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                complete: function( res ) {
+                    console.log("result ===",res);
+                    if( res == null || res.data == null ) {
+                        // reject(new Error('网络请求失败'))
+                    }
+                },
+                success: function(res) {
+                    if(res.data.code ==0){
+                        //清空评论框
+                        _this.setData({
+                            connectBottom:''
+                        })
+
+                        //初始化页面数据
+                        _this.setData({
+                            showMoreCommentTips: '查看更多评论',
+                            hasMoreComment:true,
+                            pageIndex:0,
+                            pageLimit:10,
+                        })
+
+                        //重新渲染评论列表
+                        _this.initComment();
+
+                        syncArticleCommentCount(_this.data.aid,_this)
+
+                    }
                 }
-            },
-            success: function(res) {
-                if(res.data.code ==0){
-                    //清空评论框
-                    _this.setData({
-                        connectBottom:''
-                    })
 
-                    //初始化页面数据
-                    _this.setData({
-                        showMoreCommentTips: '查看更多评论',
-                        hasMoreComment:true,
-                        pageIndex:0,
-                        pageLimit:10,
-                    })
+            })
 
-                    //重新渲染评论列表
-                    _this.initComment();
+        //二级评论
+        }else {
 
-                    syncArticleCommentCount(_this.data.aid,_this)
 
+            wx.request({
+                url: app.globalData.host + 'articleComment/add',
+                data:  {
+                    articleId:_this.data.aid,
+                    user_id:app.globalData.userInfo.id,
+                    comment_parent_id:_this.data.selectBackCommentId,
+                    content:e.detail.value.textarea,
+                    content_replace:''
+                },
+                method: "POST",
+                header: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                complete: function( res ) {
+                    console.log("result ===",res);
+                    if( res == null || res.data == null ) {
+                        // reject(new Error('网络请求失败'))
+                    }
+
+                    //跳转回前页
+                    //  wx.navigateBack({})
+                },
+                success: function(res) {
+                    console.log("result success comments ===",res.data.data.data);
+                    if(res.data.code ==0){
+                        //清空评论框
+                        _this.setData({
+                            connectBottom:'',
+                            placeholder:'请输入您的回复',
+                            commentType:1
+                        })
+
+                        wx.navigateTo({
+                            url: '/pages/moreCommentShow/moreCommentShow?commentId='+ _this.data.selectBackCommentId+"&articleId="+_this.data.aid,
+                        })
+                    }
                 }
-            }
 
-        })
+            })
+
+
+        }
+
+
 
 
     },
@@ -451,16 +538,41 @@ Page({
     //对评论的回复
     commentThis:function (e) {
 
+        let userName = e.target.dataset.name;
+        let commentId =e.target.dataset.id;
+        //获取焦点事件，键盘拉起
+        this.setData({
+            releaseFocus: true,
+            placeholder:'对 '+userName+' 的回复：',
+            selectBackCommentId:commentId,
+            //设置评论类型 2级评论
+            commentType:2
+        })
+
         console.log("e==",e);
-        //显示回复弹出层
+/*        //显示回复弹出层
         this.setData({
             hiddenmodalput: false,
             commentId:e.target.dataset.id,
             areaTextTxt:''
-        });
+        });*/
 
 
     },
+    //对文章的评论
+    commentMyself:function(e){
+        //拉起键盘，设置评论类别为一级评论
+        this.setData({
+            releaseFocus: true,
+            placeholder:'请输入您的回复',
+            commentType:1,
+            //清空评论框内容
+            connectBottom:''
+        })
+
+
+    },
+
     commentThisInput:function (e) {
 
         this.setData({

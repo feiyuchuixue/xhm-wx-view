@@ -21,7 +21,12 @@ Component({
     emptyText:{
       type:String,
       value:'暂无相关数据'
-    }
+    },
+    setFooterStatus: { // 下拉距离
+      type: Number,
+      value: 1
+    },
+
   },
   /**
   * 组件的初始数据
@@ -32,11 +37,12 @@ Component({
     headIconUp: false,//控制header中箭头方向
     isLoading: false,//控制显示箭头还是菊花转
     headerRefreshH: headerRefreshHeight,//控制顶部的高度
-    footerStatus: 0,//[0 不显示footer][1 点击加载更多][2 加载中][3 没有更多了]
+    footerStatus: 1,//[0 不显示footer][1 点击加载更多][2 加载中][3 没有更多了]
     isEmpty:false,//有没有数据，控制空白数据显示
   },
   lifetimes: {
     created(){
+      console.log("在组件创建的时候执行")
       // 在组件创建的时候执行
       this.status = ScrollState.normal;//初始化header的状态
       this.sTouchY = 0;//初始化属性，记录每次触摸事件的起始位置
@@ -82,11 +88,14 @@ Component({
     },
     //触摸开始：记录触摸开始位置
     onTouchStart(e) {
+      console.log("onTouchStart............")
       this.sTouchY = e.touches[0].clientY;
       clearInterval(this.data.interval);
     },
     //触摸结束：判断位置，根据status来觉得是否开始加载或者回弹关闭
     onTouchEnd(e) {
+      console.log("onTouchEnd............")
+      console.log("onTouchEnd  this.status............",this.status);
       this.sTouchY = 0;
       let that = this;
       if (this.status == ScrollState.proStay) {
@@ -111,6 +120,7 @@ Component({
       获取到触摸事件的时候，一定是scroll-view到达了顶部或者尾部。
     */
     onTouchMove(e) {
+      console.log("onTouchMove............")
       //这里如果想真实可以自己加下拉的阻尼效果
       let detY = (e.touches[0].clientY - this.sTouchY) * 0.4 + this.data.headerHeight;
       if (this.status == ScrollState.normal || this.status == ScrollState.headPull || this.status == ScrollState.proStay) {
@@ -145,10 +155,12 @@ Component({
     },
     //回调刷新
     handleRefresh() {
+      console.log("handleRefresh............")
       this.triggerEvent("onPullRefresh");
     },
     //对外暴露方法
     stopRefresh(){//停止刷新
+      console.log("stopRefresh............")
       this.headerViewScrollTo(0,7,()=>{
         this.status = ScrollState.normal;
         this.setData({
@@ -160,6 +172,8 @@ Component({
     },
     //回调加载更多
     onFooterClick() {
+      console.log("onFooterClick............")
+      console.log("this.data.footerStatus===========",this.data.footerStatus)
       if (this.data.footerStatus == 1) {
         this.triggerEvent("onLoadMore");
         this.setData({
@@ -168,27 +182,31 @@ Component({
       }
     },
     noMore(){//没有更多了
+      console.log("noMore............")
       this.setData({
-        isEmpty: false,
+        isEmpty: true,
         footerStatus:3
       })
     },
     hideFooter(){//隐藏footer
+      console.log("hideFooter............")
       this.setData({
         isEmpty: false,
         footerStatus:0
       })
     },
     resetFooter(){//重置footer
+      console.log("resetFooter............")
       this.setData({
-        isEmpty:false,
+        isEmpty:true,
         footerStatus: 1
       })
     },
     //数据为空的时候显示数据为空提示
     dataEmpty(){
+      console.log("dataEmpty............")
       this.setData({
-        isEmpty:true,
+        isEmpty:false,
         footerStatus: 1
       })
     }

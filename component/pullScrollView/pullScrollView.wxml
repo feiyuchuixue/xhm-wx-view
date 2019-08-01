@@ -13,9 +13,10 @@
       </view>
     </view>
     <slot></slot>
-    <block wx:if="{{footerStatus!=0&&needLoadMore&&!isEmpty}}">
+    <block  >
       <view class='footerView'
-        catchtap='onFooterClick'>
+        bindtap='onFooterClick'
+            hidden="{{!isEmpty}}">
         <image
           wx:if='{{footerStatus==2}}'
           class='footerIcon'
@@ -24,7 +25,7 @@
         <view class='footerText'>{{footerStatus==3?'没有更多了':footerStatus==2?'加载中...':'点击加载更多'}}</view>
       </view>
     </block>
-    <block wx:if='{{isEmpty}}'>
+<!--    <block wx:if='{{isEmpty}}'>
       <view class='emptyViewContainer'>
         <image class='emptyIcon'
           src='/img/icon-empty-blue.png'
@@ -34,7 +35,7 @@
           {{emptyText}}
         </view>
       </view>
-      
-    </block>
+
+    </block>-->
   </scroll-view>
 </view>

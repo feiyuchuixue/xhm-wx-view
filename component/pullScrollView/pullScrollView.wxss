@@ -20,7 +20,7 @@
   bottom: 0px;
   height: 70px;
   width: 100%;
-  flex-direction:row; 
+  flex-direction:row;
   align-items: center;
   justify-content: center;
 }
@@ -30,11 +30,11 @@
 }
 .rotateUp{
   transform: rotate(-180deg);
-  transition: all 0.5s 
+  transition: all 0.5s
 }
 .rotateDown{
   transform: rotate(0deg);
-  transition: all 0.5s 
+  transition: all 0.5s
 }
 .headerTitle{
   font-size: 35rpx;

@@ -1,5 +1,14 @@
 <!--pages/moreCommentShow/moreCommentShow.wxml-->
-<view>
+
+<view name="firstLoading" hidden="{{firstLoading}}">
+    <view style="margin-top:100rpx;display:flex; justify-content:center; align-items:center;" >
+        <image   hidden="{{loadingHidden}}" style="width: 32rpx;height: 32rpx;  " src="../../image/loading.gif"></image>
+        <text> 数据加载中...</text>
+    </view>
+</view>
+
+<view name="showRealHtml" hidden="{{showRealHtml}}" >
+
     <view style="display: flex; padding: 20rpx 50rpx;">
         <image style="width: 60rpx; height: 60rpx; border-radius: 50%;"  src="{{commentThis.userLogo}}"></image>
         <text style="height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999; font-size: 26rpx;" >{{commentThis.userName}}</text>
@@ -14,6 +23,13 @@
             <!-- 图文评论列表 -->
             <view class="photo_comment_box">
                     <text style="color: #999; font-size: 30rpx;"> 全部评论</text>
+                <view bindtap="commentMyself">
+                    <view style="display: flex;margin-top: 20rpx">
+                        <image style="width: 60rpx; height: 60rpx; border-radius: 50%;"  src="{{globalUserLogo}}"></image>
+                        <input  style="height: 60rpx; width:80%;  line-height: 60rpx; margin-left: 20rpx; border: 1px solid #efefef;  border-radius:15px;" placeholder="   说点什么吧..." placeholder-style="margin-left:10rpx; color: #999;background-color:#efefef" disabled="true"/>
+                        <!--                        <text style="height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999; font-size: 26rpx;   border: 1px solid #999;  border-radius:15px;" >说点什么吧。。。</text>
+                                     -->       </view>
+                </view>
                     <view style="margin-top: 30rpx;" wx:for="{{commentMore}}" wx:for-item="comment" wx:key="index" class="commment_list">
                         <!-- index < 3 在视频下面只显示三条记录 -->
                         <view>
@@ -31,7 +47,7 @@
                         <view style="margin: 20rpx 0 10rpx 80rpx;">
                             <text style="color: #999; font-size: 24rpx;" >{{comment.commentCreateTime}} </text>
                             <txt style="color: #999; font-size: 24rpx;" > · </txt>
-                            <text style="color: dodgerblue; font-size: 24rpx;"  data-id="{{comment.id}}" bindtap="commentThis" data-name="{{comment.id}}"> 回复</text>
+                            <text style="color: dodgerblue; font-size: 24rpx;"  data-id="{{comment.id}}" bindtap="commentThis"  data-name="{{comment.userName}}"> 回复</text>
                         </view>
                         <view class="line" style="margin: 10rpx 0;"/>
                     </view>
@@ -41,41 +57,6 @@
                         <view class="load_more_box">{{showMoreCommentTips}}</view>
                     </view>
                 </view>
-
-<!--                <text class="goods_info"> 全部评论</text>
-                <view wx:for="{{commentMore}}" wx:for-item="comment" wx:key="index" class="commment_list">
-                    &lt;!&ndash; index < 3 在视频下面只显示三条记录 &ndash;&gt;
-                    &lt;!&ndash; <view wx:if="{{index <= 10}}">&ndash;&gt;
-                    <view class="comment_info">
-                        <view class="c_info_view">
-                            <image  src="{{fileUrl +comment.userLogo}}"></image>
-                            <text  class="goods_info" >{{comment.userName}}</text>
-                            <image   style="margin-left: auto;height: 16px;width: 16px"  src="../../image/xihuan_16.png" />
-                        </view>
-                    </view>
-
-                    <view>
-                        <view class="goods_info" style="margin-top: 10rpx;margin-left: 40rpx">{{comment.commentContentReplace}} //<text style="color: blue">{{comment.commentParentUserName}} </text><text> :{{comment.commentParentContent}}</text></view>
-
-                    </view>
-
-                    <view wx:if="{{comment.commentSum>0}}" >
-                        <txt  class="call_back_show" data-id="{{comment.id}}"  bindtap="showMoreComment" >{{comment.commentSum}}条回复 > </txt>
-
-
-                    </view>
-
-                    <view >
-                        <text class="c_date_txt">{{comment.commentCreateTime}} </text>
-                        <txt  class="c_date_txt"> · </txt>
-                        <text class="c_date_txt"  data-id="{{comment.id}}" bindtap="commentThis" data-name="{{comment.id}}"> 回复</text>
-                    </view>
-                </view>
-
-                &lt;!&ndash; 查看更多评论 &ndash;&gt;
-                <view bindtap="toggleDialogHandle">
-                    <view class="load_more_box">{{showMoreCommentTips}}</view>
-                </view>-->
 
         </view>
         <view wx:else class="no_comment">
@@ -91,12 +72,11 @@
             <form bindsubmit="submitForm" report-submit="true">
                 <view class="comment_release" >
                     <view class="left">
-                <textarea class="text" placeholder-class="weui-input" fixed="true" maxlength="-1" show-confirm-bar="false" name="textarea"  value="{{connectBottom}}" cursor-spacing="15" auto-height="true" bindtap="bindReply" focus="{{releaseFocus}}" placeholder="请输入你的评论" >
+                <textarea class="text" placeholder-class="weui-input" fixed="true" maxlength="-1" show-confirm-bar="false" name="textarea"  value="{{connectBottom}}" cursor-spacing="15" auto-height="true" bindtap="bindReply" focus="{{releaseFocus}}" placeholder="{{placeholder}}" >
                 </textarea>
                         <view class="line"/>
                     </view>
 
-                    <image class="emoji" src="../../image/xihuan_32.png" height="24" width="24"/>
                     <button form-type="submit" class="submit">发送</button>
                 </view>
             </form></view>
