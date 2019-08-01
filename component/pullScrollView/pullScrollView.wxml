@@ -2,11 +2,11 @@
 <view class="scrollContainer">
   <scroll-view class='scrollViewStyle' scroll-y  bindtouchmove='onTouchMove' bind:touchend='onTouchEnd' bind:touchstart='onTouchStart'>
     <view class='headerContainer' style="height:{{headerHeight}}px">
-      <view class='headerView' style='height:{{headerRefreshH}}px'>
+      <view class='headerView'  hidden="{{!isEmpty}}" style='height:{{headerRefreshH}}px'>
         <view class="iconHolder">
-          <image hidden='{{!isLoading}}' animation="{{animation}}" class="headerIcon" src='/img/loading.gif' mode='aspectFit' bindtransitionend="_transitionend">
+          <image hidden='{{!isLoading}}' animation="{{animation}}" class='my-scroll-msgModule-icon my-scroll-msgModule-icon-loading' src='/img/loading.png' mode='aspectFit' bindtransitionend="_transitionend">
           </image>
-          <image hidden='{{isLoading}}' class="headerIcon {{headIconUp?'rotateUp':'rotateDown'}}" src='/img/icon-refresh-pull.png' mode='aspectFit'>
+          <image hidden='{{isLoading}}' class="headerIcon {{headIconUp?'rotateUp':'rotateDown'}}" src='/img/arrow-down.png' mode='aspectFit'>
           </image>
         </view>
         <view class='headerTitle'>{{isLoading?'加载中...':headIconUp?'松开加载':'下拉刷新'}}</view>
@@ -19,8 +19,7 @@
             hidden="{{!isEmpty}}">
         <image
           wx:if='{{footerStatus==2}}'
-          class='footerIcon'
-          src='/img/loading.gif'
+          class='my-scroll-msgModule-icon my-scroll-msgModule-icon-loading' src='/img/loading.png'
           mode='aspectFill'></image>
         <view class='footerText'>{{footerStatus==3?'没有更多了':footerStatus==2?'加载中...':'点击加载更多'}}</view>
       </view>

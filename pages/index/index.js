@@ -47,10 +47,26 @@ Page({
     })
   },
   onLoad: function (e) {
-
-   app.queryOpenId();
-
     var that = this;
+  // app.queryOpenId();
+
+    const pullScroll = that.selectComponent('#pullScrollView-id--index-0');
+    //隐藏
+    pullScroll.hideFooter();
+
+    const pullScroll1 = that.selectComponent('#pullScrollView-id--index-1');
+    //隐藏
+    pullScroll1.hideFooter();
+
+    const pullScroll2 = that.selectComponent('#pullScrollView-id--index-2');
+    //隐藏
+    pullScroll2.hideFooter();
+
+    const pullScroll3 = that.selectComponent('#pullScrollView-id--index-3');
+    //隐藏
+    pullScroll3.hideFooter();
+
+
     wx.getSystemInfo({
       success: function (res) {
         that.mTabWidth = res.windowWidth / that.data.tabs.length;
@@ -68,7 +84,7 @@ Page({
       }
     });
 
-    init(_this,e)
+    init(_this,false,0)
   },
   getUserInfo: function (e) {
     console.log(e)
@@ -78,7 +94,7 @@ Page({
       hasUserInfo: true
     })
   },
-  bindChange: function (e) {
+ /* bindChange: function (e) {
     var that = this;
     var curIndex = e.detail.current;
     that.setData({
@@ -103,10 +119,33 @@ Page({
 
 
     init(that,e)
-  },
+  },*/
   tabClick: function (e) {
+    console.log("单击切换 e=",e)
+    console.log("activeIndex = "+this.data.activeIndex)
     var that = this;
+
+    const pullScroll = that.selectComponent('#pullScrollView-id--index-0');
+    //隐藏
+    pullScroll.hideFooter();
+
+    const pullScroll1 = that.selectComponent('#pullScrollView-id--index-1');
+    //隐藏
+    pullScroll1.hideFooter();
+
+    const pullScroll2 = that.selectComponent('#pullScrollView-id--index-2');
+    //隐藏
+    pullScroll2.hideFooter();
+
+    const pullScroll3 = that.selectComponent('#pullScrollView-id--index-3');
+    //隐藏
+    pullScroll3.hideFooter();
+
+
     var cIndex = e.currentTarget.id;
+    if(this.data.activeIndex == cIndex){
+      return
+    }
     that.setData({
       sliderOffset: cIndex * that.mTabWidth,
       activeIndex: cIndex,
@@ -122,7 +161,10 @@ Page({
       notFoundHidden:true
     });
 
-    init(that,e)
+
+
+
+    init(that,false,0)
   },
   //搜索框
   handleMainSearchInput(event){
@@ -131,7 +173,7 @@ Page({
       url: '/pages/mainSearch/mainSearch',
     })
   },
-
+/*
   // 加载更多
   loadmore({
              detail
@@ -402,7 +444,7 @@ Page({
 
 
     })
-  },
+  },*/
   //显示文章详情
   showArticleDetail: function (e) {
     console.log("显示文章详情===",e);
@@ -412,20 +454,87 @@ Page({
     })
   },
 
+  //刷新
+  onPullRefresh:function(){
+    console.log("新的刷新組件")
+    let _this = this;
+    //推荐页面
+    if(_this.data.activeIndex == 0){
+      setTimeout(() => {
+        init(_this,false,0);
+      }, 500)
+
+      //宝妈团
+    }else if(_this.data.activeIndex  == 1){
+      setTimeout(() => {
+        init(_this,false,0);
+      }, 500)
+     //出游
+    }else if(_this.data.activeIndex  == 2){
+      setTimeout(() => {
+        init(_this,false,0);
+      }, 500)
+     //专栏
+    }else if(_this.data.activeIndex  == 3){
+      setTimeout(() => {
+        init(_this,false,0);
+      }, 500)
+    }
+  },
+  onLoadMore:function(e) {
+    let _this = this;
+    console.log("新的加載更多組件")
+
+
+    //推荐页面
+    if(_this.data.activeIndex == 0){
+      let start = _this.data.pageIndex + 1;
+      setTimeout(() => {
+        console.log("推荐页面加载更多1111111111 = "+start)
+        init(_this,true,start);
+      }, 500)
+
+      //宝妈团
+    }else if(_this.data.activeIndex  == 1){
+      let start = _this.data.pageIndex1 + 1;
+      setTimeout(() => {
+        init(_this,true,start);
+      }, 500)
+      //出游
+    }else if(_this.data.activeIndex  == 2){
+      let start = _this.data.pageIndex2 + 1;
+      setTimeout(() => {
+        init(_this,true,start);
+      }, 500)
+      //专栏
+    }else if(_this.data.activeIndex  == 3){
+      let start = _this.data.pageIndex3 + 1;
+      setTimeout(() => {
+        init(_this,true,start);
+      }, 500)
+    }
+
+  },
+
 
 
 
 })
 
 //初始化加载信息查询
-function init(_this,e){
+function init(_this,isLoadMore,startPageIndex){
 
+    let pageIndex = 0;
+    if(isLoadMore){
+      pageIndex = startPageIndex;
+    }
+    console.log("startPageIndex ===" +startPageIndex)
 
     wx.request({
       url: app.globalData.host + 'articleCon/mainList',
       data: {
         type:_this.data.tabs[_this.data.activeIndex],
-        page: 0,
+        page: startPageIndex,
         size: 10
       },
       method: "POST",
@@ -437,23 +546,42 @@ function init(_this,e){
         if (res == null || res.data == null) {
           // reject(new Error('网络请求失败'))
         }
-
-        _this.setData({
-          refreshing: false
-        })
-
       },
       success: function (res) {
         console.log("result success ===", res);
         if (res.data.code == 0) {
 
           let listArr = res.data.data.data;
+          let article =  res.data.data.data;
+          let newList = [];
+
+          if(!isLoadMore){
+               newList =article;
+          }else {
+            if (_this.data.activeIndex == 0) {
+              newList = _this.data.article.concat(article)
+            }
+            if (_this.data.activeIndex == 1) {
+              newList = _this.data.article1.concat(article)
+            }
+            if (_this.data.activeIndex == 2) {
+              newList = _this.data.article2.concat(article)
+              console.log("newList == " ,newList)
+            }
+            if (_this.data.activeIndex == 3) {
+              newList = _this.data.article3.concat(article)
+            }
+          }
+
+
           if(_this.data.activeIndex == 0){
 
             _this.setData({
-              article:  res.data.data.data,
+              article:  newList,
               fileUrl: res.data.data.fileUrl
             })
+
+
 
             for(let i=0;i<_this.data.article.length;i++){
               let thisLogo = _this.data.article[i].articleCreateUserLogo;
@@ -465,11 +593,30 @@ function init(_this,e){
               }
 
             }
+
+            const pullScroll = _this.selectComponent('#pullScrollView-id--index-0');
+            //停止刷新
+            pullScroll.stopRefresh();
+            //没有更多数据了
+            if(listArr.length < _this.data.pageLimit){
+              pullScroll.noMore();
+            }else{
+              if(isLoadMore){
+                _this.setData({
+                  pageIndex: _this.data.pageIndex +1,
+                })
+              }
+
+              //重置
+              pullScroll.resetFooter();
+            }
+
+
           }
 
           if(_this.data.activeIndex == 1){
             _this.setData({
-              article1:  res.data.data.data,
+              article1: newList,
               fileUrl: res.data.data.fileUrl
             })
 
@@ -484,12 +631,31 @@ function init(_this,e){
 
             }
 
+            const pullScroll = _this.selectComponent('#pullScrollView-id--index-1');
+            //停止刷新
+            pullScroll.stopRefresh();
+            //没有更多数据了
+            if(listArr.length < _this.data.pageLimit){
+              pullScroll.noMore();
+            }else{
+              if(isLoadMore){
+                _this.setData({
+                  pageIndex1: _this.data.pageIndex1 +1,
+                })
+              }
+
+
+              //重置
+              pullScroll.resetFooter();
+            }
+
+
           }
 
 
           if(_this.data.activeIndex == 2){
             _this.setData({
-              article2:  res.data.data.data,
+              article2: newList,
               fileUrl: res.data.data.fileUrl
             })
             for(let i=0;i<_this.data.article2.length;i++){
@@ -503,11 +669,28 @@ function init(_this,e){
 
             }
 
+            const pullScroll = _this.selectComponent('#pullScrollView-id--index-2');
+            //停止刷新
+            pullScroll.stopRefresh();
+            //没有更多数据了
+            if(listArr.length < _this.data.pageLimit){
+              pullScroll.noMore();
+            }else{
+              if(isLoadMore){
+                _this.setData({
+                  pageIndex2: _this.data.pageIndex2 +1,
+                })
+              }
+
+              //重置
+              pullScroll.resetFooter();
+            }
+
           }
 
           if(_this.data.activeIndex == 3){
             _this.setData({
-              article3:  res.data.data.data,
+              article3: newList,
               fileUrl: res.data.data.fileUrl
             })
             for(let i=0;i<_this.data.article3.length;i++){
@@ -520,6 +703,24 @@ function init(_this,e){
               }
 
             }
+
+            const pullScroll = _this.selectComponent('#pullScrollView-id--index-3');
+            //停止刷新
+            pullScroll.stopRefresh();
+            //没有更多数据了
+            if(listArr.length < _this.data.pageLimit){
+              pullScroll.noMore();
+            }else{
+              if(isLoadMore){
+                _this.setData({
+                  pageIndex3: _this.data.pageIndex3 +1,
+                })
+              }
+
+              //重置
+              pullScroll.resetFooter();
+            }
+
           }
 
           if(listArr.length>0){

@@ -78,3 +78,10 @@
   color: #515151;
   margin-top: 30rpx;
 }
+.my-scroll-msgModule-icon {
+  width: 20px;
+  height: 20px;
+}
+.my-scroll-msgModule-icon-loading {
+  animation: loading 1s linear infinite;
+}

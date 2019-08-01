@@ -1,3 +1,4 @@
 { "usingComponents": {
-  "component-scroll": "../../component/component-scroll/index"
+  "component-scroll": "../../component/component-scroll/index",
+  "pullScrollView": "../../component/pullScrollView/pullScrollView"
 }}
