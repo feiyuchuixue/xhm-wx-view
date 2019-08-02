@@ -6,7 +6,6 @@
     "pages/page3/index",
     "pages/mine/mine",
     "pages/mall/index",
-    "pages/goods/index",
     "pages/article/create",
     "pages/topics/topics",
     "pages/searchResult/searchResult",
@@ -19,16 +18,21 @@
     "pages/myFans/myFans",
     "pages/userInfoEdit/userInfoEdit",
     "pages/mainSearch/mainSearch",
+    "pages/goods/index",
+    "pages/myGroup/myGroup",
     "pages/goods-mall/goods-mall",
     "pages/goods-details/goods-details",
     "pages/shop-cart/shop-cart",
+    "pages/to-order/to-order",
     "pages/authorize/authorize",
-    "pages/myGroup/myGroup"
+    "pages/order-details/order-details",
+    "pages/order-list/order-list"
+
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#FFFFFF",
-    "navigationBarTitleText": "家乐说",
+    "navigationBarTitleText": "爱中医demo",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
@@ -43,6 +47,12 @@
         "text": "首页",
         "iconPath": "image/a1.png",
         "selectedIconPath": "image/a2.png"
+      },
+      {
+        "pagePath": "pages/goods-mall/goods-mall",
+        "text": "商城",
+        "iconPath": "image/b1.png",
+        "selectedIconPath": "image/b2.png"
       },
      {
         "pagePath": "pages/mine/mine",

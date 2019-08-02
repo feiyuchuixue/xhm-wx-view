@@ -82,7 +82,7 @@
 <!--                        <text style="height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999; font-size: 26rpx;   border: 1px solid #999;  border-radius:15px;" >说点什么吧。。。</text>
              -->       </view>
                 </view>
-                <view style="margin-top: 30rpx;" wx:for="{{comments}}" wx:for-item="comment" wx:key="index" class="commment_list">
+                <view style="margin-top: 10rpx;" wx:for="{{comments}}" wx:for-item="comment" wx:key="index" class="commment_list">
                     <!-- index < 3 在视频下面只显示三条记录 -->
                     <view>
                         <view style="display: flex;">
@@ -90,13 +90,13 @@
                             <text style="height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999; font-size: 26rpx;" >{{comment.userName}}</text>
                         </view>
                     </view>
-                    <view style="margin: 20rpx 0 10rpx 80rpx; color: #000; font-size: 26rpx;">
+                    <view style="margin: 1rpx 0 0rpx 80rpx; color: #000; font-size: 26rpx;">
                         <view>{{comment.commentContentReplace}} </view>
                     </view>
-                    <view style="margin: 20rpx 0 10rpx 80rpx; color: dodgerblue; font-size: 26rpx;" wx:if="{{comment.commentSum>0}}" >
+                    <view style="margin: 1rpx 0 0rpx 80rpx; color: dodgerblue; font-size: 26rpx;" wx:if="{{comment.commentSum>0}}" >
                         <txt data-id="{{comment.id}}"  bindtap="showMoreComment" >{{comment.commentSum}}条回复 > </txt>
                     </view>
-                    <view style="margin: 20rpx 0 10rpx 80rpx;">
+                    <view style="margin: 1rpx 0 0rpx 80rpx;">
                         <text style="color: #999; font-size: 24rpx;" >{{comment.commentCreateTime}} </text>
                         <txt style="color: #999; font-size: 24rpx;" > · </txt>
                         <text style="color: dodgerblue; font-size: 24rpx;"  data-id="{{comment.id}}" bindtap="commentThis"  data-name="{{comment.userName}}"> 回复</text>

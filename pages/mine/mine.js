@@ -49,11 +49,10 @@ Page({
             articleLike: [],
             fileUrl: '',
             userInfo:{},
-            pageIndex: 1,
             pageLikeIndex: 1,
             loadingHidden:false,
             notFoundHidden:true,
-            userInfo:{},
+
 
         })
 

@@ -130,13 +130,12 @@ page {
 
 .weui-navbar {
   position: fixed;
-  top: 70rpx;
+  top: 90rpx;
   height: 60rpx;
   z-index: 500;
   display: flex;
   width: 100%;
   background: #fff;
-  border-bottom: 1px solid #f00;
 }
 
 .rec {
@@ -148,7 +147,7 @@ page {
   width: 100%;
   position: absolute;
   height: auto;
-  top: 130rpx;
+  top: 150rpx;
   bottom: 0rpx;
 }
 
