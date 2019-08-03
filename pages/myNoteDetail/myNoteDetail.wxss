@@ -34,7 +34,15 @@
     line-height:32rpx;
     font-size:28rpx;
     color:#777;
-    padding:0 20rpx 20rpx 0;
+    padding:0 30rpx 30rpx 0;
+    overflow: hidden;
+}
+
+.goods_info1{
+    line-height:32rpx;
+    font-size:28rpx;
+    color:#777;
+    padding:0;
     overflow: hidden;
 }
 
@@ -598,10 +606,26 @@ button::after {
 .emoji{
     width: 24px;
     height: 24px;
-    margin-right: 10rpx;
     float: right;
-    margin-top: 30rpx;
 }
+.emojiTxt{
+    float: right;
+}
+.emoji2{
+    width: 24px;
+    height: 24px;
+    margin-left: 20rpx;
+    margin-top: 20rpx;
+    display: flex;
+    flex:1;
+    justify-conent:flex-end;
+}
+.emojiTxt2{
+    margin-left: 5rpx;
+    margin-top: 20rpx;
+
+}
+
 /*发送按钮*/
 .comment_release .submit{
     width: 70px;

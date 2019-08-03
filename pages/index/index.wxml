@@ -34,8 +34,8 @@
                                     <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true' ></image>
                                 </view>
                                 <view class='a_ttl'>
-                                    <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
-                                    <text class="title" style="color: #999;">{{item.articleTitle}}</text>
+                                <!--    <text class="topics" style="color: #000;">{{item.articleTopics}}</text>-->
+                                    <text class="title" style="color:  #000;">{{item.articleTitle}}</text>
                                 </view>
                                 <view class='a_note'>
                                     <view class='a_head'>
@@ -48,7 +48,7 @@
                                         <view class="shoucang">
                                             <image  style="width: 48rpx;height: 48rpx;" src="../../image/naiping.png"></image>
                                         </view>
-                                        <text style="color: #999;">{{item.articleTotalLike}}</text>
+                                        <text style="color: #999;">{{item.articleTotaolDz}}</text>
                                     </view>
                                 </view>
                             </view>
@@ -110,7 +110,7 @@
                                         <view class="shoucang">
                                             <image  style="width: 48rpx;height: 48rpx;" src="../../image/naiping.png"></image>
                                         </view>
-                                        <text style="color: #999;">{{item.articleTotalLike}}</text>
+                                        <text style="color: #999;">{{item.articleTotaolDz}}</text>
                                     </view>
 
                                 </view>
@@ -176,7 +176,7 @@
                                             <view class="shoucang">
                                                 <image  style="width: 48rpx;height: 48rpx;" src="../../image/naiping.png"></image>
                                             </view>
-                                            <text style="color: #999;">{{item.articleTotalLike}}</text>
+                                            <text style="color: #999;">{{item.articleTotaolDz}}</text>
                                         </view>
                                     </view>
                                 </view>

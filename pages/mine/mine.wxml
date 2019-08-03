@@ -85,7 +85,7 @@
                                             <view class="shoucang">
                                                 <image  style="width: 48rpx;height: 48rpx;" src="../../image/naiping.png"></image>
                                             </view>
-                                            <text style="color: #999;">{{item.articleTotalLike}}</text>
+                                            <text style="color: #999;">{{item.setArticleTotaolDz}}</text>
                                         </view>
 
                                     </view>
@@ -146,7 +146,7 @@
                                                 <view class="shoucang">
                                                     <image  style="width: 48rpx;height: 48rpx;" src="../../image/naiping.png"></image>
                                                 </view>
-                                                <text style="color: #999;">{{item.articleTotalLike}}</text>
+                                                <text style="color: #999;">{{item.setArticleTotaolDz}}</text>
                                             </view>
                                         </view>
 

@@ -136,6 +136,7 @@ page {
   display: flex;
   width: 100%;
   background: #fff;
+  border-bottom: 1px solid #fff;
 }
 
 .rec {
@@ -147,7 +148,7 @@ page {
   width: 100%;
   position: absolute;
   height: auto;
-  top: 150rpx;
+  top: 160rpx;
   bottom: 0rpx;
 }
 

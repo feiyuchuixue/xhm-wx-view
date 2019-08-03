@@ -36,7 +36,8 @@ Page({
       index: 0,
       submitTrue:false,
       //文件上传类别 img/video
-      fileType:"img"
+      fileType:"img",
+      src:'',
 
 
   },
@@ -47,6 +48,10 @@ Page({
   onShareAppMessage: function () {
 
   },
+    onLoad: function (options) {
+
+
+    },
   // 预览图片
   previewImg: function (e) {
       let imgsrc = e.currentTarget.dataset.presrc;
@@ -124,6 +129,11 @@ e
           wx.showActionSheet({
               itemList: ['选择图片', '选择视频'],
               success: function (res) {
+
+                  wx.navigateTo({
+                      url: '/pages/cropper/cropper',
+                  })
+
                   //   console.log(res.tapIndex)
                   let xindex = res.tapIndex;
                   if (xindex == 0){
@@ -157,10 +167,6 @@ e
       if(_this.data.submitTrue){
           return;
       }
-
-
-
-
 
       let filesPath = upData.filesPathsArr ? upData.filesPathsArr : upFiles.getPathArr(_this);
 
