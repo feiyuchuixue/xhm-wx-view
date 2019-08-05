@@ -705,7 +705,7 @@ Page({
         console.log("屏幕宽度 windowsWidth == ",windowsWidth)
         console.log("屏幕高度 windowsWidth == ",windowsHeight)
 
-        maxHeight =  windowsHeight * 0.5*2;
+        maxHeight =  windowsHeight * 0.6*2;
         console.log("笔记计算的屏幕高度 尺寸==" + maxHeight)
         //如果高度大于比例计算出来的最大高度则，宽度成比例缩小
 

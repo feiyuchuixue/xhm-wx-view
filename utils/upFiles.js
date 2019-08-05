@@ -121,13 +121,14 @@ var upFilesFun = (t, data, progress, success) =>{
     success([]);
     return;
   }
+
   const uploadTask = wx.uploadFile({
     url: url,
     filePath: filesPath[startIndex],
     name: name,
     formData: formData,
     success: function (res) {
-      console.log("res ===",res);
+      console.log("res img            ===",res);
       var data = res.data
       successNumber++;
       // console.log('success', successNumber)

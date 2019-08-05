@@ -32,6 +32,7 @@ Page({
       upFilesType:'',
       uuid:'',
       uploadedPathArr:[],
+      upImgArr:[],
       typeArray: ['~选择栏目~','宝妈团','出游', '吃喝',"专栏"],
       index: 0,
       submitTrue:false,
@@ -117,7 +118,13 @@ e
           wx.showActionSheet({
               itemList: ['选择图片'],
               success: function (res) {
-                  upFiles.chooseImage(_this, _this.data.maxUploadLen)
+                  //跳转到裁剪图片页面
+                  wx.navigateTo({
+                      url: '/pages/cropper/cropper',
+                  })
+
+
+               //   upFiles.chooseImage(_this, _this.data.maxUploadLen)
 
               },
               fail: function (res) {
@@ -163,19 +170,21 @@ e
     //图片信息下追加
     pushImgArr:function(tempFile){
       let _this = this;
-      console.log("tempFile--",tempFile)
+      console.log("tempFile--",_this.data)
       let temp = _this.data.tempFile;
         console.log("tempFile == ",tempFile)
       console.log("_this.data.uploadedPathArr == ",_this.data.uploadedPathArr)
       let newArr =[];
-        newArr = _this.data.uploadedPathArr.concat(temp)
+        newArr = _this.data.upImgArr.concat(temp)
         //newArr = _this.data.uploadedPathArr.concat(temp)
 
       _this.setData({
-          uploadedPathArr : newArr
+         // uploadedPathArr : newArr,
+          upImgArr:newArr
       })
 
         console.log("uploadedPathArr  ===  " ,_this.data.uploadedPathArr)
+        console.log("upImgArr  ===  " ,_this.data.upImgArr)
 
 
 
@@ -188,6 +197,8 @@ e
       let upImgArr = _this.data.upImgArr;
       let upVideoArr = _this.data.upVideoArr;
       let uuid = _this.data.uuid;
+      console.log("upImgArr====",upImgArr)
+     // return;
 
       if(_this.data.submitTrue){
           return;
