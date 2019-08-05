@@ -36,14 +36,29 @@
         <cover-view class='goods_prew_select'>
 
         </cover-view>
-        <view class='images' style="margin-top: 20rpx">
-            <swiper class='detail-imgs' indicator-dots="{{true}}" autoplay='{{true}}' interval="{{5000}}" duration="{{500}}" circular="{{true}}" bindchange='bindchange' style="height:{{maxHeight}}rpx;">
+        <view class='images dots' style="position: relative;">
+
+            <swiper class='detail-imgs' indicator-dots="{{true}}"  circular="{{true}}" bindchange='bindchange' style="height:{{imgheights[current]}}rpx;">
+
                 <block wx:for="{{imgUrls}}" wx:key="{{index}}">
                     <swiper-item style=" display:flex; justify-content: center; align-items:center;    ">
-                        <image src="{{fileUrl + item}}" class='image-view'  mode=''  style="height:{{imgheights[current]}}rpx;width:{{imgwidths[current]}}rpx;" bindload="imageLoad" data-src='{{fileUrl + item}}' data-index='{{index}}' bindtap="previewImage"></image>
+                        <image src="{{fileUrl + item}}" class='image-view'  mode='widthFix'  style="height:{{imgheights[current]}}rpx;width:{{imgwidth}}rpx;" bindload="imageLoad" data-src='{{fileUrl + item}}' data-index='{{index}}' bindtap="previewImage"></image>
+         <!--               <image src="{{fileUrl + item}}" class='image-view'  mode=''  style="height:{{imgheights[current]}}rpx;width:{{imgwidths[current]}}rpx;" bindload="imageLoad" data-src='{{fileUrl + item}}' data-index='{{index}}' bindtap="previewImage"></image>-->
                     </swiper-item>
                 </block>
             </swiper>
+            <view  style="position: absolute;top: 10px;right: 10px;background-color: #4E4843;color: #fff;font-size: 30rpx;border-radius: 40rpx;padding: 2rpx 14rpx;">{{current+1}}/{{imgUrls.length}}</view>
+
+
+
+
+
+
+        </view>
+        <view class="dots">
+            <block wx:for="{{slider}}" wx:key="this">
+                <view class="dot{{index == current ? ' active' : ''}}"></view>
+            </block>
         </view>
 
 

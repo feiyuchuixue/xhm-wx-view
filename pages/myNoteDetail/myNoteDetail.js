@@ -7,6 +7,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+
         imgheights: [],
         imgwidths: [],
         current: 0,
@@ -52,7 +53,9 @@ Page({
         //当前账户的用户头像
         globalUserLogo:'',
         isDz:true,
-        articleInfo:{}
+        articleInfo:{},
+        sDot:'',
+
     },
 
     /**
@@ -686,7 +689,7 @@ Page({
             url: '/pages/moreCommentShow/moreCommentShow?commentId='+e.target.dataset.id+"&articleId="+this.data.aid,
         })
     },
-    imageLoad: function (e) {
+/*    imageLoad: function (e) {
         let maxHeight = 1000;//rpx
         console.log("imageLoad...")
         //获取图片真实宽度
@@ -728,6 +731,24 @@ Page({
         this.setData({
             imgheights: imgheights,
             imgwidths:imgwidths
+        })
+    },*/
+    imageLoad: function (e) {
+        console.log("imageLoad...")
+        //获取图片真实宽度
+        var imgwidth = e.detail.width,
+            imgheight = e.detail.height,
+            //宽高比
+            ratio = imgwidth / imgheight;
+        //计算的高度值
+        var viewHeight = 750 / ratio;
+        var imgheight = viewHeight
+        var imgheights = this.data.imgheights
+        //把每一张图片的高度记录到数组里
+        imgheights[e.target.dataset['index']] = imgheight;// 改了这里 赋值给当前 index
+        console.log("imgheights===",imgheights)
+        this.setData({
+            imgheights: imgheights,
         })
     },
     bindchange: function (e) {
