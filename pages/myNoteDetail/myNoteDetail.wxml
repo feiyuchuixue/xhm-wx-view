@@ -19,8 +19,8 @@
             <text >{{ isCollection?'已关注':'关注'}}</text>
         </view>
     </view>
-    <view class="line" style="margin: 10rpx 0;"/>
-    <viev wx:if="{{isMP4}}">
+    <!--<view class="line" style="margin: 10rpx 0;"/>-->
+    <viev wx:if="{{isMP4}}" style="margin: 10rpx 0;">
 
 
         <cover-view class='goods_prew_select'>
@@ -31,14 +31,14 @@
     </viev>
 
 
-    <view wx:else >
+    <view wx:else  style="margin: 10rpx 0;">
 
         <cover-view class='goods_prew_select'>
 
         </cover-view>
-        <view class='images dots' style="position: relative;">
+        <view class='images' style="position: relative;">
 
-            <swiper class='detail-imgs' indicator-dots="{{true}}"  circular="{{true}}" bindchange='bindchange' style="height:{{imgheights[current]}}rpx;">
+            <swiper class='detail-imgs'  circular="{{true}}" bindchange='bindchange' style="height:{{imgheights[current]}}rpx;">
 
                 <block wx:for="{{imgUrls}}" wx:key="{{index}}">
                     <swiper-item style=" display:flex; justify-content: center; align-items:center;    ">
@@ -55,11 +55,14 @@
 
 
         </view>
-        <view class="dots">
-            <block wx:for="{{slider}}" wx:key="this">
+        <!--重置小圆点的样式 -->
+        <view wx:if="{{imgUrls.length>1}}" class="dots ">
+            <block wx:for="{{imgUrls}}">
                 <view class="dot{{index == current ? ' active' : ''}}"></view>
             </block>
         </view>
+
+
 
 
     </view>
@@ -79,7 +82,7 @@
             <button size='mini' class="topics goods_info " id="{{articleTopicsId}}" >{{articleTopics}}</button>
 
         </view>
-        <view class='goods_info1' style="height: 50rpx; padding: 0 20rpx;" >
+        <view class='goods_info1' style="height: 50rpx; padding: 20 20rpx;" >
              <button open-type='share' style="float: left; border-color: white; height: 50rpx; margin: 0; padding: 0;" data-id="{{articleInfo.id}}" data-name="{{articleInfo.articleTitle}}" size="mini" plain="false" >
                  <image style="width: 50rpx; height: 50rpx; float: left;" data-name="{{articleInfo.articleTitle}}"  src="../../image/fenxiang.png" />
                  <text style="font-size: 10px; margin-left: 5rpx;float: left; padding: 0;">{{articleInfo.articleTotalShare}}</text>
