@@ -38,6 +38,7 @@ Page({
       //文件上传类别 img/video
       fileType:"img",
       src:'',
+      tempFile:[]
 
 
   },
@@ -130,17 +131,20 @@ e
               itemList: ['选择图片', '选择视频'],
               success: function (res) {
 
-                  wx.navigateTo({
-                      url: '/pages/cropper/cropper',
-                  })
 
                   //   console.log(res.tapIndex)
                   let xindex = res.tapIndex;
                   if (xindex == 0){
-                      upFiles.chooseImage(_this, _this.data.maxUploadLen)
+                   //跳转到裁剪图片页面
+                      wx.navigateTo({
+                          url: '/pages/cropper/cropper',
+                      })
+
+
+/*                      upFiles.chooseImage(_this, _this.data.maxUploadLen)
                       _this.setData({
                           fileType :'img'
-                      })
+                      })*/
                   } else if (xindex == 1){
                       upFiles.chooseVideo(_this, 1)
                       _this.setData({
@@ -156,6 +160,27 @@ e
       }
 
   },
+    //图片信息下追加
+    pushImgArr:function(tempFile){
+      let _this = this;
+      console.log("tempFile--",tempFile)
+      let temp = _this.data.tempFile;
+        console.log("tempFile == ",tempFile)
+      console.log("_this.data.uploadedPathArr == ",_this.data.uploadedPathArr)
+      let newArr =[];
+        newArr = _this.data.uploadedPathArr.concat(temp)
+        //newArr = _this.data.uploadedPathArr.concat(temp)
+
+      _this.setData({
+          uploadedPathArr : newArr
+      })
+
+        console.log("uploadedPathArr  ===  " ,_this.data.uploadedPathArr)
+
+
+
+
+      },
   // 上传文件或文件组
   subFormData:function(){
       let _this = this;

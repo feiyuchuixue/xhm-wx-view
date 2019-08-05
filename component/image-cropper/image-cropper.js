@@ -1,6 +1,6 @@
 Component({
   properties: {
-    /**     
+    /**
      * 图片路径
      */
     'imgSrc': {
@@ -289,8 +289,19 @@ Component({
         sizeType: ['original', 'compressed'],
         sourceType: ['album', 'camera'],
         success(res) {
-          const tempFilePaths = res.tempFilePaths[0];
-          that.pushImg(tempFilePaths);
+          console.log("加载图片 。。。 " , res);
+          var imgArr = [];
+          let arr = res.tempFiles;
+          // console.log(res)
+          arr.map(function(v,i){
+            console.log("v == " ,v);
+
+            v['progress'] = 0;
+            imgArr.push(v)
+          })
+
+       //   const tempFilePaths = res.tempFilePaths[0];
+          that.pushImg(imgArr);
           wx.showLoading({
             title: '加载中...'
           })
@@ -314,7 +325,8 @@ Component({
             getCallback({
               url: res.tempFilePath,
               width: this.data.width * this.data.export_scale,
-              height: this.data.height * this.data.export_scale
+              height: this.data.height * this.data.export_scale,
+              tempFile:this.data.tempFile
             });
           }
         }, this)
@@ -461,9 +473,10 @@ Component({
      * 加载（更换）图片
      */
     pushImg(src) {
-      if (src) {
+      if (src && src.length>0) {
         this.setData({
-          imgSrc: src
+          imgSrc: src[0].path,
+          tempFile:src[0]
         });
         //发现是手动赋值直接返回，交给watch处理
         return;

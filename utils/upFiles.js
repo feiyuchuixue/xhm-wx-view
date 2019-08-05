@@ -9,6 +9,8 @@ var chooseImage = (t, count) =>{
       let arr = res.tempFiles;
       // console.log(res)
       arr.map(function(v,i){
+        console.log("v == " ,v);
+
         v['progress'] = 0;
         imgArr.push(v)
       })
@@ -25,6 +27,8 @@ var chooseImage = (t, count) =>{
           upImgArr: newimgArr
         })
       }
+      console.log("up logo is ..." , t.data.upImgArr)
+
     },
   });
 }

@@ -21,8 +21,9 @@ Page({
     console.log('cropper加载完成');
   },
   loadimage(e){
+
     wx.hideLoading();
-    console.log('图片');
+
     this.cropper.imgReset();
   },
   clickcut(e) {
@@ -34,6 +35,7 @@ Page({
     })
   },
   upload(){
+    console.log("exec this fun upload() ...")
     let that = this;
     wx.chooseImage({
       count: 1,
@@ -43,12 +45,30 @@ Page({
         wx.showLoading({
           title: '加载中',
         })
+
+        var imgArr = [];
+        let arr = res.tempFiles;
+        // console.log(res)
+        arr.map(function(v,i){
+          console.log("v == " ,v);
+
+          v['progress'] = 0;
+          imgArr.push(v)
+        })
         const tempFilePaths = res.tempFilePaths[0];
         //重置图片角度、缩放、位置
         that.cropper.imgReset();
+/*        that.setData({
+          src: tempFilePaths,
+          imgArr:imgArr
+        });*/
+
         that.setData({
-          src: tempFilePaths
+          imgSrc: src[0].path,
+          tempFile:src[0]
         });
+
+        console.log("result imgArr == ",that.data.tempFile)
       }
     })
   },
@@ -124,11 +144,24 @@ Page({
   },
   submit(){
     this.cropper.getImg((obj)=>{
+      console.log(" submit  obj  data is ..." , obj)
       app.globalData.imgSrc = obj.url;
-      console.log("app.globalData.imgSrc = " +app.globalData.imgSrc)
-      wx.navigateBack({
-        delta: -1
+      var pages = getCurrentPages();
+      var currPage = pages[pages.length - 1];   //当前页面
+      var prevPage = pages[pages.length - 2];  //上一个页面
+      prevPage.setData({
+        tempFile :  obj.tempFile
       })
+
+      wx.navigateBack(
+          prevPage.pushImgArr( obj.tempFile)
+
+      );
+
+      console.log("app.globalData.imgSrc = " +app.globalData.imgSrc)
+/*      wx.navigateBack({
+        delta: -1
+      })*/
     });
   },
   rotate(){
