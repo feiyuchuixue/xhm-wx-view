@@ -115,15 +115,21 @@ e
               fileType :'img'
           })
 
+
           wx.showActionSheet({
               itemList: ['选择图片'],
               success: function (res) {
-                  //跳转到裁剪图片页面
-                  wx.navigateTo({
-                      url: '/pages/cropper/cropper',
-                  })
 
-
+                  if(_this.data.upImgArr.length < 9){
+                      //跳转到裁剪图片页面
+                      wx.navigateTo({
+                          url: '/pages/cropper/cropper',
+                      })
+                  }else{
+                      _this.setData({
+                          upFilesBtn: false,
+                      })
+                  }
                //   upFiles.chooseImage(_this, _this.data.maxUploadLen)
 
               },
@@ -142,6 +148,11 @@ e
                   //   console.log(res.tapIndex)
                   let xindex = res.tapIndex;
                   if (xindex == 0){
+                      _this.setData({
+                          fileType :'img'
+                      })
+
+
                    //跳转到裁剪图片页面
                       wx.navigateTo({
                           url: '/pages/cropper/cropper',

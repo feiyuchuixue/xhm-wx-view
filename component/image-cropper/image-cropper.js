@@ -302,9 +302,9 @@ Component({
 
        //   const tempFilePaths = res.tempFilePaths[0];
           that.pushImg(imgArr);
-          wx.showLoading({
+      /*    wx.showLoading({
             title: '加载中...'
-          })
+          })*/
         }
       })
     },

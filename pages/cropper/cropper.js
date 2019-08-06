@@ -58,15 +58,19 @@ Page({
         const tempFilePaths = res.tempFilePaths[0];
         //重置图片角度、缩放、位置
         that.cropper.imgReset();
+
+        that.setData({
+          src: tempFilePaths,
+          url:res.tempFilePaths[0].path,
+          tempFile:res.tempFilePaths[0]
+        });
+
 /*        that.setData({
           src: tempFilePaths,
           imgArr:imgArr
         });*/
 
-        that.setData({
-          imgSrc: src[0].path,
-          tempFile:src[0]
-        });
+
 
         console.log("result imgArr == ",that.data.tempFile)
       }
