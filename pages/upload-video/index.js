@@ -110,23 +110,15 @@ e
   uploadFiles: function (e) {
       var _this = this;
 
+      upFiles.chooseVideo(_this, 1)
       _this.setData({
-          fileType :'img'
+          fileType :'video'
       })
 
-      if(_this.data.upImgArr.length < 9){
-          //跳转到裁剪图片页面
-          wx.navigateTo({
-              url: '/pages/cropper/cropper',
-          })
-      }else{
-          _this.setData({
-              upFilesBtn: false,
-          })
-      }
+/*
 
       //如果已经有图片的选择了，再新加文件类型只能是图片
-/*      if(_this.data.upImgArr && _this.data.upImgArr.length>0){
+      if(_this.data.upImgArr && _this.data.upImgArr.length>0){
           _this.setData({
               fileType :'img'
           })
@@ -136,16 +128,7 @@ e
               itemList: ['选择图片'],
               success: function (res) {
 
-                  if(_this.data.upImgArr.length < 9){
-                      //跳转到裁剪图片页面
-                      wx.navigateTo({
-                          url: '/pages/cropper/cropper',
-                      })
-                  }else{
-                      _this.setData({
-                          upFilesBtn: false,
-                      })
-                  }
+
                //   upFiles.chooseImage(_this, _this.data.maxUploadLen)
 
               },
@@ -175,10 +158,10 @@ e
                       })
 
 
-/!*                      upFiles.chooseImage(_this, _this.data.maxUploadLen)
+                   upFiles.chooseImage(_this, _this.data.maxUploadLen)
                       _this.setData({
                           fileType :'img'
-                      })*!/
+                      })
                   } else if (xindex == 1){
                       upFiles.chooseVideo(_this, 1)
                       _this.setData({
@@ -191,7 +174,9 @@ e
                   console.log(res.errMsg)
               }
           })
-      }*/
+      }
+*/
+
 
   },
     //图片信息下追加
@@ -350,7 +335,8 @@ e
             inputValue = inputValue.substring(0, inputValue.lastIndexOf(" "));
         }
         let titleCount = inputValue.length;
-        if (titleCount <= 25) {
+        console.log("titleCount length ==",titleCount)
+        if (titleCount <=51) {
             this.setData({
                 titleCount: titleCount,
                 title: inputValue
@@ -361,7 +347,7 @@ e
     handleContentInput(event) {
         let textareaValue = event.detail.value;
         let contentCount = textareaValue.length;
-        if (contentCount <= 255) {
+        if (contentCount <= 256) {
             this.setData({
                 contentCount: contentCount,
                 content: textareaValue

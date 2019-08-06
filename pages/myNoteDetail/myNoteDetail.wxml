@@ -26,7 +26,7 @@
         <cover-view class='goods_prew_select'>
         </cover-view>
         <view class="section"  style="margin-top: 20rpx">
-            <video class= "videoCss" src='{{fileUrl + imgUrls[0]}}'  objectFit='cover' show-center-play-btn = true  controls  danmu-btn page-gesture = "true" enable-progress-gesture = true></video>
+            <video class= "videoCss" style="height: {{videoHeight}}rpx" src='{{fileUrl + imgUrls[0]}}'  objectFit='cover' show-center-play-btn = true  controls  autoplay="true" show-mute-btn="true" page-gesture = "true" enable-progress-gesture = true></video>
         </view>
     </viev>
 

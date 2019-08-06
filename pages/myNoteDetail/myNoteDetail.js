@@ -65,6 +65,7 @@ Page({
 
         var windowsWidth = wx.getSystemInfoSync().windowWidth;
         var windowsHeight = wx.getSystemInfoSync().windowHeight;
+
         console.log("屏幕宽度 windowsWidth == ",windowsWidth)
         console.log("屏幕高度 windowsWidth == ",windowsHeight)
 
@@ -78,7 +79,8 @@ Page({
             hasMoreComment:true,
             pageIndex:0,
             pageLimit:10,
-            maxHeight:maxHeight
+            maxHeight:maxHeight,
+            videoHeight:windowsHeight*0.8*2
         })
         this.init(options.aid)
 

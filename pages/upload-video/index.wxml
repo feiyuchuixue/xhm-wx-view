@@ -1,0 +1,169 @@
+<!--pages/index/index.wxml-->
+
+
+<view class="optClass">
+    <view class='optName'>附件</view>
+    <view class='optContent' >请选择要上传的视频</view>
+</view>
+<!--<view class="optClass" style='padding:0 30rpx;flex-wrap:wrap;'>
+    <view class='uploadimgbox' wx:for="{{upImgArr}}" wx:key="item">
+        <image class='uploadimg' src='{{item.path}}' data-presrc="{{item.path}}" bindtap='previewImg' mode='aspectFill'></image>
+        <cover-view class='progress' wx:if="{{upFilesProgress}}">
+            {{item.progress}}%
+        </cover-view>
+        <cover-view class='delbtn' data-index="{{index}}" data-type="image" bindtap='delFile'>X</cover-view>
+    </view>
+    <view class='uploadimgbox' wx:for="{{upVideoArr}}" wx:key="item">
+        <video class='uploadimg' src="{{item.tempFilePath}}"  controls ></video>
+       <cover-view class='progress' wx:if="{{upFilesProgress}}">
+            {{item.progress}}%
+        </cover-view>
+        <cover-view class='delbtn' data-index="{{index}}" data-type="video" bindtap='delFile'>X</cover-view>
+    </view>
+
+    <view class='uploadimgbox' wx:if="{{upFilesBtn}}">
+        <image class='uploadbtn' bindtap='uploadFiles' src='../../image/addimgsbtn.png'></image>
+    </view>
+
+</view>-->
+<view class="headShow">
+    <view class="leftBox">
+        <view class='uploadimgbox' wx:for="{{upVideoArr}}" wx:key="item">
+            <video class='leftVideo' src="{{item.tempFilePath}}"  controls ></video>
+            <cover-view class='progress' wx:if="{{upFilesProgress}}">
+                {{item.progress}}%
+            </cover-view>
+            <cover-view class='delbtn' data-index="{{index}}" data-type="video" bindtap='delFile'>X</cover-view>
+        </view>
+        <image  wx:if="{{upFilesBtn}}" class='leftBtn' bindtap='uploadFiles' src='../../image/addimgsbtn.png'></image>
+    </view>
+    <view class="rightBox" style="position: relative;">
+  <!--      &lt;!&ndash; 标题 &ndash;&gt;
+        <view class="optName">
+            <view class="text_area_title topics" >
+                <input
+                        class="input-title"
+                        placeholder="请输入标题~"
+                        maxlength="25"
+                        placeholder-style="color:#b3b3b3;font-size:16px;"
+                        bindinput="handleTitleInput"
+                        style='padding:0 30rpx;'
+                        value="{{title}}"
+                ></input>
+                &lt;!&ndash; 标题字数限制 &ndash;&gt;
+                <view
+                        style="padding-right: 10rpx" class="{{ titleCount < 25 ? 'content_input_counter' : 'content_input_counter' }}"
+                >{{titleCount}}/25</view>
+            </view>
+        </view>-->
+
+
+        <view class=" " style="height:98%;background:#fff;">
+         <!--   <view style="height:98%;background:#b3b3b3;">-->
+          <textarea
+                  class=""
+                  placeholder="请输入标题~"
+                  maxlength="50"
+                  placeholder-style="color:#b3b3b3;font-size:16px;"
+                  style='margin: 0 3%; padding-top: 30rpx;width: 94%;min-height: 98%;overflow: hidden;flex-direction: row;justify-content: space-between;'
+
+                  bindinput="handleTitleInput"
+                  value="{{title}}"
+          />
+           <!--     &lt;!&ndash; 字数限制 &ndash;&gt;
+            <view class="{{ titleCount < 50 ? 'content_input_counter' : 'content_input_counter'}}">{{titleCount}}/50</view>-->
+            <view  class="{{ titleCount < 50 ? 'content_input_counter' : 'title_input_error_counter'}}" style="position: absolute;bottom: 10px;right: 10px;font-size: 30rpx;border-radius: 40rpx;padding: 2rpx 14rpx;">{{titleCount}}/50</view>
+
+
+        </view>
+
+        <!-- </view>-->
+
+    </view>
+</view>
+<!-- 标题
+<view class="optName">
+<view class="text_area_title topics" >
+    <input
+            class="input-title"
+            placeholder="请输入标题~"
+            maxlength="25"
+            placeholder-style="color:#b3b3b3;font-size:16px;"
+            bindinput="handleTitleInput"
+            style='padding:0 30rpx;'
+            value="{{title}}"
+    ></input>
+    &lt;!&ndash; 标题字数限制 &ndash;&gt;
+    <view
+            style="padding-right: 10rpx" class="{{ titleCount < 25 ? 'content_input_counter' : 'title_input_error_counter' }}"
+    >{{titleCount}}/25</view>
+</view>
+    </view>-->
+
+<!-- 栏目 -->
+<view class="optName">
+    <view class="text_area_title topics"   >
+
+
+        <picker style="width:100%;" name="sex" range="{{typeArray}}" value="{{typeArray[index]}}" bindchange="bindPickerChange">
+            <view class="picker" style="padding: 0 16px;" class="{{typeArray[index] == '~选择栏目~' ? 'first': 'noFirst'}}">
+                {{typeArray[index]}}
+            </view>
+        </picker>
+
+
+
+
+    </view>
+</view>
+
+<!-- 话题 -->
+<view class="optName">
+
+
+    <view class="text_area_title topics"  bindtap="handleTopicsInput" >
+        <input
+                class="cyht"
+                placeholder="#参与话题~"
+                maxlength="25"
+
+                placeholder-style="color:#b3b3b3;font-size:16px;"
+                disabled="disabled"
+                value="{{topics}}"
+        ></input>
+        <image
+                class="iamge_cancel"
+                src="../../image/arrow-ios-forward-outline-48.png"
+                mode="aspectFill"
+                data-id="{{index}}"
+
+        />
+    </view>
+</view>
+
+<!-- 内容 -->
+
+    <view class="optName ">
+        <view class="area_content_out topics1">
+          <textarea
+                  class=""
+                  placeholder="说说此刻的心情..."
+                  maxlength="255"
+                  placeholder-style="color:#b3b3b3;font-size:16px;"
+                  style='margin: 0 3%; padding-top: 30rpx;width: 94%;min-height: 450rpx;overflow: hidden;'
+
+                  bindinput="handleContentInput"
+                  value="{{content}}"
+          />
+            <!-- 字数限制 -->
+            <view class="{{ contentCount < 255 ? 'content_textarea_counter' : 'content_textarea_error_counter'}}">{{contentCount}}/255</view>
+        </view>
+    </view>
+
+
+
+
+<view class='subBtnBox'>
+    <button class='subBtn' type='button' bindtap='subFormData'>我要上传</button>
+</view>
+

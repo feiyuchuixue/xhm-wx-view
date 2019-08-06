@@ -105,9 +105,33 @@ Page({
     },
     //跳转到上传页面
     createArticle: function (e) {
-        wx.navigateTo({
-            url: '/pages/upload-image/index',
+        wx.showActionSheet({
+            itemList: ['图片', '视频'],
+            success: function (res) {
+
+
+                //   console.log(res.tapIndex)
+                let xindex = res.tapIndex;
+                if (xindex == 0){
+
+                    wx.navigateTo({
+                        url: '/pages/upload-image/index',
+                    })
+
+                } else if (xindex == 1){
+                    wx.navigateTo({
+                        url: '/pages/upload-video/index',
+                    })
+
+                }
+
+            },
+            fail: function (res) {
+                console.log(res.errMsg)
+            }
         })
+
+
     },
 //跳转到上传页面
     createArticle2: function (e) {
