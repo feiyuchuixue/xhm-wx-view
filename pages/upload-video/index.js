@@ -11,7 +11,9 @@ Page({
    */
   data: {
       upFilesBtn:true,
+      upFilesBtn2:true,
       upFilesProgress:false,
+      upFilesProgress2:false,
       maxUploadLen:9,
       // 标题数
       titleCount: 0,
@@ -96,6 +98,7 @@ Page({
                  if (upFilesArr.length < _this.data.maxUploadLen) {
                      _this.setData({
                          upFilesBtn: true,
+                         upFilesBtn2: true,
                      })
                  }
              } else if (res.cancel) {
@@ -179,6 +182,25 @@ e
 
 
   },
+    // 选择图片
+    uploadFiles2: function (e) {
+        var _this = this;
+
+        upFiles.chooseImage(_this, 1)
+        _this.setData({
+            fileType :'img'
+        })
+/*        console.log("_this.data.upImgArr after == " ,_this.data.upImgArr)
+        if(_this.data.upImgArr.length>0){
+            _this.setData({
+                upFilesBtn2 :'false'
+            })
+        }*/
+
+
+
+
+    },
     //图片信息下追加
     pushImgArr:function(tempFile){
       let _this = this;
@@ -285,6 +307,7 @@ e
 
       _this.setData({
           upFilesProgress:true,
+          upFilesProgress2:true,
           upFilesType:null,
           uuid:''
       })

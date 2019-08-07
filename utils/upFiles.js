@@ -23,10 +23,15 @@ var chooseImage = (t, count) =>{
         let imgArr = t.data.upImgArr;
         let newimgArr = imgArr.slice(0, count)
         t.setData({
-          upFilesBtn: false,
+          upFilesBtn2: false,
           upImgArr: newimgArr
         })
       }
+/*      if(upFilesArr.length>0){
+        t.setData({
+          upFilesBtn2 :false
+        })
+      }*/
       console.log("up logo is ..." , t.data.upImgArr)
 
     },

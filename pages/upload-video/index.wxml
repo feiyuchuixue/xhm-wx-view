@@ -3,7 +3,7 @@
 
 <view class="optClass">
     <view class='optName'>附件</view>
-    <view class='optContent' >请选择要上传的视频</view>
+    <view class='optContent' >请选择要上传的视频和封面图</view>
 </view>
 <!--<view class="optClass" style='padding:0 30rpx;flex-wrap:wrap;'>
     <view class='uploadimgbox' wx:for="{{upImgArr}}" wx:key="item">
@@ -27,6 +27,7 @@
 
 </view>-->
 <view class="headShow">
+
     <view class="leftBox">
         <view class='uploadimgbox' wx:for="{{upVideoArr}}" wx:key="item">
             <video class='leftVideo' src="{{item.tempFilePath}}"  controls ></video>
@@ -35,9 +36,19 @@
             </cover-view>
             <cover-view class='delbtn' data-index="{{index}}" data-type="video" bindtap='delFile'>X</cover-view>
         </view>
-        <image  wx:if="{{upFilesBtn}}" class='leftBtn' bindtap='uploadFiles' src='../../image/addimgsbtn.png'></image>
+        <image  wx:if="{{upFilesBtn}}" class='leftBtn' bindtap='uploadFiles' src='../../image/addvideobtn.png'></image>
     </view>
+
     <view class="rightBox" style="position: relative;">
+        <view class='uploadimgbox' wx:for="{{upImgArr}}" wx:key="item">
+            <image class='rightImg' src='{{item.path}}' data-presrc="{{item.path}}" bindtap='previewImg' mode='aspectFill'></image>
+            <cover-view class='progress' wx:if="{{upFilesProgress2}}">
+                {{item.progress}}%
+            </cover-view>
+            <cover-view class='delbtn' data-index="{{index}}" data-type="image" bindtap='delFile'>X</cover-view>
+        </view>
+
+        <image  wx:if="{{upFilesBtn2}}" class='leftBtn' bindtap='uploadFiles2' src='../../image/addimgsbtn2.png'></image>
   <!--      &lt;!&ndash; 标题 &ndash;&gt;
         <view class="optName">
             <view class="text_area_title topics" >
@@ -57,9 +68,9 @@
             </view>
         </view>-->
 
-
+<!--
         <view class=" " style="height:98%;background:#fff;">
-         <!--   <view style="height:98%;background:#b3b3b3;">-->
+         &lt;!&ndash;   <view style="height:98%;background:#b3b3b3;">&ndash;&gt;
           <textarea
                   class=""
                   placeholder="请输入标题~"
@@ -70,18 +81,18 @@
                   bindinput="handleTitleInput"
                   value="{{title}}"
           />
-           <!--     &lt;!&ndash; 字数限制 &ndash;&gt;
-            <view class="{{ titleCount < 50 ? 'content_input_counter' : 'content_input_counter'}}">{{titleCount}}/50</view>-->
+           &lt;!&ndash;     &lt;!&ndash; 字数限制 &ndash;&gt;
+            <view class="{{ titleCount < 50 ? 'content_input_counter' : 'content_input_counter'}}">{{titleCount}}/50</view>&ndash;&gt;
             <view  class="{{ titleCount < 50 ? 'content_input_counter' : 'title_input_error_counter'}}" style="position: absolute;bottom: 10px;right: 10px;font-size: 30rpx;border-radius: 40rpx;padding: 2rpx 14rpx;">{{titleCount}}/50</view>
 
 
-        </view>
+        </view>-->
 
         <!-- </view>-->
 
     </view>
 </view>
-<!-- 标题
+<!-- 标题-->
 <view class="optName">
 <view class="text_area_title topics" >
     <input
@@ -93,12 +104,11 @@
             style='padding:0 30rpx;'
             value="{{title}}"
     ></input>
-    &lt;!&ndash; 标题字数限制 &ndash;&gt;
-    <view
-            style="padding-right: 10rpx" class="{{ titleCount < 25 ? 'content_input_counter' : 'title_input_error_counter' }}"
+    <!--&lt;!&ndash; 标题字数限制 &ndash;&gt;-->
+    <view style="padding-right: 10rpx" class="{{ titleCount < 25 ? 'content_input_counter' : 'title_input_error_counter' }}"
     >{{titleCount}}/25</view>
 </view>
-    </view>-->
+    </view>
 
 <!-- 栏目 -->
 <view class="optName">
