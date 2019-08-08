@@ -239,6 +239,7 @@ e
       }
 
       let filesPath = upData.filesPathsArr ? upData.filesPathsArr : upFiles.getPathArr(_this);
+      console.log("filesPath===,",filesPath)
 
       if(!filesPath || filesPath.length == 0) {
           wx.showToast({
@@ -321,6 +322,8 @@ e
       }
 
       upData['url'] = config.service.upFiles;
+      console.log("updateData === ",upData)
+     // return;
       upFiles.upFilesFun(_this, upData,function(res){
           //规避上传连点。
           _this.setData({
@@ -385,11 +388,25 @@ e
         })
     },
     createArticle:function () {
-      console.log("init createArticle fun ... ")
-      let _this = this;
-      let articleLogo=_this.data.uploadedPathArr[0];
-      let articlePicture=''
+        let _this = this;
+        let articleLogo='';
+        let articlePicture=''
+        console.log("init createArticle fun ... ")
+        console.log("_this.data.uploadedPathArr[0]===******************",_this.data.uploadedPathArr)
 
+        let arr1 = _this.data.uploadedPathArr[0];
+        let arr2 =  _this.data.uploadedPathArr[1];
+        if(arr1.indexOf('mp4')>-1){
+            articleLogo=_this.data.uploadedPathArr[1];
+            articlePicture+= _this.data.uploadedPathArr[0];
+        }else {
+            articleLogo=_this.data.uploadedPathArr[0];
+            articlePicture+= _this.data.uploadedPathArr[1];
+        }
+
+
+
+/*
         for (let i=0;i<_this.data.uploadedPathArr.length;i++){
             console.log("i="+i)
             console.log("length = "+_this.data.uploadedPathArr.length)
@@ -398,7 +415,7 @@ e
             }else {
                 articlePicture+= _this.data.uploadedPathArr[i];
             }
-        }
+        }*/
 
         console.log("articleLogo=",articleLogo);
         console.log("articlePicture=",articlePicture);
