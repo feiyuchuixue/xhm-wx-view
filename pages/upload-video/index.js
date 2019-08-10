@@ -72,43 +72,77 @@ Page({
       })
   },
     // 删除上传图片 或者视频
-  delFile:function(e){
-     let _this = this;
-     wx.showModal({
-         title: '提示',
-         content: '您确认删除嘛？',
-         success: function (res) {
-             if (res.confirm) {
-                 let delNum = e.currentTarget.dataset.index;
-                 let delType = e.currentTarget.dataset.type;
-                 let upImgArr = _this.data.upImgArr;
-                 let upVideoArr = _this.data.upVideoArr;
-                 if (delType == 'image') {
-                     upImgArr.splice(delNum, 1)
-                     _this.setData({
-                         upImgArr: upImgArr,
-                     })
-                 } else if (delType == 'video') {
-                     upVideoArr.splice(delNum, 1)
-                     _this.setData({
-                         upVideoArr: upVideoArr,
-                     })
-                 }
-                 let upFilesArr = upFiles.getPathArr(_this);
-                 if (upFilesArr.length < _this.data.maxUploadLen) {
-                     _this.setData({
-                         upFilesBtn: true,
-                         upFilesBtn2: true,
-                     })
-                 }
-             } else if (res.cancel) {
-                 console.log('用户点击取消')
-             }
-         }
-     })
+    delFile:function(e){
+        let _this = this;
+        wx.showModal({
+            title: '提示',
+            content: '您确认删除嘛？',
+            success: function (res) {
+                if (res.confirm) {
+                    let delNum = e.currentTarget.dataset.index;
+                    let delType = e.currentTarget.dataset.type;
+                    let upImgArr = _this.data.upImgArr;
+                    let upVideoArr = _this.data.upVideoArr;
+                    if (delType == 'image') {
+                        upImgArr.splice(delNum, 1)
+                        _this.setData({
+                            upImgArr: upImgArr,
+                        })
+                    } else if (delType == 'video') {
+                        upVideoArr.splice(delNum, 1)
+                        _this.setData({
+                            upVideoArr: upVideoArr,
+                        })
+                    }
+                    let upFilesArr = upFiles.getPathArr(_this);
+                    if (upFilesArr.length < _this.data.maxUploadLen) {
+                        _this.setData({
+                            upFilesBtn: true
+                        })
+                    }
+                } else if (res.cancel) {
+                    console.log('用户点击取消')
+                }
+            }
+        })
+    },
+    // 删除上传图片 或者视频
+    delFile2:function(e){
+        let _this = this;
+        wx.showModal({
+            title: '提示',
+            content: '您确认删除嘛？',
+            success: function (res) {
+                if (res.confirm) {
+                    let delNum = e.currentTarget.dataset.index;
+                    let delType = e.currentTarget.dataset.type;
+                    let upImgArr = _this.data.upImgArr;
+                    let upVideoArr = _this.data.upVideoArr;
+                    if (delType == 'image') {
+                        upImgArr.splice(delNum, 1)
+                        _this.setData({
+                            upImgArr: upImgArr,
+                        })
+                    } else if (delType == 'video') {
+                        upVideoArr.splice(delNum, 1)
+                        _this.setData({
+                            upVideoArr: upVideoArr,
+                        })
+                    }
+                    let upFilesArr = upFiles.getPathArr(_this);
+                    if (upFilesArr.length < _this.data.maxUploadLen) {
+                        _this.setData({
+                            upFilesBtn2: true,
+                        })
+                    }
+                } else if (res.cancel) {
+                    console.log('用户点击取消')
+                }
+            }
+        })
 
-e
-  },
+        e
+    },
   // 选择图片或者视频
   uploadFiles: function (e) {
       var _this = this;

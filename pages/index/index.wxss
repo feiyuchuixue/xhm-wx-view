@@ -62,9 +62,9 @@
   margin:0 auto;
 }
 .view-parent {
-  display: inline-block;
-  width: 48%;
-  margin: 8rpx 1%;
+  /* display: inline-block; */
+  width: 97%;
+  margin: 8rpx 1.5%;
 }
 
 .view-item {
@@ -198,7 +198,7 @@ page {
 
 .view-article .a_ttl {
   width: 325rpx;
-  height: 72rpx;
+  height: auto;
   padding: 0 10rpx;
   margin: 10rpx auto;
   line-height: 36rpx;

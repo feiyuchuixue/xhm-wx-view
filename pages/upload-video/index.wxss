@@ -68,11 +68,14 @@ page{
 
 .subBtnBox .subBtn{
     width: 80%;
-    display: block;
-    margin: 80rpx auto;
+    margin: 0rpx auto;
+    margin-bottom: 30rpx;
     background-color: #ce0a0a;
     color: #fff;
     font-size: 32rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .subBtnBox .subBtn.button-hover{
     background-color: #bb0909;
@@ -298,7 +301,7 @@ button{
 }
 .headShow{
     height: 480rpx;
-    width: 98%;
+    width: 100%;
 
 }
 

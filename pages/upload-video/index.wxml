@@ -39,13 +39,13 @@
         <image  wx:if="{{upFilesBtn}}" class='leftBtn' bindtap='uploadFiles' src='../../image/addvideobtn.png'></image>
     </view>
 
-    <view class="rightBox" style="position: relative;">
+    <view class="rightBox" >
         <view class='uploadimgbox' wx:for="{{upImgArr}}" wx:key="item">
             <image class='rightImg' src='{{item.path}}' data-presrc="{{item.path}}" bindtap='previewImg' mode='aspectFill'></image>
             <cover-view class='progress' wx:if="{{upFilesProgress2}}">
                 {{item.progress}}%
             </cover-view>
-            <cover-view class='delbtn' data-index="{{index}}" data-type="image" bindtap='delFile'>X</cover-view>
+            <cover-view class='delbtn' data-index="{{index}}" data-type="image" bindtap='delFile2'>X</cover-view>
         </view>
 
         <image  wx:if="{{upFilesBtn2}}" class='leftBtn' bindtap='uploadFiles2' src='../../image/addimgsbtn2.png'></image>
