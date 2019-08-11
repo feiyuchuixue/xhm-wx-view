@@ -295,7 +295,7 @@ button{
     font-size:27rpx;
     z-index:2;
     padding:0 20rpx;
-    height:60rpx;
+    height:88rpx;
     min-width:70rpx;
     margin:0 4rpx;
 }

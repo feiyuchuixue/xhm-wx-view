@@ -57,8 +57,8 @@
                                 </view>
                                 <view class='a_ttl'>
                                     <!-- <text>{{item.articleTopics + item.articleTitle}}</text> -->
-                                    <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
-                                    <text class="title" style="color: #999;">{{item.articleTitle}}</text>
+                                   <!-- <text class="topics" style="color: #000;">{{item.articleTopics}}</text>-->
+                                    <text class="title" style="color: #000;">{{item.articleTitle}}</text>
                                 </view>
                                 <view class='a_note'>
 
@@ -123,8 +123,8 @@
                                 </view>
                                 <view class='a_ttl'>
                                     <!-- <text>{{item.articleTopics + item.articleTitle}}</text> -->
-                                    <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
-                                    <text class="title" style="color: #999;">{{item.articleTitle}}</text>
+                                <!--    <text class="topics" style="color: #000;">{{item.articleTopics}}</text>-->
+                                    <text class="title" style="color: #000;">{{item.articleTitle}}</text>
                                 </view>
                                 <view class='a_note'>
 

@@ -25,7 +25,7 @@
                 <view wx:if="{{article.length>0}}">
                     <view class="listBox">
                         <view wx:for="{{article}}" class="view-parent" wx:key="{{key}}" style='display: none;'>
-                            <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" id="{{item.id}}" mode='widthFix' bindload="onImageLoad" lazy-load='true'></image>
+                            <image style=" border-radius: 10rpx; width:100%;height: {{item.height}}rpx" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" id="{{item.id}}"   mode='aspectFill' bindload="onImageLoad" lazy-load='true'></image>
                         </view>
                         <view class='leftBox' style='width: 50%;'>
                             <view wx:for="{{activitys1}}" class="view-parent" wx:key="{{key}}">
@@ -35,7 +35,7 @@
                                             <image class="showStatus2" style="width: 48rpx;height: 48rpx" src="../../image/video3.png"></image>
                                         </view>
 
-                                        <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='widthFix' lazy-load='true'></image>
+                                        <image style=" border-radius: 10rpx; width:100%;;height: {{item.height}}rpx" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true'></image>
                                     </view>
                                     <view class='a_ttl'>
                                         <!--    <text class="topics" style="color: #000;">{{item.articleTopics}}</text>-->
@@ -66,7 +66,7 @@
                                             <image class="showStatus2" style="width: 48rpx;height: 48rpx" src="../../image/video3.png"></image>
                                         </view>
 
-                                        <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='widthFix' lazy-load='true'></image>
+                                        <image style=" border-radius: 10rpx; width:100%;;height: {{item.height}}rpx" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true'></image>
                                     </view>
                                     <view class='a_ttl'>
                                         <!--    <text class="topics" style="color: #000;">{{item.articleTopics}}</text>-->
@@ -119,7 +119,7 @@
                 <view wx:if="{{article1.length}}">
                     <view class="listBox">
                         <view wx:for="{{article1}}" class="view-parent" wx:key="{{key}}" style='display: none;'>
-                            <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" id="{{item.id}}" mode='widthFix' bindload="onImageLoad1" lazy-load='true'></image>
+                            <image style=" border-radius: 10rpx; width:100%;;height: {{item.height}}rpx" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" id="{{item.id}}" mode='aspectFill' bindload="onImageLoad1" lazy-load='true'></image>
                         </view>
                         <view class='leftBox' style='width: 50%;'>
                             <view wx:for="{{activitys1}}" class="view-parent" wx:key="{{key}}">
@@ -129,12 +129,12 @@
                                         <view wx:if="{{item.articleLabel=='video'}}">
                                             <image class="showStatus2" style="width: 48rpx;height: 48rpx" src="../../image/video3.png"></image>
                                         </view>
-                                        <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='widthFix' lazy-load='true'></image>
+                                        <image style=" border-radius: 10rpx; width:100%;;height: {{item.height}}rpx" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true'></image>
                                     </view>
 
                                     <view class='a_ttl'>
-                                        <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
-                                        <text class="title" style="color: #999;">{{item.articleTitle}}</text>
+                                     <!--   <text class="topics" style="color: #000;">{{item.articleTopics}}</text>-->
+                                        <text class="title" style="color: #000;">{{item.articleTitle}}</text>
                                     </view>
 
                                     <view class='a_note'>
@@ -167,12 +167,12 @@
                                         <view wx:if="{{item.articleLabel=='video'}}">
                                             <image class="showStatus2" style="width: 48rpx;height: 48rpx" src="../../image/video3.png"></image>
                                         </view>
-                                        <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='widthFix' lazy-load='true'></image>
+                                        <image style=" border-radius: 10rpx; width:100%;height: {{item.height}}rpx;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true'></image>
                                     </view>
 
                                     <view class='a_ttl'>
-                                        <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
-                                        <text class="title" style="color: #999;">{{item.articleTitle}}</text>
+                                     <!--   <text class="topics" style="color: #000;">{{item.articleTopics}}</text>-->
+                                        <text class="title" style="color: #000;">{{item.articleTitle}}</text>
                                     </view>
 
                                     <view class='a_note'>
@@ -234,7 +234,7 @@
                 <view wx:if="{{article2.length>0}}">
                     <view class="listBox">
                         <view wx:for="{{article2}}" class="view-parent" wx:key="{{key}}" style='display: none;'>
-                            <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" id="{{item.id}}" mode='widthFix' bindload="onImageLoad2" lazy-load='true'></image>
+                            <image style=" border-radius: 10rpx; width:100%;height: {{item.height}}rpx;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" id="{{item.id}}" mode='aspectFill' bindload="onImageLoad2" lazy-load='true'></image>
                         </view>
                         <view class='leftBox' style='width: 50%;'>
                             <view wx:for="{{activitys1}}" class="view-parent" wx:key="{{key}}">
@@ -243,12 +243,12 @@
                                         <view wx:if="{{item.articleLabel=='video'}}">
                                             <image class="showStatus2" style="width: 48rpx;height: 48rpx" src="../../image/video3.png"></image>
                                         </view>
-                                        <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='widthFix' lazy-load='true'></image>
+                                        <image style=" border-radius: 10rpx; width:100%;height: {{item.height}}rpx;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true'></image>
                                     </view>
                                     <view class='a_ttl'>
                                         <!-- <text>{{item.articleTopics + item.articleTitle}}</text> -->
-                                        <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
-                                        <text class="title" style="color: #999;">{{item.articleTitle}}</text>
+                                     <!--   <text class="topics" style="color: #000;">{{item.articleTopics}}</text>-->
+                                        <text class="title" style="color: #000;">{{item.articleTitle}}</text>
                                     </view>
                                     <view class='a_note'>
 
@@ -275,12 +275,12 @@
                                         <view wx:if="{{item.articleLabel=='video'}}">
                                             <image class="showStatus2" style="width: 48rpx;height: 48rpx" src="../../image/video3.png"></image>
                                         </view>
-                                        <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='widthFix' lazy-load='true'></image>
+                                        <image style=" border-radius: 10rpx; width:100%;height: {{item.height}}rpx;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true'></image>
                                     </view>
                                     <view class='a_ttl'>
                                         <!-- <text>{{item.articleTopics + item.articleTitle}}</text> -->
-                                        <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
-                                        <text class="title" style="color: #999;">{{item.articleTitle}}</text>
+                                        <!--<text class="topics" style="color: #000;">{{item.articleTopics}}</text>-->
+                                        <text class="title" style="color: #000;">{{item.articleTitle}}</text>
                                     </view>
                                     <view class='a_note'>
 
@@ -335,7 +335,7 @@
                 <view wx:if="{{article3.length>0}}">
                     <view class='listBox'>
                         <view wx:for="{{article3}}" class="view-parent" wx:key="{{key}}" style='display: none;'>
-                            <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" id="{{item.id}}" mode='widthFix' bindload="onImageLoad3" lazy-load='true'></image>
+                            <image style=" border-radius: 10rpx; width:100%;height: {{item.height}}rpx;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" id="{{item.id}}" mode='aspectFill' bindload="onImageLoad3" lazy-load='true'></image>
                         </view>
                         <view class='leftBox' style='width: 50%;'>
                             <view wx:for="{{activitys1}}" class="view-parent" wx:key="{{key}}">
@@ -345,12 +345,12 @@
                                         <view wx:if="{{item.articleLabel=='video'}}">
                                             <image class="showStatus2" style="width: 48rpx;height: 48rpx" src="../../image/video3.png"></image>
                                         </view>
-                                        <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='widthFix' lazy-load='true'></image>
+                                        <image style=" border-radius: 10rpx; width:100%;height: {{item.height}}rpx;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true'></image>
                                     </view>
                                     <view class='a_ttl'>
                                         <!-- <text>{{item.articleTopics + item.articleTitle}}</text> -->
-                                        <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
-                                        <text class="title" style="color: #999;">{{item.articleTitle}}</text>
+                                      <!--  <text class="topics" style="color: #000;">{{item.articleTopics}}</text>-->
+                                        <text class="title" style="color: #000;">{{item.articleTitle}}</text>
                                     </view>
                                     <view class='a_note'>
 
@@ -378,12 +378,12 @@
                                         <view wx:if="{{item.articleLabel=='video'}}">
                                             <image class="showStatus2" style="width: 48rpx;height: 48rpx" src="../../image/video3.png"></image>
                                         </view>
-                                        <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='widthFix' lazy-load='true'></image>
+                                        <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true'></image>
                                     </view>
                                     <view class='a_ttl'>
                                         <!-- <text>{{item.articleTopics + item.articleTitle}}</text> -->
-                                        <text class="topics" style="color: #000;">{{item.articleTopics}}</text>
-                                        <text class="title" style="color: #999;">{{item.articleTitle}}</text>
+                                     <!--   <text class="topics" style="color: #000;">{{item.articleTopics}}</text>-->
+                                        <text class="title" style="color: #000;">{{item.articleTitle}}</text>
                                     </view>
                                     <view class='a_note'>
 

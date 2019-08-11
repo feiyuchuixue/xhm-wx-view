@@ -31,7 +31,8 @@ Page({
         notFoundHidden:true,
         activitys1: [],
         activitys2: [],
-        imagesCount: 0
+        imagesCount: 0,
+        arr:[100,110,140,160,180,170]
     },
 
 
@@ -57,7 +58,30 @@ Page({
         let currentId = options.currentTarget.id;
         let imageWidth = options.detail.width; // 图片宽度
         let imageHeight = options.detail.height; // 图片高度
+        let tupianbili = imageWidth / imageHeight;
 
+        var windowsWidth = wx.getSystemInfoSync().windowWidth;
+
+
+        //当前图片的宽度
+        let nowImg = windowsWidth * 0.5;
+
+
+
+
+        let nowHeight = nowImg / tupianbili  ;
+        console.log("nowHeight 计算出来的高 == " ,nowHeight)
+    /*    if(imageWidth>imageHeight){
+            let indexss =RandomNumBoth(0,3)
+            nowHeight +=this.data.arr[indexss]
+        }*/
+
+        let indexss =RandomNumBoth(0,5)
+        nowHeight +=this.data.arr[indexss]
+
+        if(nowHeight>540){
+            nowHeight = 540
+        }
         let activitys = this.data.article; // 获取所有的数据资源
         let activityObj = null;
 
@@ -75,11 +99,15 @@ Page({
 
         if (colOneHeight <= colTwoHeight) {
             colOneHeight += imageHeight;
+            console.log("activityObj =============",activityObj)
+            activityObj.height=nowHeight;
+            console.log("activityObj change =============",activityObj)
             activitys1.push(activityObj)
             console.log("activitys1 ==",activitys1)
            // console.info("11111 " + JSON.stringify(activitys1))
         } else {
             colTwoHeight += imageHeight;
+            activityObj.height=nowHeight;
             activitys2.push(activityObj);
             console.log("activitys2 ==",activitys2)
            // console.info("22222 " + JSON.stringify(activitys2))
@@ -104,6 +132,7 @@ Page({
         let currentId = options.currentTarget.id;
         let imageWidth = options.detail.width; // 图片宽度
         let imageHeight = options.detail.height; // 图片高度
+        let tupianbili = imageWidth / imageHeight;
 
         let activitys = this.data.article1; // 获取所有的数据资源
         let activityObj = null;
@@ -116,18 +145,35 @@ Page({
             }
         }
 
+
+        var windowsWidth = wx.getSystemInfoSync().windowWidth;
+
+        //当前图片的宽度
+        let nowImg = windowsWidth * 0.5;
+
+        let nowHeight = nowImg / tupianbili;
+        console.log("nowHeight 计算出来的高 == " ,nowHeight)
+        let indexss =RandomNumBoth(0,5)
+        nowHeight +=this.data.arr[indexss]
+
+        if(nowHeight>540){
+            nowHeight = 540
+        }
+
         let imagesCount = this.data.imagesCount - 1;
         let activitys1 = this.data.activitys1;
         let activitys2 = this.data.activitys2;
 
         if (colOneHeight <= colTwoHeight) {
             colOneHeight += imageHeight;
+            activityObj.height=nowHeight;
             activitys1.push(activityObj)
-            console.info("11111 " + JSON.stringify(activitys1))
+           // console.info("11111 " + JSON.stringify(activitys1))
         } else {
             colTwoHeight += imageHeight;
+            activityObj.height=nowHeight;
             activitys2.push(activityObj);
-            console.info("22222 " + JSON.stringify(activitys2))
+            //console.info("22222 " + JSON.stringify(activitys2))
         }
 
         let data = {
@@ -149,6 +195,7 @@ Page({
         let currentId = options.currentTarget.id;
         let imageWidth = options.detail.width; // 图片宽度
         let imageHeight = options.detail.height; // 图片高度
+        let tupianbili = imageWidth / imageHeight;
 
         let activitys = this.data.article2; // 获取所有的数据资源
         let activityObj = null;
@@ -161,18 +208,35 @@ Page({
             }
         }
 
+
+        var windowsWidth = wx.getSystemInfoSync().windowWidth;
+
+        //当前图片的宽度
+        let nowImg = windowsWidth * 0.5;
+
+        let nowHeight = nowImg / tupianbili;
+        console.log("nowHeight 计算出来的高 == " ,nowHeight)
+        let indexss =RandomNumBoth(0,5)
+        nowHeight +=this.data.arr[indexss]
+
+        if(nowHeight>540){
+            nowHeight = 540
+        }
+
         let imagesCount = this.data.imagesCount - 1;
         let activitys1 = this.data.activitys1;
         let activitys2 = this.data.activitys2;
 
         if (colOneHeight <= colTwoHeight) {
             colOneHeight += imageHeight;
+            activityObj.height=nowHeight;
             activitys1.push(activityObj)
-            console.info("11111 " + JSON.stringify(activitys1))
+          //  console.info("11111 " + JSON.stringify(activitys1))
         } else {
             colTwoHeight += imageHeight;
+            activityObj.height=nowHeight;
             activitys2.push(activityObj);
-            console.info("22222 " + JSON.stringify(activitys2))
+            //console.info("22222 " + JSON.stringify(activitys2))
         }
 
         let data = {
@@ -194,6 +258,7 @@ Page({
         let currentId = options.currentTarget.id;
         let imageWidth = options.detail.width; // 图片宽度
         let imageHeight = options.detail.height; // 图片高度
+        let tupianbili = imageWidth / imageHeight;
 
         let activitys = this.data.article3; // 获取所有的数据资源
         let activityObj = null;
@@ -206,16 +271,34 @@ Page({
             }
         }
 
+
+
+        var windowsWidth = wx.getSystemInfoSync().windowWidth;
+
+        //当前图片的宽度
+        let nowImg = windowsWidth * 0.5;
+
+        let nowHeight = nowImg / tupianbili;
+        console.log("nowHeight 计算出来的高 == " ,nowHeight)
+        let indexss =RandomNumBoth(0,5)
+        nowHeight +=this.data.arr[indexss]
+
+        if(nowHeight>540){
+            nowHeight = 540
+        }
+
         let imagesCount = this.data.imagesCount - 1;
         let activitys1 = this.data.activitys1;
         let activitys2 = this.data.activitys2;
 
         if (colOneHeight <= colTwoHeight) {
             colOneHeight += imageHeight;
+            activityObj.height=nowHeight;
             activitys1.push(activityObj)
             console.info("11111 " + JSON.stringify(activitys1))
         } else {
             colTwoHeight += imageHeight;
+            activityObj.height=nowHeight;
             activitys2.push(activityObj);
             console.info("22222 " + JSON.stringify(activitys2))
         }
@@ -661,4 +744,11 @@ function init(_this,isLoadMore,startPageIndex){
 
     })
 
+}
+
+function RandomNumBoth(Min,Max) {
+    var Range = Max - Min;
+    var Rand = Math.random();
+    var num = Min + Math.round(Rand * Range); //四舍五入
+    return num;
 }
