@@ -82,7 +82,7 @@
             <button size='mini' class="topics goods_info " id="{{articleTopicsId}}" >{{articleTopics}}</button>
 
         </view>
-        <view class='goods_info1' style="height: 50rpx; padding: 20 20rpx;" >
+<!--        <view class='goods_info1' style="height: 50rpx; padding: 20 20rpx;" >
              <button open-type='share' style="float: left; border-color: white; height: 50rpx; margin: 0; padding: 0;" data-id="{{articleInfo.id}}" data-name="{{articleInfo.articleTitle}}" size="mini" plain="false" >
                  <image style="width: 50rpx; height: 50rpx; float: left;" data-name="{{articleInfo.articleTitle}}"  src="../../image/fenxiang.png" />
                  <text style="font-size: 10px; margin-left: 5rpx;float: left; padding: 0;">{{articleInfo.articleTotalShare}}</text>
@@ -94,6 +94,22 @@
             <image style="float: right; width: 50rpx; height: 50rpx;"  bindtap="likeChange"  src="{{isLike ?'../../image/shoucang.png':'../../image/shoucang_1.png'}}" />
 
 
+        </view>-->
+        <view class='goods_info1' style="height: 60rpx; padding: 20rpx 20rpx;" >
+            <button open-type='share' style="border-color: white; width: auto; height: 50rpx; margin: 0; padding: 0;" data-id="{{articleInfo.id}}" data-name="{{articleInfo.articleTitle}}" size="mini" plain="false" >
+                <image style="width: 45rpx; height: 45rpx; float: left;" data-name="{{articleInfo.articleTitle}}" src="../../image/fenxiang.png" />
+                <text style="font-size: 10px; margin-left: 5rpx;float: left; padding: 0;">{{articleInfo.articleTotalShare}}</text>
+            </button>
+            <view class='naipingBox'>
+                <view class='naiping'>
+                    <image style="float:left; width: 50rpx; height: 50rpx; margin-left: 15rpx;" bindtap="dzChange" src="{{isCollection ?'../../image/naiping2.png':'../../image/naiping.png'}}" />
+                    <text style="float: left; font-size: 10px; margin-left: 5rpx;" >{{articleInfo.articleTotaolDz}}</text>
+                </view>
+                <view class='naiping'>
+                    <image style=" width: 50rpx; height: 50rpx;" bindtap="likeChange" src="{{isLike ?'../../image/shoucang.png':'../../image/shoucang_1.png'}}" />
+                    <text style=" font-size: 10px; margin-left: 5rpx;">{{articleInfo.articleTotalLike}}</text>
+                </view>
+            </view>
         </view>
         <view wx:if="{{comments.length>0}}" class="photo_info_box">
             <!-- 图文评论列表 -->

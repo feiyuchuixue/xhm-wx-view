@@ -129,6 +129,22 @@ button::after {
   font-weight: 400;
 
 }
+.headerBox{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.userInfo{
+  flex: 1;
+  margin-left: 60rpx;
+}
+
+.txtBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
 .topTabSwiper {
   width: 100%;

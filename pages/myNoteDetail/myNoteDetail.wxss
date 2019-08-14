@@ -44,6 +44,9 @@
     color:#777;
     padding:0;
     overflow: hidden;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .name_info{
@@ -55,6 +58,18 @@
 
 .goods_img image{
     width: 750rpx;
+}
+.naipingBox{
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.naiping{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 .intr{
     background:#eee;
@@ -371,6 +386,9 @@
     font-size:24rpx;
     color:#777;
     padding:0 20rpx;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .comment_fixed_footer {
