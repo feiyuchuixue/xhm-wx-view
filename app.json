@@ -29,7 +29,7 @@
     "pages/order-list/order-list",
     "pages/integral-list/integral-list",
     "pages/cash-out-list/cash-out-list",
-    "pages/userGroupDetail/userGroupDetail"
+    "pages/userGroupDetail/userGroupDetail",
     "pages/cropper/cropper"
 
 
