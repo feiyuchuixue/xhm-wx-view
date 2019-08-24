@@ -2,63 +2,49 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bea7e186-ebb0-4bd4-8c32-a695cce0ef58" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/component/image-cropper/image-cropper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component/image-cropper/image-cropper.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component/image-cropper/image-cropper.wxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component/image-cropper/image-cropper.wxss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/addimgsbtn2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/addvideobtn.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/fenxiang.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/video_show.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/cropper/cropper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/cropper/cropper.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/cropper/cropper.wxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/cropper/cropper.wxss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/upload-video/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/upload-video/index.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/upload-video/index.wxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/upload-video/index.wxss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image/shop_cart.png" beforeDir="false" afterPath="$PROJECT_DIR$/image/shop_cart.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/goods-details/goods-details.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/goods-details/goods-details.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/goods-details/goods-details.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/goods-details/goods-details.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/goods-details/goods-details.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/goods-details/goods-details.wxss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/goods-mall/goods-mall.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/goods-mall/goods-mall.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/goods-mall/goods-mall.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/goods-mall/goods-mall.wxss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/index/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index/index.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.wxss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/mine/mine.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mine/mine.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/mine/mine.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mine/mine.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/order-list/order-list.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/order-list/order-list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/to-order/to-order.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/to-order/to-order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/project.config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/mine/mine.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mine/mine.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/moreCommentShow/moreCommentShow.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/moreCommentShow/moreCommentShow.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/moreCommentShow/moreCommentShow.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/moreCommentShow/moreCommentShow.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/moreCommentShow/moreCommentShow.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/moreCommentShow/moreCommentShow.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/myNoteDetail/myNoteDetail.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/myNoteDetail/myNoteDetail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/myNoteDetail/myNoteDetail.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/myNoteDetail/myNoteDetail.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/myNoteDetail/myNoteDetail.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/myNoteDetail/myNoteDetail.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/search/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/search/search.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/search/search.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/search/search.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/upload-image/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/upload-image/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/upload-image/index.json" beforeDir="false" afterPath="$PROJECT_DIR$/pages/upload-image/index.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/upload-image/index.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/upload-image/index.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/userIndexDetail/userIndexDetail.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/userIndexDetail/userIndexDetail.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/upFiles.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/upFiles.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>pageIndex</find>
-      <find>emoji</find>
-      <find>like-list</find>
-      <find>c_info_view</find>
-      <find>comment_info</find>
-      <find>c_date_txt</find>
-      <find>'7OnMYquq'</find>
-      <find>xihuan</find>
-      <find>if</find>
-      <find>goods_intr</find>
-      <find>line</find>
-      <find>.line</find>
-      <find>reque</find>
-      <find>hasMoreComment</find>
-      <find>showMoreComment</find>
-      <find>releaseFocus2</find>
-      <find>releaseFocus</find>
-      <find>submitForm</find>
-      <find>subm</find>
-      <find>to</find>
-      <find>articleId</find>
-      <find>su</find>
-      <find>commentId</find>
-      <find>commentThis</find>
-      <find>cent</find>
-      <find>comments</find>
-      <find>articleComment/add</find>
-      <find>commentCount</find>
-      <find>comment</find>
-      <find>queryArticleCommentCount</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>_this.data.aid</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -123,6 +109,7 @@
       <workItem from="1563496259864" duration="19567000" />
       <workItem from="1563582624009" duration="16363000" />
       <workItem from="1564820270727" duration="1795000" />
+      <workItem from="1566640355674" duration="907000" />
     </task>
     <task id="LOCAL-00001" summary="微信上传多视频和图片">
       <created>1562840366586</created>
