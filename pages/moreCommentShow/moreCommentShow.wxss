@@ -629,3 +629,17 @@ button::after {
     margin-right:30rpx;
     text-align: center;
 }
+.emoji2{
+    width: 24px;
+    height: 24px;
+    margin-left: 20rpx;
+    margin-top: 20rpx;
+    display: flex;
+    flex:1;
+    justify-conent:flex-end;
+}
+.emojiTxt2{
+    margin-left: 5rpx;
+    margin-top: 20rpx;
+
+}

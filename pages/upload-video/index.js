@@ -11,7 +11,9 @@ Page({
    */
   data: {
       upFilesBtn:true,
+      upFilesBtn2:true,
       upFilesProgress:false,
+      upFilesProgress2:false,
       maxUploadLen:9,
       // 标题数
       titleCount: 0,
@@ -70,63 +72,90 @@ Page({
       })
   },
     // 删除上传图片 或者视频
-  delFile:function(e){
-     let _this = this;
-     wx.showModal({
-         title: '提示',
-         content: '您确认删除嘛？',
-         success: function (res) {
-             if (res.confirm) {
-                 let delNum = e.currentTarget.dataset.index;
-                 let delType = e.currentTarget.dataset.type;
-                 let upImgArr = _this.data.upImgArr;
-                 let upVideoArr = _this.data.upVideoArr;
-                 if (delType == 'image') {
-                     upImgArr.splice(delNum, 1)
-                     _this.setData({
-                         upImgArr: upImgArr,
-                     })
-                 } else if (delType == 'video') {
-                     upVideoArr.splice(delNum, 1)
-                     _this.setData({
-                         upVideoArr: upVideoArr,
-                     })
-                 }
-                 let upFilesArr = upFiles.getPathArr(_this);
-                 if (upFilesArr.length < _this.data.maxUploadLen) {
-                     _this.setData({
-                         upFilesBtn: true,
-                     })
-                 }
-             } else if (res.cancel) {
-                 console.log('用户点击取消')
-             }
-         }
-     })
+    delFile:function(e){
+        let _this = this;
+        wx.showModal({
+            title: '提示',
+            content: '您确认删除嘛？',
+            success: function (res) {
+                if (res.confirm) {
+                    let delNum = e.currentTarget.dataset.index;
+                    let delType = e.currentTarget.dataset.type;
+                    let upImgArr = _this.data.upImgArr;
+                    let upVideoArr = _this.data.upVideoArr;
+                    if (delType == 'image') {
+                        upImgArr.splice(delNum, 1)
+                        _this.setData({
+                            upImgArr: upImgArr,
+                        })
+                    } else if (delType == 'video') {
+                        upVideoArr.splice(delNum, 1)
+                        _this.setData({
+                            upVideoArr: upVideoArr,
+                        })
+                    }
+                    let upFilesArr = upFiles.getPathArr(_this);
+                    if (upFilesArr.length < _this.data.maxUploadLen) {
+                        _this.setData({
+                            upFilesBtn: true
+                        })
+                    }
+                } else if (res.cancel) {
+                    console.log('用户点击取消')
+                }
+            }
+        })
+    },
+    // 删除上传图片 或者视频
+    delFile2:function(e){
+        let _this = this;
+        wx.showModal({
+            title: '提示',
+            content: '您确认删除嘛？',
+            success: function (res) {
+                if (res.confirm) {
+                    let delNum = e.currentTarget.dataset.index;
+                    let delType = e.currentTarget.dataset.type;
+                    let upImgArr = _this.data.upImgArr;
+                    let upVideoArr = _this.data.upVideoArr;
+                    if (delType == 'image') {
+                        upImgArr.splice(delNum, 1)
+                        _this.setData({
+                            upImgArr: upImgArr,
+                        })
+                    } else if (delType == 'video') {
+                        upVideoArr.splice(delNum, 1)
+                        _this.setData({
+                            upVideoArr: upVideoArr,
+                        })
+                    }
+                    let upFilesArr = upFiles.getPathArr(_this);
+                    if (upFilesArr.length < _this.data.maxUploadLen) {
+                        _this.setData({
+                            upFilesBtn2: true,
+                        })
+                    }
+                } else if (res.cancel) {
+                    console.log('用户点击取消')
+                }
+            }
+        })
 
-e
-  },
+        e
+    },
   // 选择图片或者视频
   uploadFiles: function (e) {
       var _this = this;
 
+      upFiles.chooseVideo(_this, 1)
       _this.setData({
-          fileType :'img'
+          fileType :'video'
       })
 
-      if(_this.data.upImgArr.length < 9){
-          //跳转到裁剪图片页面
-          wx.navigateTo({
-              url: '/pages/cropper/cropper',
-          })
-      }else{
-          _this.setData({
-              upFilesBtn: false,
-          })
-      }
+/*
 
       //如果已经有图片的选择了，再新加文件类型只能是图片
-/*      if(_this.data.upImgArr && _this.data.upImgArr.length>0){
+      if(_this.data.upImgArr && _this.data.upImgArr.length>0){
           _this.setData({
               fileType :'img'
           })
@@ -136,16 +165,7 @@ e
               itemList: ['选择图片'],
               success: function (res) {
 
-                  if(_this.data.upImgArr.length < 9){
-                      //跳转到裁剪图片页面
-                      wx.navigateTo({
-                          url: '/pages/cropper/cropper',
-                      })
-                  }else{
-                      _this.setData({
-                          upFilesBtn: false,
-                      })
-                  }
+
                //   upFiles.chooseImage(_this, _this.data.maxUploadLen)
 
               },
@@ -175,10 +195,10 @@ e
                       })
 
 
-/!*                      upFiles.chooseImage(_this, _this.data.maxUploadLen)
+                   upFiles.chooseImage(_this, _this.data.maxUploadLen)
                       _this.setData({
                           fileType :'img'
-                      })*!/
+                      })
                   } else if (xindex == 1){
                       upFiles.chooseVideo(_this, 1)
                       _this.setData({
@@ -191,9 +211,30 @@ e
                   console.log(res.errMsg)
               }
           })
-      }*/
+      }
+*/
+
 
   },
+    // 选择图片
+    uploadFiles2: function (e) {
+        var _this = this;
+
+        upFiles.chooseImage(_this, 1)
+        _this.setData({
+            fileType :'img'
+        })
+/*        console.log("_this.data.upImgArr after == " ,_this.data.upImgArr)
+        if(_this.data.upImgArr.length>0){
+            _this.setData({
+                upFilesBtn2 :'false'
+            })
+        }*/
+
+
+
+
+    },
     //图片信息下追加
     pushImgArr:function(tempFile){
       let _this = this;
@@ -232,6 +273,7 @@ e
       }
 
       let filesPath = upData.filesPathsArr ? upData.filesPathsArr : upFiles.getPathArr(_this);
+      console.log("filesPath===,",filesPath)
 
       if(!filesPath || filesPath.length == 0) {
           wx.showToast({
@@ -300,6 +342,7 @@ e
 
       _this.setData({
           upFilesProgress:true,
+          upFilesProgress2:true,
           upFilesType:null,
           uuid:''
       })
@@ -313,6 +356,8 @@ e
       }
 
       upData['url'] = config.service.upFiles;
+      console.log("updateData === ",upData)
+     // return;
       upFiles.upFilesFun(_this, upData,function(res){
           //规避上传连点。
           _this.setData({
@@ -350,7 +395,8 @@ e
             inputValue = inputValue.substring(0, inputValue.lastIndexOf(" "));
         }
         let titleCount = inputValue.length;
-        if (titleCount <= 25) {
+        console.log("titleCount length ==",titleCount)
+        if (titleCount <=51) {
             this.setData({
                 titleCount: titleCount,
                 title: inputValue
@@ -361,7 +407,7 @@ e
     handleContentInput(event) {
         let textareaValue = event.detail.value;
         let contentCount = textareaValue.length;
-        if (contentCount <= 255) {
+        if (contentCount <= 256) {
             this.setData({
                 contentCount: contentCount,
                 content: textareaValue
@@ -376,11 +422,25 @@ e
         })
     },
     createArticle:function () {
-      console.log("init createArticle fun ... ")
-      let _this = this;
-      let articleLogo=_this.data.uploadedPathArr[0];
-      let articlePicture=''
+        let _this = this;
+        let articleLogo='';
+        let articlePicture=''
+        console.log("init createArticle fun ... ")
+        console.log("_this.data.uploadedPathArr[0]===******************",_this.data.uploadedPathArr)
 
+        let arr1 = _this.data.uploadedPathArr[0];
+        let arr2 =  _this.data.uploadedPathArr[1];
+        if(arr1.indexOf('mp4')>-1){
+            articleLogo=_this.data.uploadedPathArr[1];
+            articlePicture+= _this.data.uploadedPathArr[0];
+        }else {
+            articleLogo=_this.data.uploadedPathArr[0];
+            articlePicture+= _this.data.uploadedPathArr[1];
+        }
+
+
+
+/*
         for (let i=0;i<_this.data.uploadedPathArr.length;i++){
             console.log("i="+i)
             console.log("length = "+_this.data.uploadedPathArr.length)
@@ -389,7 +449,7 @@ e
             }else {
                 articlePicture+= _this.data.uploadedPathArr[i];
             }
-        }
+        }*/
 
         console.log("articleLogo=",articleLogo);
         console.log("articlePicture=",articlePicture);

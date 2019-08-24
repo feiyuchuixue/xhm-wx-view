@@ -62,7 +62,7 @@ page{
 }
 .optClass .uploadimg,.optClass .uploadbtn{
     display: block;
-    width: 100%;
+    width: 50%;
     height: 208rpx;
 }
 
@@ -298,4 +298,86 @@ button{
     height:88rpx;
     min-width:70rpx;
     margin:0 4rpx;
+}
+.headShow{
+    height: 480rpx;
+    width: 100%;
+
+}
+
+.leftBox{
+    /*background: yellow;*/
+    margin-left: 1%;
+
+    width: 49%;
+    height: 100%;
+    float: left;
+
+}
+.leftBtn{
+    margin-top: 10rpx;
+    width: 98%;
+    height: 98%;
+
+}
+.leftVideo{
+     width: 100%;
+     height: 478rpx;
+     /*  height: 98%;*/
+
+ }
+.rightImg{
+    width: 100%;
+    height: 478rpx;
+    /*  height: 98%;*/
+
+}
+.rightBox{
+    margin-left: 1%;
+    /*margin-top: 10rpx;*/
+
+ /*   background: red;*/
+    width: 49%;
+    height: 100%;
+    float: right;
+
+
+
+}
+
+.delbtn{
+    width: 50rpx;
+    height: 50rpx;
+    position: absolute;
+    top: 10rpx;
+    right: 10rpx;
+    background-color: rgba(0, 0, 0, .5);
+    color: #fff;
+    font-size: 30rpx;
+    text-align: center;
+    line-height: 50rpx;
+    z-index: 98;
+}
+
+.uploadimgbox{
+    flex: 0 0 49%;
+    position: relative;
+    box-sizing: border-box;
+    padding: 10rpx;
+    margin-bottom: 10rpx;
+}
+
+.progress{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .5);
+    color: #fff;
+    font-size: 30rpx;
+    text-align: center;
+    line-height: 208rpx;
+    z-index: 99;
+
 }

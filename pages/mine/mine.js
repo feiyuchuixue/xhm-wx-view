@@ -116,10 +116,34 @@ Page({
     }
   },
   //跳转到上传页面
-  createArticle: function(e) {
-    wx.navigateTo({
-      url: '/pages/upload-image/index',
+  createArticle: function (e) {
+    wx.showActionSheet({
+      itemList: ['图片', '视频'],
+      success: function (res) {
+
+
+        //   console.log(res.tapIndex)
+        let xindex = res.tapIndex;
+        if (xindex == 0){
+
+          wx.navigateTo({
+            url: '/pages/upload-image/index',
+          })
+
+        } else if (xindex == 1){
+          wx.navigateTo({
+            url: '/pages/upload-video/index',
+          })
+
+        }
+
+      },
+      fail: function (res) {
+        console.log(res.errMsg)
+      }
     })
+
+
   },
   //跳转到上传页面
   createArticle2: function(e) {
@@ -299,22 +323,23 @@ Page({
           }
 
         }
+
       }
     })
 
   },
   //刷新
-  onPullRefresh: function() {
+  onPullRefresh:function(){
     console.log("新的刷新組件")
     let _this = this;
     //笔记页面
-    if (_this.data.currentData == 0) {
+    if(_this.data.currentData == 0){
       setTimeout(() => {
         this.init()
       }, 500)
 
       //收藏页面
-    } else if (_this.data.currentData == 1) {
+    }else if(_this.data.currentData == 1){
 
 
       setTimeout(() => {

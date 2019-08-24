@@ -19,32 +19,50 @@
             <text >{{ isCollection?'已关注':'关注'}}</text>
         </view>
     </view>
-    <view class="line" style="margin: 10rpx 0;"/>
-    <viev wx:if="{{isMP4}}">
+    <!--<view class="line" style="margin: 10rpx 0;"/>-->
+    <viev wx:if="{{isMP4}}" style="margin: 10rpx 0;">
 
 
         <cover-view class='goods_prew_select'>
         </cover-view>
         <view class="section"  style="margin-top: 20rpx">
-            <video class= "videoCss" src='{{fileUrl + imgUrls[0]}}'  objectFit='cover' show-center-play-btn = true  controls  danmu-btn page-gesture = "true" enable-progress-gesture = true></video>
+            <video class= "videoCss" style="height: {{videoHeight}}rpx" src='{{fileUrl + imgUrls[0]}}'  objectFit='cover' show-center-play-btn = true  controls  autoplay="true" show-mute-btn="true" page-gesture = "true" enable-progress-gesture = true></video>
         </view>
     </viev>
 
 
-    <view wx:else >
+    <view wx:else  style="margin: 10rpx 0;">
 
         <cover-view class='goods_prew_select'>
 
         </cover-view>
-        <view class='images' style="margin-top: 20rpx">
-            <swiper class='detail-imgs' indicator-dots="{{true}}" autoplay='{{true}}' interval="{{5000}}" duration="{{500}}" circular="{{true}}" bindchange='bindchange' style="height:{{maxHeight}}rpx;">
+        <view class='images' style="position: relative;">
+
+            <swiper class='detail-imgs'  circular="{{true}}" bindchange='bindchange' style="height:{{imgheights[current]}}rpx;">
+
                 <block wx:for="{{imgUrls}}" wx:key="{{index}}">
                     <swiper-item style=" display:flex; justify-content: center; align-items:center;    ">
-                        <image src="{{fileUrl + item}}" class='image-view'  mode=''  style="height:{{imgheights[current]}}rpx;width:{{imgwidths[current]}}rpx;" bindload="imageLoad" data-src='{{fileUrl + item}}' data-index='{{index}}' bindtap="previewImage"></image>
+                        <image src="{{fileUrl + item}}" class='image-view'  mode='widthFix'  style="height:{{imgheights[current]}}rpx;width:{{imgwidth}}rpx;" bindload="imageLoad" data-src='{{fileUrl + item}}' data-index='{{index}}' bindtap="previewImage"></image>
+         <!--               <image src="{{fileUrl + item}}" class='image-view'  mode=''  style="height:{{imgheights[current]}}rpx;width:{{imgwidths[current]}}rpx;" bindload="imageLoad" data-src='{{fileUrl + item}}' data-index='{{index}}' bindtap="previewImage"></image>-->
                     </swiper-item>
                 </block>
             </swiper>
+            <view  style="position: absolute;top: 10px;right: 10px;background-color: #4E4843;color: #fff;font-size: 30rpx;border-radius: 40rpx;padding: 2rpx 14rpx;">{{current+1}}/{{imgUrls.length}}</view>
+
+
+
+
+
+
         </view>
+        <!--重置小圆点的样式 -->
+        <view wx:if="{{imgUrls.length>1}}" class="dots ">
+            <block wx:for="{{imgUrls}}">
+                <view class="dot{{index == current ? ' active' : ''}}"></view>
+            </block>
+        </view>
+
+
 
 
     </view>
@@ -64,12 +82,34 @@
             <button size='mini' class="topics goods_info " id="{{articleTopicsId}}" >{{articleTopics}}</button>
 
         </view>
-        <view class='goods_info'  bindtap="likeChange" >
-            <text style="float: left;">
-                {{articleCreateTime}}
-            </text>
-            <image class="emoji" src="{{isLike ?'../../image/naiping2.png':'../../image/naiping.png'}}" height="48" width="48"/>
+<!--        <view class='goods_info1' style="height: 50rpx; padding: 20 20rpx;" >
+             <button open-type='share' style="float: left; border-color: white; height: 50rpx; margin: 0; padding: 0;" data-id="{{articleInfo.id}}" data-name="{{articleInfo.articleTitle}}" size="mini" plain="false" >
+                 <image style="width: 50rpx; height: 50rpx; float: left;" data-name="{{articleInfo.articleTitle}}"  src="../../image/fenxiang.png" />
+                 <text style="font-size: 10px; margin-left: 5rpx;float: left; padding: 0;">{{articleInfo.articleTotalShare}}</text>
+             </button>
+            <image style="float:left; width: 50rpx; height: 50rpx; margin-left: 15rpx;" bindtap="dzChange"  src="{{isCollection ?'../../image/naiping2.png':'../../image/naiping.png'}}" />
+            <text  style="float: left; font-size: 10px; margin-left: 5rpx;" >{{articleInfo.articleTotaolDz}}</text>
 
+            <text  style="float: right; font-size: 10px; margin-left: 5rpx;">{{articleInfo.articleTotalLike}}</text>
+            <image style="float: right; width: 50rpx; height: 50rpx;"  bindtap="likeChange"  src="{{isLike ?'../../image/shoucang.png':'../../image/shoucang_1.png'}}" />
+
+
+        </view>-->
+        <view class='goods_info1' style="height: 60rpx; padding: 20rpx 20rpx;" >
+            <button open-type='share' style="border-color: white; width: auto; height: 50rpx; margin: 0; padding: 0;" data-id="{{articleInfo.id}}" data-name="{{articleInfo.articleTitle}}" size="mini" plain="false" >
+                <image style="width: 45rpx; height: 45rpx; float: left;" data-name="{{articleInfo.articleTitle}}" src="../../image/fenxiang.png" />
+                <text style="font-size: 10px; margin-left: 5rpx;float: left; padding: 0;">{{articleInfo.articleTotalShare}}</text>
+            </button>
+            <view class='naipingBox'>
+                <view class='naiping'>
+                    <image style="float:left; width: 50rpx; height: 50rpx; margin-left: 15rpx;" bindtap="dzChange" src="{{isCollection ?'../../image/naiping2.png':'../../image/naiping.png'}}" />
+                    <text style="float: left; font-size: 10px; margin-left: 5rpx;" >{{articleInfo.articleTotaolDz}}</text>
+                </view>
+                <view class='naiping'>
+                    <image style=" width: 50rpx; height: 50rpx;" bindtap="likeChange" src="{{isLike ?'../../image/shoucang.png':'../../image/shoucang_1.png'}}" />
+                    <text style=" font-size: 10px; margin-left: 5rpx;">{{articleInfo.articleTotalLike}}</text>
+                </view>
+            </view>
         </view>
         <view wx:if="{{comments.length>0}}" class="photo_info_box">
             <!-- 图文评论列表 -->
@@ -85,9 +125,11 @@
                 <view style="margin-top: 10rpx;" wx:for="{{comments}}" wx:for-item="comment" wx:key="index" class="commment_list">
                     <!-- index < 3 在视频下面只显示三条记录 -->
                     <view>
-                        <view style="display: flex;">
+                        <view style="display: flex;" data-id="{{comment.id}}" data-index="{{index}}" bindtap="commentDzChange" >
                             <image style="width: 60rpx; height: 60rpx; border-radius: 50%;"  src="{{  comment.userLogo}}"></image>
-                            <text style="height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999; font-size: 26rpx;" >{{comment.userName}}</text>
+                            <text style="height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999; font-size: 26rpx;flex:1;" >{{comment.userName}}</text>
+                            <image style="margin-top:10rpx; height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999;height: 40rpx;width: 40rpx "    src="{{comment.liked ?'../../image/naiping2.png':'../../image/naiping.png'}}"/>
+                            <text style="margin-top:10rpx; height: 40rpx; line-height: 40rpx;">{{comment.commentTotalLike}}</text>
                         </view>
                     </view>
                     <view style="margin: 1rpx 0 0rpx 80rpx; color: #000; font-size: 26rpx;">

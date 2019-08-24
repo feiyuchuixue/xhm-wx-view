@@ -13,7 +13,7 @@
     padding:10rpx;
     width: 98%;
     height: 1px;
-    border-top: 1px solid #ddd;
+   /* border-top: 1px solid #ddd;*/
     margin-top:10rpx;
 }
 .price{
@@ -34,8 +34,19 @@
     line-height:32rpx;
     font-size:28rpx;
     color:#777;
-    padding:0 20rpx 20rpx 0;
+    padding:0 20rpx;
     overflow: hidden;
+}
+
+.goods_info1{
+    line-height:32rpx;
+    font-size:28rpx;
+    color:#777;
+    padding:0;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .name_info{
@@ -47,6 +58,18 @@
 
 .goods_img image{
     width: 750rpx;
+}
+.naipingBox{
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.naiping{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 .intr{
     background:#eee;
@@ -363,6 +386,9 @@
     font-size:24rpx;
     color:#777;
     padding:0 20rpx;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .comment_fixed_footer {
@@ -598,10 +624,26 @@ button::after {
 .emoji{
     width: 24px;
     height: 24px;
-    margin-right: 10rpx;
     float: right;
-    margin-top: 30rpx;
 }
+.emojiTxt{
+    float: right;
+}
+.emoji2{
+    width: 24px;
+    height: 24px;
+    margin-left: 20rpx;
+    margin-top: 20rpx;
+    display: flex;
+    flex:1;
+    justify-conent:flex-end;
+}
+.emojiTxt2{
+    margin-left: 5rpx;
+    margin-top: 20rpx;
+
+}
+
 /*发送按钮*/
 .comment_release .submit{
     width: 70px;
@@ -706,6 +748,34 @@ button::after {
     background-color: white;
     border-radius:15px;
     font-size:24rpx;
+}
+/* 滑动指示器 */
+/*用来包裹所有的小圆点 */
+.dots {
+    margin-top: 20rpx;
+
+    display: flex;
+    flex-direction: row;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+/*未选中时的小圆点样式 */
+.dot {
+    width: 10rpx;
+    height: 10rpx;
+    border-radius: 50%;
+    background: #b3b3b3;
+    float: left;
+    margin-left: 10rpx;
+}
+/*选中以后的小圆点样式 */
+.active {
+    width: 12rpx;
+    height: 12rpx;
+    background-color: coral;
 }
 
 

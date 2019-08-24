@@ -9,6 +9,8 @@ var chooseImage = (t, count) =>{
       let arr = res.tempFiles;
       // console.log(res)
       arr.map(function(v,i){
+        console.log("v == " ,v);
+
         v['progress'] = 0;
         imgArr.push(v)
       })
@@ -21,10 +23,17 @@ var chooseImage = (t, count) =>{
         let imgArr = t.data.upImgArr;
         let newimgArr = imgArr.slice(0, count)
         t.setData({
-          upFilesBtn: false,
+          upFilesBtn2: false,
           upImgArr: newimgArr
         })
       }
+/*      if(upFilesArr.length>0){
+        t.setData({
+          upFilesBtn2 :false
+        })
+      }*/
+      console.log("up logo is ..." , t.data.upImgArr)
+
     },
   });
 }
@@ -117,13 +126,14 @@ var upFilesFun = (t, data, progress, success) =>{
     success([]);
     return;
   }
+
   const uploadTask = wx.uploadFile({
     url: url,
     filePath: filesPath[startIndex],
     name: name,
     formData: formData,
     success: function (res) {
-      console.log("res ===",res);
+      console.log("res img            ===",res);
       var data = res.data
       successNumber++;
       // console.log('success', successNumber)

@@ -7,6 +7,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+
         imgheights: [],
         imgwidths: [],
         current: 0,
@@ -50,7 +51,11 @@ Page({
         //评论类型 1级评论和2级评论
         commentType:1,
         //当前账户的用户头像
-        globalUserLogo:''
+        globalUserLogo:'',
+        isDz:true,
+        articleInfo:{},
+        sDot:'',
+
     },
 
     /**
@@ -60,6 +65,7 @@ Page({
 
         var windowsWidth = wx.getSystemInfoSync().windowWidth;
         var windowsHeight = wx.getSystemInfoSync().windowHeight;
+
         console.log("屏幕宽度 windowsWidth == ",windowsWidth)
         console.log("屏幕高度 windowsWidth == ",windowsHeight)
 
@@ -73,7 +79,8 @@ Page({
             hasMoreComment:true,
             pageIndex:0,
             pageLimit:10,
-            maxHeight:maxHeight
+            maxHeight:maxHeight,
+            videoHeight:windowsHeight*0.8*2
         })
         this.init(options.aid)
 
@@ -124,7 +131,101 @@ Page({
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function () {
+    onShareAppMessage: function (e) {
+        console.log("分享 e ==",e)
+        let _this =this;
+
+        // 自定义分享内容
+        var shareObj = {
+            title: "转发的标题",        // 小程序的名称
+            path: '/pages/index/index',        // 默认是当前页面，必须是以‘/’开头的完整路径
+            imgUrl: '',     //自定义图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
+            success: function(res){
+                console.log("分享 res ============",res)
+                console.log("success .....................")
+                // 转发成功之后的回调
+                if(res.errMsg == 'shareAppMessage:ok'){
+
+                    console.log("分享 res ============",res)
+                    console.log("success .....................")
+                    //调用后台分享次数统计接口
+
+                    // 用户点击了确定
+                    wx.request({
+                        url: app.globalData.host + 'articleCon/share',
+                        data:  {
+                            articleId:_this.data.aid
+                        },
+                        method: "POST",
+                        header: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        complete: function( res ) {
+                            console.log("result ===",res);
+                            if( res == null || res.data == null ) {
+                                // reject(new Error('网络请求失败'))
+                            }
+                        },
+                        success: function(res) {
+                            if(res.data.code ==0){
+                                let index = "articleUserInfo.articleTotalShare";
+                                _this.setData({
+                                    [index]:_this.data.articleUserInfo.articleTotalShare +1
+                                })
+
+                            }
+                        }
+
+                    })
+
+                }
+            },
+            fail: function(){
+                // 转发失败之后的回调
+                if(res.errMsg == 'shareAppMessage:fail cancel'){
+                    // 用户取消转发
+                }else if(res.errMsg == 'shareAppMessage:fail'){
+                    // 转发失败，其中 detail message 为详细失败信息
+                }
+            },
+    };
+        // 来自页面内的按钮的转发
+        if( e.from == 'button' ){
+            console.log("来源于button");
+            // 此处可以修改 shareObj 中的内容
+            shareObj.path = '/pages/myNoteDetail/myNoteDetail?aid='+_this.data.aid;
+            shareObj.title='家乐说：'+e.target.dataset.name
+        }
+
+
+        // 用户点击了确定
+        wx.request({
+            url: app.globalData.host + 'articleCon/share',
+            data:  {
+                articleId:_this.data.aid
+            },
+            method: "POST",
+            header: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            complete: function( res ) {
+                console.log("result ===",res);
+                if( res == null || res.data == null ) {
+                    // reject(new Error('网络请求失败'))
+                }
+            },
+            success: function(res) {
+
+                    let index = "articleInfo.articleTotalShare";
+                    _this.setData({
+                        [index]:_this.data.articleInfo.articleTotalShare +1
+                    })
+
+            }
+
+        })
+
+        return shareObj;
 
     },
     //加载详情数据
@@ -162,6 +263,7 @@ Page({
 
 
                     _this.setData({
+                        articleInfo:deatil,
                         imgUrls: pictrueArr,
                         fileUrl:res.data.result.fileUrl,
                         articleTitle:deatil.articleTitle,
@@ -242,7 +344,8 @@ Page({
             data:  {
                 page:0,
                 size:10,
-                articleId:_this.data.aid
+                articleId:_this.data.aid,
+                userId:app.globalData.userInfo.id,
             },
             method: "POST",
             header: {
@@ -434,7 +537,8 @@ Page({
             data:  {
                 page:_this.data.pageIndex,
                 size:_this.data.pageLimit,
-                articleId:_this.data.aid
+                articleId:_this.data.aid,
+                userId:app.globalData.userInfo.id,
             },
             method: "POST",
             header: {
@@ -587,7 +691,7 @@ Page({
             url: '/pages/moreCommentShow/moreCommentShow?commentId='+e.target.dataset.id+"&articleId="+this.data.aid,
         })
     },
-    imageLoad: function (e) {
+/*    imageLoad: function (e) {
         let maxHeight = 1000;//rpx
         console.log("imageLoad...")
         //获取图片真实宽度
@@ -606,7 +710,7 @@ Page({
         console.log("屏幕宽度 windowsWidth == ",windowsWidth)
         console.log("屏幕高度 windowsWidth == ",windowsHeight)
 
-        maxHeight =  windowsHeight * 0.5*2;
+        maxHeight =  windowsHeight * 0.6*2;
         console.log("笔记计算的屏幕高度 尺寸==" + maxHeight)
         //如果高度大于比例计算出来的最大高度则，宽度成比例缩小
 
@@ -629,6 +733,24 @@ Page({
         this.setData({
             imgheights: imgheights,
             imgwidths:imgwidths
+        })
+    },*/
+    imageLoad: function (e) {
+        console.log("imageLoad...")
+        //获取图片真实宽度
+        var imgwidth = e.detail.width,
+            imgheight = e.detail.height,
+            //宽高比
+            ratio = imgwidth / imgheight;
+        //计算的高度值
+        var viewHeight = 750 / ratio;
+        var imgheight = viewHeight
+        var imgheights = this.data.imgheights
+        //把每一张图片的高度记录到数组里
+        imgheights[e.target.dataset['index']] = imgheight;// 改了这里 赋值给当前 index
+        console.log("imgheights===",imgheights)
+        this.setData({
+            imgheights: imgheights,
         })
     },
     bindchange: function (e) {
@@ -727,6 +849,10 @@ Page({
                 content: '确定要取消收藏吗？',
                 success: function (sm) {
                     if (sm.confirm) {
+                        let index = "articleInfo.articleTotalLike";
+                        _this.setData({
+                            [index]:_this.data.articleInfo.articleTotalLike -1
+                        })
                         // 用户点击了确定
                         wx.request({
                             url: app.globalData.host + 'articleLike/like',
@@ -769,6 +895,10 @@ Page({
 
 
         }else {
+            let index = "articleInfo.articleTotalLike";
+            _this.setData({
+                [index]:_this.data.articleInfo.articleTotalLike +1
+            })
             wx.request({
                 url: app.globalData.host + 'articleLike/like',
                 data:  {
@@ -803,13 +933,235 @@ Page({
             })
         }
 
+    },
+    //点赞和取消点赞
+    dzChange:function (e) {
+        //isCollection
+        let _this = this;
+
+        //取消点赞
+        if(_this.data.isCollection){
+            wx.showModal({
+                title: '提示',
+                content: '确定要取消点赞吗？',
+                success: function (sm) {
+                    if (sm.confirm) {
+                        let index = "articleInfo.articleTotaolDz";
+                        _this.setData({
+                            [index]:_this.data.articleInfo.articleTotaolDz -1
+                        })
+                        // 用户点击了确定
+                        wx.request({
+                            url: app.globalData.host + 'userFollowCon/like',
+                            data:  {
+                                userId:app.globalData.userInfo.id,
+                                articleId:_this.data.aid
+                            },
+                            method: "POST",
+                            header: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            complete: function( res ) {
+                                console.log("result ===",res);
+                                if( res == null || res.data == null ) {
+                                    // reject(new Error('网络请求失败'))
+                                }
+                            },
+                            success: function(res) {
+                                if(res.data.code ==0){
+                                    _this.setData({
+                                        isCollection:!_this.data.isCollection
+                                    })
+
+                                    wx.showToast({
+                                        title: '取消点赞',
+                                        icon: 'succes',
+                                        duration: 1000,
+                                        mask:true
+                                    })
+                                }
+                            }
+
+                        })
+
+                    } else if (sm.cancel) {
+                        console.log('用户点击取消')
+                    }
+                }
+            })
+
+
+        //点赞
+        }else{
+            // 用户点击了确定
+            wx.request({
+                url: app.globalData.host + 'userFollowCon/like',
+                data:  {
+                    userId:app.globalData.userInfo.id,
+                    articleId:_this.data.aid
+                },
+                method: "POST",
+                header: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                complete: function( res ) {
+                    console.log("result ===",res);
+                    if( res == null || res.data == null ) {
+                        // reject(new Error('网络请求失败'))
+                    }
+                },
+                success: function(res) {
+                    if(res.data.code ==0){
+
+
+                        let index = "articleInfo.articleTotaolDz";
+                        _this.setData({
+                            [index]:_this.data.articleInfo.articleTotaolDz +1
+                        })
+
+                        _this.setData({
+                            isCollection:!_this.data.isCollection
+                        })
+
+                        wx.showToast({
+                            title: '点赞成功',
+                            icon: 'succes',
+                            duration: 1000,
+                            mask:true
+                        })
+                    }
+                }
+
+            })
+
+
+        }
+
+
+    },
+    //点赞和取消点赞
+    commentDzChange:function (e) {
+        //isCollection
+        let _this = this;
+        console.log("评论点赞 e = ",e);
+
+        let selectIndex = e.currentTarget.dataset.index;
+        let commentId = e.currentTarget.dataset.id;
+        console.log("_this.data.comments[selectIndex].liked === ",_this.data.comments[selectIndex].liked)
+
+        //取消点赞
+        if(_this.data.comments[selectIndex].liked){
+            wx.showModal({
+                title: '提示',
+                content: '确定要取消点赞吗？',
+                success: function (sm) {
+                    if (sm.confirm) {
+
+                        // 用户点击了确定
+                        wx.request({
+                            url: app.globalData.host + 'articleCommentLike/isLike',
+                            data:  {
+                                userId:app.globalData.userInfo.id,
+                                commentId:commentId
+                            },
+                            method: "POST",
+                            header: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            complete: function( res ) {
+                                console.log("result ===",res);
+                                if( res == null || res.data == null ) {
+                                    // reject(new Error('网络请求失败'))
+                                }
+                            },
+                            success: function(res) {
+                                if(res.data.code ==0){
+                                    let index = "comments["+selectIndex+"].commentTotalLike";
+                                    let index2 = "comments["+selectIndex+"].liked";
+                                    _this.setData({
+                                        [index]:_this.data.comments[selectIndex].commentTotalLike -1,
+                                        [index2]:false
+                                    })
+                                    wx.showToast({
+                                        title: '取消点赞',
+                                        icon: 'succes',
+                                        duration: 1000,
+                                        mask:true
+                                    })
+                                }
+                            }
+
+                        })
+
+                    } else if (sm.cancel) {
+                        console.log('用户点击取消')
+                    }
+                }
+            })
+
+
+            //点赞
+        }else{
+
+
+            // 用户点击了确定
+            wx.request({
+                url: app.globalData.host + 'articleCommentLike/isLike',
+                data:  {
+                    userId:app.globalData.userInfo.id,
+                    commentId:commentId
+                },
+                method: "POST",
+                header: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                complete: function( res ) {
+                    console.log("result ===",res);
+                    if( res == null || res.data == null ) {
+                        // reject(new Error('网络请求失败'))
+                    }
+                },
+                success: function(res) {
+                    if(res.data.code ==0){
+
+
+                        let index = "comments["+selectIndex+"].commentTotalLike";
+                        let index2 = "comments["+selectIndex+"].liked";
+                        _this.setData({
+                            [index]:_this.data.comments[selectIndex].commentTotalLike +1,
+                            [index2]:true
+                        })
 
 
 
+                        wx.showToast({
+                            title: '点赞成功',
+                            icon: 'succes',
+                            duration: 1000,
+                            mask:true
+                        })
+                    }
+                }
+
+            })
 
 
+        }
 
-    }
+
+    },
+/*    //分享转发
+    fenxiang:function (e) {
+        console.log("e===",e)
+
+        return {
+            title: '家乐说：'+e.currentTarget.dataset.name,
+            path: '/pages/index/index',
+            imageUrl:''
+        }
+
+
+    }*/
 
 
 

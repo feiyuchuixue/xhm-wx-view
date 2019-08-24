@@ -41,6 +41,51 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    let _this =this;
+    wx.request({
+      url: app.globalData.host + 'topics/hotList', //仅为示例，并非真实的接口地址
+      data:  {
+        page:1,
+        limit:10
+      },
+      method: "POST",
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      complete: function( res ) {
+        console.log("result ===",res);
+        if( res == null || res.data == null ) {
+          // reject(new Error('网络请求失败'))
+        }
+      },
+      success: function(res) {
+        console.log("result success ===",res);
+        if(res.data.code ==0){
+          let result = res.data.data;
+          let searchTempArr = [];
+
+          for (const resultElement of result) {
+            let tempObj = {};
+            tempObj.codeKey = resultElement.id;
+            tempObj.codeName = resultElement.topicName;
+            searchTempArr.push(tempObj)
+
+          }
+
+          _this.setData({
+            searchResult:searchTempArr,
+            searchValue:"  ",
+            searchNot: "  "
+          })
+          console.log("searchResult 2 == ",_this.data.searchResult)
+
+          //  resolve(res)
+
+        }
+      }
+
+
+    })
 
   },
 

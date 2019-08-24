@@ -249,7 +249,8 @@ Page({
       data:  {
         page:_this.data.pageIndex,
         size:_this.data.pageLimit,
-        commentRootId:_this.data.commentIdThis
+        commentRootId:_this.data.commentIdThis,
+        userId:app.globalData.userInfo.id,
       },
       method: "POST",
       header: {
@@ -400,6 +401,231 @@ Page({
 
   },
 
+  //点赞和取消点赞
+  commentDzChange:function (e) {
+    //isCollection
+    let _this = this;
+    console.log("评论点赞 e = ",e);
+
+    let selectIndex = e.currentTarget.dataset.index;
+    let commentId = e.currentTarget.dataset.id;
+    console.log("_this.data.comments[selectIndex].liked === ",_this.data.commentMore[selectIndex].liked)
+
+    //取消点赞
+    if(_this.data.commentMore[selectIndex].liked){
+      wx.showModal({
+        title: '提示',
+        content: '确定要取消点赞吗？',
+        success: function (sm) {
+          if (sm.confirm) {
+
+            // 用户点击了确定
+            wx.request({
+              url: app.globalData.host + 'articleCommentLike/isLike',
+              data:  {
+                userId:app.globalData.userInfo.id,
+                commentId:commentId
+              },
+              method: "POST",
+              header: {
+                "Content-Type": "application/x-www-form-urlencoded"
+              },
+              complete: function( res ) {
+                console.log("result ===",res);
+                if( res == null || res.data == null ) {
+                  // reject(new Error('网络请求失败'))
+                }
+              },
+              success: function(res) {
+                if(res.data.code ==0){
+                  let index = "commentMore["+selectIndex+"].commentTotalLike";
+                  let index2 = "commentMore["+selectIndex+"].liked";
+                  _this.setData({
+                    [index]:_this.data.commentMore[selectIndex].commentTotalLike -1,
+                    [index2]:false
+                  })
+                  wx.showToast({
+                    title: '取消点赞',
+                    icon: 'succes',
+                    duration: 1000,
+                    mask:true
+                  })
+                }
+              }
+
+            })
+
+          } else if (sm.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+
+
+      //点赞
+    }else{
+
+
+      // 用户点击了确定
+      wx.request({
+        url: app.globalData.host + 'articleCommentLike/isLike',
+        data:  {
+          userId:app.globalData.userInfo.id,
+          commentId:commentId
+        },
+        method: "POST",
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        complete: function( res ) {
+          console.log("result ===",res);
+          if( res == null || res.data == null ) {
+            // reject(new Error('网络请求失败'))
+          }
+        },
+        success: function(res) {
+          if(res.data.code ==0){
+
+
+            let index = "commentMore["+selectIndex+"].commentTotalLike";
+            let index2 = "commentMore["+selectIndex+"].liked";
+            _this.setData({
+              [index]:_this.data.commentMore[selectIndex].commentTotalLike +1,
+              [index2]:true
+            })
+
+
+
+            wx.showToast({
+              title: '点赞成功',
+              icon: 'succes',
+              duration: 1000,
+              mask:true
+            })
+          }
+        }
+
+      })
+
+
+    }
+
+
+  },
+
+  //楼主的点赞和取消点赞
+  commentThisDzChange:function (e) {
+    //isCollection
+    let _this = this;
+    console.log("评论点赞 e = ",e);
+
+    let selectIndex = e.currentTarget.dataset.index;
+    let commentId = e.currentTarget.dataset.id;
+
+    //取消点赞
+    if(_this.data.commentThis.liked){
+      wx.showModal({
+        title: '提示',
+        content: '确定要取消点赞吗？',
+        success: function (sm) {
+          if (sm.confirm) {
+
+            // 用户点击了确定
+            wx.request({
+              url: app.globalData.host + 'articleCommentLike/isLike',
+              data:  {
+                userId:app.globalData.userInfo.id,
+                commentId:commentId
+              },
+              method: "POST",
+              header: {
+                "Content-Type": "application/x-www-form-urlencoded"
+              },
+              complete: function( res ) {
+                console.log("result ===",res);
+                if( res == null || res.data == null ) {
+                  // reject(new Error('网络请求失败'))
+                }
+              },
+              success: function(res) {
+                if(res.data.code ==0){
+                  let index = "commentThis.commentTotalLike";
+                  let index2 = "commentThis.liked";
+                  _this.setData({
+                    [index]:_this.data.commentThis.commentTotalLike -1,
+                    [index2]:false
+                  })
+                  wx.showToast({
+                    title: '取消点赞',
+                    icon: 'succes',
+                    duration: 1000,
+                    mask:true
+                  })
+                }
+              }
+
+            })
+
+          } else if (sm.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+
+
+      //点赞
+    }else{
+
+
+      // 用户点击了确定
+      wx.request({
+        url: app.globalData.host + 'articleCommentLike/isLike',
+        data:  {
+          userId:app.globalData.userInfo.id,
+          commentId:commentId
+        },
+        method: "POST",
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        complete: function( res ) {
+          console.log("result ===",res);
+          if( res == null || res.data == null ) {
+            // reject(new Error('网络请求失败'))
+          }
+        },
+        success: function(res) {
+          if(res.data.code ==0){
+
+
+            let index = "commentThis.commentTotalLike";
+            let index2 = "commentThis.liked";
+            _this.setData({
+              [index]:_this.data.commentThis.commentTotalLike +1,
+              [index2]:true
+            })
+
+
+
+            wx.showToast({
+              title: '点赞成功',
+              icon: 'succes',
+              duration: 1000,
+              mask:true
+            })
+          }
+        }
+
+      })
+
+
+    }
+
+
+  }
+
+
+
 })
 
 //根据commentId查询评论信息楼主
@@ -409,7 +635,8 @@ function queryCommentById(commentId,_this) {
   wx.request({
     url: app.globalData.host + 'articleComment/getArticleCommentById',
     data:  {
-      articleCommentId:commentId
+      articleCommentId:commentId,
+      userId:app.globalData.userInfo.id,
     },
     method: "POST",
     header: {
@@ -456,7 +683,8 @@ function queryCommentMore(commentId,_this) {
     data:  {
       page:_this.data.pageIndex,
       size:_this.data.pageLimit,
-      commentRootId:commentId
+      commentRootId:commentId,
+      userId:app.globalData.userInfo.id,
     },
     method: "POST",
     header: {

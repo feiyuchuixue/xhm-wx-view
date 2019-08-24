@@ -9,10 +9,14 @@
 
 <view name="showRealHtml" hidden="{{showRealHtml}}" >
 
-    <view style="display: flex; padding: 20rpx 50rpx;">
+    <view style="display: flex; padding: 20rpx 50rpx;" data-id="{{commentThis.id}}"   bindtap="commentThisDzChange" >
         <image style="width: 60rpx; height: 60rpx; border-radius: 50%;"  src="{{commentThis.userLogo}}"></image>
         <text style="height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999; font-size: 26rpx;" >{{commentThis.userName}}</text>
         <text style=" height: 20rpx; line-height: 20rpx; margin-top: 14rpx; margin-left: 20rpx; font-size: 22rpx; padding: 6rpx 6rpx; display: block; color: #999; border: 1px solid #999; border-radius: 10rpx; " >楼主</text>
+       <text style="flex:1;width: 20rpx"></text>
+        <image class="" style="margin-top:10rpx;margin-left:auto;height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999;height: 32rpx;width: 32rpx "    src="{{commentThis.liked ?'../../image/naiping2.png':'../../image/naiping.png'}}"/>
+        <text class="margin-top:10rpx;margin-left:auto;margin-right:10rpx;height: 10rpx; line-height: 10rpx; font-size: 22rpx;">{{commentThis.commentTotalLike}}</text>
+
     </view>
     <view style="margin: 20rpx 0 10rpx 80rpx; color: #000; font-size: 26rpx;">
         <view>{{commentThis.commentContentReplace}} </view>
@@ -33,9 +37,12 @@
                     <view style="margin-top: 30rpx;" wx:for="{{commentMore}}" wx:for-item="comment" wx:key="index" class="commment_list">
                         <!-- index < 3 在视频下面只显示三条记录 -->
                         <view>
-                            <view style="display: flex;">
-                                <image style="width: 60rpx; height: 60rpx; border-radius: 50%;"  src="{{  comment.userLogo}}"></image>
-                                <text style="height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999; font-size: 26rpx;" >{{comment.userName}}</text>
+                            <view style="display: flex;" data-id="{{comment.id}}" data-index="{{index}}" bindtap="commentDzChange">
+                                <image style="width: 60rpx; height: 60rpx; border-radius: 50%;"  src="{{comment.userLogo}}"></image>
+                                <text style="height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999; font-size: 26rpx;flex:1;" >{{comment.userName}}</text>
+                                <image class="" style="margin-top:10rpx;margin-left:auto;height: 60rpx; line-height: 60rpx; margin-left: 20rpx; color: #999;height: 32rpx;width: 32rpx "    src="{{comment.liked ?'../../image/naiping2.png':'../../image/naiping.png'}}"/>
+                                <text class="margin-top:10rpx;margin-left:auto;margin-right:10rpx;height: 10rpx; line-height: 10rpx; font-size: 22rpx;">{{comment.commentTotalLike}}</text>
+
                             </view>
                         </view>
                         <view style="margin: 20rpx 0 10rpx 80rpx; color: #000; font-size: 26rpx;">

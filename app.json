@@ -30,11 +30,15 @@
     "pages/integral-list/integral-list",
     "pages/cash-out-list/cash-out-list",
     "pages/userGroupDetail/userGroupDetail"
+    "pages/cropper/cropper"
+
+
+
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#FFFFFF",
-    "navigationBarTitleText": "爱中医demo",
+    "navigationBarTitleText": "家乐说",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
