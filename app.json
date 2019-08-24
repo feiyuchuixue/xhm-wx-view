@@ -26,8 +26,10 @@
     "pages/to-order/to-order",
     "pages/authorize/authorize",
     "pages/order-details/order-details",
-    "pages/order-list/order-list"
-
+    "pages/order-list/order-list",
+    "pages/integral-list/integral-list",
+    "pages/cash-out-list/cash-out-list",
+    "pages/userGroupDetail/userGroupDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -54,7 +56,7 @@
         "iconPath": "image/b1.png",
         "selectedIconPath": "image/b2.png"
       },
-     {
+      {
         "pagePath": "pages/mine/mine",
         "text": "我的",
         "iconPath": "image/c1.png",

@@ -143,7 +143,9 @@ Page({
    */
   closePopupTap: function () {
     this.setData({
-      hideShopPopup: true
+      hideShopPopup: true,
+      buyNumber: 1
+      
     })
   },
   /**

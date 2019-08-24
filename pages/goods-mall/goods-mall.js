@@ -94,6 +94,7 @@ Page({
 
   },
   getGoodsList: function () {
+    console.log(app.globalData.userInfo)
     var that = this;
     wx.showLoading({
       "mask": true

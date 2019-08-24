@@ -7,11 +7,13 @@ Page({
    */
   data: {
     userId:'',
-    pageIndex:0,
-    pageLimit:10,
+    page:1,
+    pageLimit:6,
     fileUrl:'',
     guanzhuArr:[],
     currentData: 0,
+    list:[],
+    loadingMoreHidden: true
 
   },
 
@@ -24,15 +26,22 @@ Page({
       userId : options.userId
     })
 
-    init( options.userId,_this)
+    _this.init( options.userId,_this)
 
   },
+  /**
+ * 页面上拉触底事件的处理函数
+ */
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.setData({
+      page: 1,
+      list: []
+    });
   },
 
   /**
@@ -46,7 +55,10 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    this.setData({
+      page: 1,
+      list: []
+    });
   },
 
   /**
@@ -60,15 +72,37 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    console.log(222222);
+    this.setData({
+      page: 1,
+      list: []
+    });
+    this.init(this.data.userId);
+    wx.stopPullDownRefresh()
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
   onReachBottom: function () {
+    console.log(111111111111111);
+    var that = this;
+    var page = that.data.page;
+    var _count = page * this.data.pageLimit;
+    if (that.data.count < _count - this.data.pageLimit) {
+      that.setData({
+        loadingMoreHidden: false
+      });
+      return;
+    } else {
+      wx.showLoading({
+        title: '玩命加载中',
+      });
+      that.setData({
+        page: page + 1,
+      });
+      that.init(that.data.userId);
+      wx.hideLoading();
+    }
 
   },
+
 
   /**
    * 用户点击右上角分享
@@ -78,148 +112,64 @@ Page({
   },
   //关注用户详情展示
   articleUserShow:function (e) {
-    console.log("关注用户 e====", e)
     console.log("id ==" +e.currentTarget.dataset.id)
     wx.navigateTo({
-      url: '/pages/userIndexDetail/userIndexDetail?userId=' + e.currentTarget.dataset.id,
+      url: '/pages/userGroupDetail/userGroupDetail?userId=' + e.currentTarget.dataset.id,
     })
   },
-/*  //关注用户详情展示
-  articleUserShow:function (e) {
-    console.log("关注用户 e====", e)
-    console.log("id ==" +e.currentTarget.dataset.id)
-    wx.navigateTo({
-      url: '/pages/userIndexDetail/userIndexDetail?userId=' + e.currentTarget.dataset.id,
+  init: function (userId ) {
+    var _this = this
+    //替换成 查询group列表接口请求
+    wx.request({
+      url: app.globalData.pathURL + '/xhm/userGroup/userGroupList',
+      data: {
+        start: _this.data.page,
+        limit: _this.data.pageLimit,
+        userId: 'eeed2668ad704e6cbc21dc7094102523',
+      },
+      method: "POST",
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      complete: function (res) {
+        console.log("result ===", res);
+        if (res == null || res.data == null) {
+          // reject(new Error('网络请求失败'))
+        }
+      },
+      success: function (res) {
+        console.log("result success ===", res);
+        if (res.data.recode == 0) {
+          var _count = _this.data.page * _this.data.pageLimit;
+          var list = _this.data.list;
+          for (var j = 0; j < res.data.result.list.length; j++) {
+            list.push(res.data.result.list[j]);
+          }
+
+          _this.setData({
+            fileUrl: res.data.result.fileUrl,
+            guanzhuArr: list,
+            count: res.data.result.count,
+            userId: userId,
+            loadingMoreHidden: true
+          })
+          for (let i = 0; i < _this.data.guanzhuArr.length; i++) {
+            let thisLogo = _this.data.guanzhuArr[i].userLogo;
+            let index = "guanzhuArr[" + i + "].userLogo"
+            if (thisLogo.indexOf('http') < 0) {
+              _this.setData({
+                [index]: _this.data.fileUrl + thisLogo
+              })
+            }
+          }
+        }
+      }
+
     })
-  },*/
-  //关注 取消关注按钮
-  showGuanzhuUserDetail:function (e) {
-    let _this = this;
-    console.log("_this.data.guanzhuArr ==",_this.data.guanzhuArr)
-
-    console.log("e show ...",e);
-
-    console.log("load is isFollow is ====",_this.data.guanzhuArr[e.target.dataset.index].isFollow);
-    let tempArr = _this.data.guanzhuArr;
-    //取消关注
-    if(_this.data.guanzhuArr[e.target.dataset.index].isFollow == 1){
-
-      wx.showModal({
-        title: '提示',
-        content: '确定要取消关注吗？',
-        success: function (sm) {
-          if (sm.confirm) {
-            // 用户点击了确定
-            wx.request({
-              url: app.globalData.host + 'userCollection/removeCollection',
-              data: {
-                userId:_this.data.userId,
-                attentionUserId:e.target.dataset.id
-              },
-              method: "POST",
-              header: {
-                "Content-Type": "application/x-www-form-urlencoded"
-              },
-              complete: function (res) {
-                console.log("result ===", res);
-                if (res == null || res.data == null) {
-                  // reject(new Error('网络请求失败'))
-                }
-              },
-              success: function (res) {
-                console.log("result success ===", res);
-                if (res.data.code == 0) {
-
-                  console.log("tempArr ==== ",tempArr);
-                  console.log("index ==",e.target.dataset.index)
-                  //取消关注
-                  tempArr[e.target.dataset.index].isFollow =0;
-                  console.log("atfer deal tempArr ===",tempArr)
-                  _this.setData({
-                    guanzhuArr:tempArr
-                  })
-
-                }
-              }
-
-            })
-
-          } else if (sm.cancel) {
-            console.log('用户点击取消')
-          }
-        }
-      })
-
-      //关注
-    }else{
-      wx.request({
-        url: app.globalData.host + 'userCollection/addCollection',
-        data: {
-          userId:_this.data.userId,
-          attentionUserId:e.target.dataset.id
-        },
-        method: "POST",
-        header: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        complete: function (res) {
-          console.log("result ===", res);
-          if (res == null || res.data == null) {
-            // reject(new Error('网络请求失败'))
-          }
-        },
-        success: function (res) {
-          console.log("result success ===", res);
-          if (res.data.code == 0) {
-            //关注
-            tempArr[e.target.dataset.index].isFollow =1;
-            _this.setData({
-              guanzhuArr:tempArr
-            })
-
-          }
-        }
-
-      })
-
-    }
   }
+
+  //关注 取消关注按钮
 })
 
-//初始化查询我的关注列表
-function init(userId,_this) {
-  //替换成 查询group列表接口请求
-  wx.request({
-    url: app.globalData.host + 'userCollection/myFansList',
-    data: {
-      page:0,
-      pageLimit:10,
-      userId:userId,
-    },
-    method: "POST",
-    header: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    complete: function (res) {
-      console.log("result ===", res);
-      if (res == null || res.data == null) {
-        // reject(new Error('网络请求失败'))
-      }
-    },
-    success: function (res) {
-      console.log("result success ===", res);
-      if (res.data.code == 0) {
-        _this.setData({
-          fileUrl: res.data.data.fileUrl,
-          guanzhuArr:res.data.data.data
-        })
+//初始化查询我的团成员列表
 
-
-      }
-    }
-
-  })
-
-
-
-}

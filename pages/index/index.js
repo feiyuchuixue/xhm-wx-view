@@ -32,20 +32,21 @@ Page({
 
 
   onShareAppMessage: function () {
+    var userId = app.globalData.userInfo.id;
     return {
       title: '分享标题：听会儿中医最新课程',
-      path: ''
+      path: '/pages/index/index?id='+userId+' ',
+      imageUrl:'/image/404.png'
     }
   },
-
-
   //事件处理函数
   bindViewTap: function () {
     wx.navigateTo({
       url: '../logs/logs'
     })
   },
-  onLoad: function (e) {
+  onLoad: function (options) {
+    console.log(options)
     var that = this;
   // app.queryOpenId();
 
@@ -86,7 +87,6 @@ Page({
     init(_this,false,0)
   },
   getUserInfo: function (e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
@@ -120,8 +120,6 @@ Page({
     init(that,e)
   },*/
   tabClick: function (e) {
-    console.log("单击切换 e=",e)
-    console.log("activeIndex = "+this.data.activeIndex)
     var that = this;
 
     const pullScroll = that.selectComponent('#pullScrollView-id--index-0');
@@ -167,7 +165,6 @@ Page({
   },
   //搜索框
   handleMainSearchInput(event){
-    console.log("init  handleTopicsInput...")
     wx.navigateTo({
       url: '/pages/mainSearch/mainSearch',
     })
@@ -446,8 +443,6 @@ Page({
   },*/
   //显示文章详情
   showArticleDetail: function (e) {
-    console.log("显示文章详情===",e);
-
     wx.navigateTo({
       url: '/pages/myNoteDetail/myNoteDetail?aid=' + e.currentTarget.dataset.id+"&from=other",
     })
@@ -455,7 +450,6 @@ Page({
 
   //刷新
   onPullRefresh:function(){
-    console.log("新的刷新組件")
     let _this = this;
     //推荐页面
     if(_this.data.activeIndex == 0){
@@ -482,14 +476,12 @@ Page({
   },
   onLoadMore:function(e) {
     let _this = this;
-    console.log("新的加載更多組件")
 
 
     //推荐页面
     if(_this.data.activeIndex == 0){
       let start = _this.data.pageIndex + 1;
       setTimeout(() => {
-        console.log("推荐页面加载更多1111111111 = "+start)
         init(_this,true,start);
       }, 500)
 
@@ -527,7 +519,6 @@ function init(_this,isLoadMore,startPageIndex){
     if(isLoadMore){
       pageIndex = startPageIndex;
     }
-    console.log("startPageIndex ===" +startPageIndex)
 
     wx.request({
       url: app.globalData.host + 'articleCon/mainList',
@@ -541,13 +532,11 @@ function init(_this,isLoadMore,startPageIndex){
         "Content-Type": "application/x-www-form-urlencoded"
       },
       complete: function (res) {
-        console.log("result ===", res);
         if (res == null || res.data == null) {
           // reject(new Error('网络请求失败'))
         }
       },
       success: function (res) {
-        console.log("result success ===", res);
         if (res.data.code == 0) {
 
           let listArr = res.data.data.data;
@@ -565,7 +554,6 @@ function init(_this,isLoadMore,startPageIndex){
             }
             if (_this.data.activeIndex == 2) {
               newList = _this.data.article2.concat(article)
-              console.log("newList == " ,newList)
             }
             if (_this.data.activeIndex == 3) {
               newList = _this.data.article3.concat(article)

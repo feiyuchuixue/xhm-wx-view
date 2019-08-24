@@ -188,7 +188,7 @@ swiper-item image {
   color: #fff;
   display: inline-block;
 }
-.coupons-float {
+/* .coupons-float {
   position: fixed;
   right:15rpx;
   bottom:80rpx;
@@ -198,6 +198,17 @@ swiper-item image {
   text-align: center;
   border-radius:50%;
   border: 1rpx solid #ddd;
+} */
+.coupons-float {
+  position: fixed;
+  right:1rpx;
+  bottom:80rpx;
+  width:62rpx;
+  height:230rpx;
+  background-color: rgb(230, 20, 20);
+  text-align: center;
+  border: 1rpx solid #ddd;
+  border-radius:15rpx;
 }
 .coupons-float image {
   width:60rpx;

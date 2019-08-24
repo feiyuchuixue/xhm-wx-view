@@ -2,14 +2,18 @@ const app = getApp()
 const WXAPI = require('../../wxapi/main')
 Page({
   data: {
-    statusType: ["全部", "待付款", "待收货", "已完成"],
+    statusType: ["未到账", "已到账"],
     hasRefund: false,
     currentType: 0,
     tabClass: ["", "", "", "", ""],
     page: 1,
+    limit: 10,
     orderList: null,
     order: [],
     loadingMoreHidden: true,
+    user: null,
+    form_info:"",
+    keyongjifen:0
   },
 
   onLoad: function(options) {
@@ -26,19 +30,6 @@ Page({
         });
       }
     }
-  },
-  tel: function() {
-    wx.makePhoneCall({
-      phoneNumber: '4006088521', 
-      success: function() {
-        console.log("拨打电话成功！")
-      },
-      fail: function() {
-        console.log("拨打电话失败！")
-
-      }
-    })
-
   },
   statusTap: function(e) {
     const curType = e.currentTarget.dataset.index;
@@ -71,8 +62,9 @@ Page({
     // 页面上拉触底事件的处理函数
     var that = this;
     var page = that.data.page;
-    var _count = page * 3;
-    if (that.data.count < _count - 3) {
+    var limit = that.data.limit;
+    var _count = page * limit;
+    if (that.data.count < _count - that.data.limit) {
       that.setData({
         loadingMoreHidden: false
       });
@@ -93,32 +85,30 @@ Page({
     // 获取订单列表
     var that = this;
     var status = that.data.currentType;
-    if (status == 0) {
-      status = ''
-    }
     var postData = {
       userId: app.globalData.userInfo.id,
       start: that.data.page,
-      limit: 3,
-      orderStatus: status,
+      limit: that.data.limit,
+      type: status,
     };
     var order = that.data.order;
     wx.showLoading({
       "mask": true
     })
-    WXAPI.orderList(postData).then(function(res) {
-      var _count = that.data.page * 3;
+    WXAPI.detailsList(postData).then(function(res) {
+      var _count = that.data.page * that.data.limit;
       if (res.recode == 0) {
         wx.hideLoading()
         if (res.result.count != 0) {
-          for (var i = 0; i < res.result.orderList.length; i++) {
-            order.push(res.result.orderList[i]);
+          for (var i = 0; i < res.result.list.length; i++) {
+            order.push(res.result.list[i]);
           }
           that.setData({
             orderList: order,
-            fileUrl: res.result.fileUrl,
             loadingMoreHidden: true,
-            count: res.result.count
+            count: res.result.count,
+            user: res.result.user,
+            keyongjifen: res.result.user.userIntegral
           });
         } else {
           that.setData({
@@ -129,6 +119,77 @@ Page({
       }
     })
   },
+
+  addMoney: function(e) {
+    var that = this;
+    var amount = 0;
+    amount = e.detail.value.amount;
+    if (amount < 1000) {
+      wx.hideLoading();
+      wx.showModal({
+        title: '错误',
+        content: '提现至少1000积分',
+        showCancel: false
+      })
+      return;
+    }
+    if (that.data.keyongjifen < amount){
+      wx.hideLoading();
+      wx.showModal({
+        title: '错误',
+        content: '可用积分不足',
+        showCancel: false
+      })
+      return;
+    }
+    var postData = {
+      userId: app.globalData.userInfo.id,
+      cashOutScore: amount,
+    };
+    wx.showModal({
+      title: '是否提现' + amount + '积分？',
+      success: function(res) {
+        if (res.confirm) {
+          WXAPI.addCashOut(postData).then(function(res) {
+            if (res.recode == 1) {
+              wx.showToast({
+                title: '提现成功',
+              })
+              that.setData({
+                form_info: '',
+                page: 1,
+                order: [],
+              });
+              setTimeout(function () {
+                that.onShow();
+              }, 2000)
+            } else {
+              wx.showToast({
+                title: '提现失败请重试',
+              })
+              that.setData({
+                page: 1,
+                order: []
+              });
+              setTimeout(function () {
+                that.onShow();
+              }, 2000)
+            }
+          })
+
+        }
+      }
+    })
+  },
+  userCashOutList: function () {
+    wx.navigateTo({
+      url: "/pages/cash-out-list/cash-out-list" 
+    })
+    // 生命周期函数--监听页面隐藏
+
+  },
+
+
   onHide: function() {
     this.setData({
       page: 1,
@@ -141,6 +202,7 @@ Page({
     // 生命周期函数--监听页面卸载
 
   },
+ 
 
 
 })

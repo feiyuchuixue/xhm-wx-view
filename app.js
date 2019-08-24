@@ -1,7 +1,8 @@
 //app.js
 App({
   globalData: {
-    pathURL: 'https://server.momjia.com/',
+    // pathURL: 'https://server.momjia.com/',
+    pathURL: 'http://192.168.1.185:8082/',
     userInfo: null,
     isConnected: true,
     openid:null,

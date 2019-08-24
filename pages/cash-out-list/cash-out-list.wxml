@@ -1,0 +1,33 @@
+<view class="container">
+
+  <view class="no-order" hidden="{{orderList ? true : false}}">
+    <image src="/image/no-order.png" class="no-order-img"></image>
+    <view class="text">暂无记录</view>
+  </view>
+  <view class="order-list" hidden="{{orderList ? false : true}}">
+    <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}">
+      <navigator url="/pages/order-details/order-details?id={{item.orderId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+       
+
+        <view class="goods-info">
+          <view class="goods-des">
+            <view>流水号:{{item.id}} </view>
+          </view>
+        </view>
+        <view class="goods-info">
+          <view class="goods-des">
+            <view>提现金额:{{item.cashOutMoney}} </view>
+             <view wx:if="{{item.cashOutState==0}}">审核中 </view>
+             <view wx:if="{{item.cashOutState==1}}">已到账 </view>
+          </view>
+        </view>
+         <view class="goods-info">
+          <view class="goods-des">
+            <view>申请时间:{{item.createTime}} </view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+  <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>
+  </view>
+</view>

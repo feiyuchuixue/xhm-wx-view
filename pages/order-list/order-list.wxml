@@ -9,6 +9,11 @@
     <image src="/image/no-order.png" class="no-order-img"></image>
     <view class="text">暂无订单</view>
   </view>
+  <view style="width: 100%;">
+  <button bindtap="tel" style="width: 100%; background-color: #F2f2f2;font-size:35rpx; border: none;">
+  服务电话：400-608-8521-点击拨打
+  </button>
+  </view>
   <view class="order-list" hidden="{{orderList ? false : true}}">
     <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}">
       <navigator url="/pages/order-details/order-details?id={{item.orderId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">

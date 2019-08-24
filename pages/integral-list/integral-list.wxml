@@ -1,0 +1,51 @@
+<view class="container">
+  <view style="width: 100%;">
+   <form bindsubmit="addMoney" report-submit="true">
+    <view class="form-box">
+      <view class="row-wrap" bindtap="userCashOutList">
+        <view class="label" >提现记录</view>
+        <view class="label-right">
+          <view class="label" style="width: 50%;">注：100积分=1.00元</view>
+        </view>
+      </view>
+      <view class="row-wrap">
+        <view class="label">可用积分</view>
+        <view class="label-right">
+          <view class="label">{{user.userIntegral}}</view>
+        </view>
+      </view>
+     
+      <view class="row-wrap">
+        <view class="label">申请提现</view>
+        <view class="label-right">
+          <input name="amount" class="input" value='{{form_info}}' type="number" placeholder="最少1000积分起" />
+        </view>
+      </view>
+    </view>
+    <button type="warn" class="save-btn" formType="submit">申请提现</button>
+    </form>
+  </view>
+  <view wx:if='{{!hasRefund}}' class="status-box">
+    <view bindtap="statusTap" class="status-label {{index == currentType ? 'active' : ''}}" wx:for-items="{{statusType}}" wx:key="{{index}}" data-index="{{index}}">
+      {{item}}
+      <view class="{{tabClass[index]}}"></view>
+    </view>
+  </view>
+  <view class="no-order" hidden="{{orderList ? true : false}}">
+    <image src="/image/no-order.png" class="no-order-img"></image>
+    <view class="text">暂无记录</view>
+  </view>
+
+  <view class="order-list" hidden="{{orderList ? false : true}}">
+    <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}">
+      <navigator url="/pages/order-details/order-details?id={{item.orderId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="goods-info">
+          <view class="goods-des">
+            <view>{{item.createTime}}{{item.type}}时产生：{{item.sum}}积分 </view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+    <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>
+  </view>
+</view>

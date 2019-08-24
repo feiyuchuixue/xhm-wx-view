@@ -132,6 +132,8 @@ Page({
         remark: remark
       }).then(function(res) {
         wx.hideLoading()
+        //清空购物车
+        wx.removeStorageSync('shopCarInfo');
         if (res.recode == 0) {
           console.log(res);
           wx.navigateTo({

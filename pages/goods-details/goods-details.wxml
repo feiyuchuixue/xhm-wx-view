@@ -1,10 +1,6 @@
 <import src="../../wxParse/wxParse.wxml" />
 <wxs src="../../utils/subutil.wxs" module="tools" />
 <view class="container">
-  <view class="main">
-    <view class="item item1" bindtap="onShowVideo" wx:if="{{goodsVideo}}">视频</view>
-    <view class="item item2" bindtap="onShowImg">图片</view>
-  </view>
   <view class="swiper-container" wx:if="{{isIMG}}">
     <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
 
@@ -19,6 +15,10 @@
   </view>
   <view class="swiper-container" wx:if="{{isVIDEO}}">
     <video src="{{fileUrl+goodsVideo}}" loop="false" style='width:100%'></video>
+  </view>
+  <view class="main">
+    <view class="item item1" bindtap="onShowVideo" wx:if="{{goodsVideo}}">视频</view>
+    <view class="item item2" bindtap="onShowImg">图片</view>
   </view>
   <view class="goods-info">
     <view class="goods-title">{{goodsName}}</view>
@@ -36,10 +36,6 @@
     </view>
   </view>
   <view wx:if="{{!curGoodsKanjia}}" class="footer-box">
-    <!-- <view class="contact">
-      <!-- <contact-button style="opacity:0;position:absolute;" type="default-dark" session-from="weapp" size="27"></contact-button> -->
-    <!-- <view style='position:absolute;bottom:10rpx;'> 客服 </view> 
-    </view> -->
     <view class="shop-cart-btn" bindtap="goShopCar">
       <view class="shop-num">({{shopNum}})</view>
       <view style='position:absolute;bottom:10rpx;font-size: 22rpx;'> 购物车 </view>

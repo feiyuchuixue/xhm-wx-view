@@ -69,7 +69,7 @@
     <view class="left-price">
       <view class="total">合计：¥ {{orderMaster.orderMoney}} </view>
     </view>
-    <button class="to-pay-btn" bindtap="orderPay">立即支付</button>
+    <button class="to-pay-btn" bindtap="orderPay">立即支付</button> 
   </view>
 
   <view class="jiesuan-box" wx:if="{{orderMaster.orderStatus==2}}">
@@ -78,6 +78,8 @@
     </view>
     <button class="to-pay-btn" bindtap="ordeeReceive">确认收货</button>
   </view>
+
+  
 
 
 </view>

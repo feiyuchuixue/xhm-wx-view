@@ -1,5 +1,8 @@
 <wxs src="../../utils/subutil.wxs" module="tools" />
 <view class="container">
+  <view class="category-box">
+    <image src="/image/timg.jpg" style="width:99%;margin-left:5rpx;"></image>
+  </view>
   <view class="goods-container">
     <view class="goods-box" wx:for-items="{{goods}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item.id}}">
       <view class="img-box">
@@ -16,4 +19,6 @@
 </view>
 <view class='coupons-float' bindtap="goShopCar">
   <image src="/image/shop_cart.png"></image>
+  <text style="color:#fff;">购物车</text>
+
 </view>

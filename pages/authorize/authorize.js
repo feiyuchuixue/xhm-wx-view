@@ -8,25 +8,11 @@ Page({
     userName: '',
   },
 
-  onLoad: function() {
+  onLoad: function (options) {
     var that = this;
-    // // 查看是否授权
-    // wx.getSetting({
-    //   success: function(res) {
-    //     if (res.authSetting['scope.userInfo']) {
-    //       wx.getUserInfo({
-    //         success: function(res) {
-    //           //从数据库获取用户信息
-    //           that.queryUsreInfo();
-    //           //用户已经授权过
-    //           wx.switchTab({
-    //             url: '/pages/index/index'
-    //           })
-    //         }
-    //       });
-    //     }
-    //   }
-    // })
+    that.setData({
+      parentId: options.id
+    });
   },
   bindGetUserInfo: function(e) {
     if (e.detail.userInfo) {
@@ -63,27 +49,50 @@ Page({
 
   //获取用户信息接口
   queryUsreInfo: function() {
-    wx.request({
-      url: app.globalData.pathURL + 'xhm/userCon/wxLogin',
-      data: {
-        unionid: app.globalData.unionid,
-        openid: app.globalData.openid,
-        name: this.data.userName,
-        logo: this.data.logo
-      },
-      method: 'POST',
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      success: function(data) {
-        if (data.data.recode == 0) {
-          app.globalData.userInfo = data.data.result;
-          // app.globalData.openid = this.data.openid;
-          // app.globalData.unionid = this.data.unionid;
+    var a = this.data.parentId;
+    console.log(a);
+    if (a) {
+      wx.request({
+        url: app.globalData.pathURL + 'xhm/userGroup/addUser',
+        data: {
+          userUnionId: app.globalData.unionid,
+          userOpenId: app.globalData.openid,
+          userName: this.data.userName,
+          userLogo: this.data.logo,
+          parentId: this.data.parentId
+        },
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        success: function (data) {
+          if (data.data.recode == 0) {
+            app.globalData.userInfo = data.data.result;
+          }
+          console.log("插入小程序登录用户信息成功！");
         }
-        console.log("插入小程序登录用户信息成功！");
-      }
-    });
+      });
+    } else {
+      wx.request({
+        url: app.globalData.pathURL + 'xhm/userCon/wxLogin',
+        data: {
+          unionid: app.globalData.unionid,
+          openid: app.globalData.openid,
+          name: this.data.userName,
+          logo: this.data.logo
+        },
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        success: function (data) {
+          if (data.data.recode == 0) {
+            app.globalData.userInfo = data.data.result;
+          }
+          console.log("插入小程序登录用户信息成功！");
+        }
+      });
+    }
   },
 
 })
