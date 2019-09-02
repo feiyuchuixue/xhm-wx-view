@@ -17,8 +17,8 @@
   </view>
   <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>
 </view>
-<view class='coupons-float' bindtap="goShopCar">
+<!-- <view class='coupons-float' bindtap="goShopCar">
   <image src="/image/shop_cart.png"></image>
   <text style="color:#fff;">购物车</text>
 
-</view>
+</view> -->

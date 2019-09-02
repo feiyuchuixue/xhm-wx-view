@@ -64,6 +64,19 @@ Page({
         }
       })
   },
+  tel: function () {
+    wx.makePhoneCall({
+      phoneNumber: '4006088521',
+      success: function () {
+        console.log("拨打电话成功！")
+      },
+      fail: function () {
+        console.log("拨打电话失败！")
+
+      }
+    })
+
+  },
   onShow() {
     this.getGoodsDetailAndKanjieInfo(this.data.goodsId)
   },

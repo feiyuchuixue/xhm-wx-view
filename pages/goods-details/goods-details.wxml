@@ -35,14 +35,19 @@
       <template is="wxParse" data="{{wxParseData:article.nodes}}" />
     </view>
   </view>
-  <view wx:if="{{!curGoodsKanjia}}" class="footer-box">
+  <!-- <view wx:if="{{!curGoodsKanjia}}" class="footer-box">
     <view class="shop-cart-btn" bindtap="goShopCar">
       <view class="shop-num">({{shopNum}})</view>
       <view style='position:absolute;bottom:10rpx;font-size: 22rpx;'> 购物车 </view>
     </view>
     <view class="join-shop-cart" bindtap="toAddShopCar">加入购物车</view>
     <view class="now-buy" bindtap="tobuy">立即购买</view>
-  </view>
+  </view> -->
+  <view wx:if="{{!curGoodsKanjia}}" class="footer-box">
+     <button bindtap="tel" style="width: 100%; background-color: #F2f2f2;font-size:35rpx; border: none;">
+  服务电话：400-608-8521-点击拨打
+  </button>
+  </view> 
   <view class="show-popup" hidden="{{hideShopPopup}}" catchtouchmove="true">
     <view class="popup-mask" bindtap="closePopupTap"></view>
     <view class="popup-contents">

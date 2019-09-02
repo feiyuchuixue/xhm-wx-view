@@ -71,7 +71,7 @@ Page({
   onShareAppMessage: function () {
     var userId = app.globalData.userInfo.id;
     return {
-      title: '分享标题：听会儿中医最新课程',
+      title: '快来加入吧！！！',
       path: '/pages/authorize/authorize?id=' + userId + ' ',
       // imageUrl: '/image/404.png'
     }
