@@ -20,5 +20,7 @@
 <!-- <view class='coupons-float' bindtap="goShopCar">
   <image src="/image/shop_cart.png"></image>
   <text style="color:#fff;">购物车</text>
-
 </view> -->
+
+</view>
+
