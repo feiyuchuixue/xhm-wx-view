@@ -335,9 +335,9 @@
                 <view wx:if="{{article3.length>0}}">
                     <view class='listBox'>
                         <view wx:for="{{article3}}" class="view-parent" wx:key="{{key}}" style='display: none;'>
-                            <image style=" border-radius: 10rpx; width:100%;height: {{item.height}}rpx;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" id="{{item.id}}" mode='aspectFill' bindload="onImageLoad3" lazy-load='true'></image>
+                            <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" id="{{item.id}}" mode='aspectFill' bindload="onImageLoad3" lazy-load='true'></image>
                         </view>
-                        <view class='leftBox' style='width: 50%;'>
+                       <!-- <view class='leftBox' style='width: 50%;'>-->
                             <view wx:for="{{activitys1}}" class="view-parent" wx:key="{{key}}">
                                 <view class="view-article" data-id="{{item.id}}" value="{{item.id}}" bindtap="showArticleDetail">
 
@@ -345,13 +345,13 @@
                                         <view wx:if="{{item.articleLabel=='video'}}">
                                             <image class="showStatus2" style="width: 48rpx;height: 48rpx" src="../../image/video3.png"></image>
                                         </view>
-                                        <image style=" border-radius: 10rpx; width:100%;height: {{item.height}}rpx;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true'></image>
+                                        <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true'></image>
                                     </view>
-                                    <view class='a_ttl'>
+                                   <!-- <view class='a_ttl'>-->
                                         <!-- <text>{{item.articleTopics + item.articleTitle}}</text> -->
                                       <!--  <text class="topics" style="color: #000;">{{item.articleTopics}}</text>-->
-                                        <text class="title" style="color: #000;">{{item.articleTitle}}</text>
-                                    </view>
+                                    <text class="title" style="margin: 10rpx auto;line-height: 36rpx;font-size: 28rpx;color: #000; padding: 0 30rpx;">{{item.articleTitle}}</text>
+                                   <!-- </view>-->
                                     <view class='a_note'>
 
                                         <view class='a_head'>
@@ -369,8 +369,8 @@
                                     </view>
                                 </view>
                             </view>
-                        </view>
-                        <view class='rightBox' style='width: 50%;'>
+                        <!--</view>-->
+
                             <view wx:for="{{activitys2}}" class="view-parent" wx:key="{{key}}">
                                 <view class="view-article" data-id="{{item.id}}" value="{{item.id}}" bindtap="showArticleDetail">
 
@@ -380,11 +380,11 @@
                                         </view>
                                         <image style=" border-radius: 10rpx; width:100%;" src="{{fileUrl + item.articleLogo}}" data-id="{{item.articleId}}" mode='aspectFill' lazy-load='true'></image>
                                     </view>
-                                    <view class='a_ttl'>
+                                    <!--<view class='a_ttl'>-->
                                         <!-- <text>{{item.articleTopics + item.articleTitle}}</text> -->
                                      <!--   <text class="topics" style="color: #000;">{{item.articleTopics}}</text>-->
-                                        <text class="title" style="color: #000;">{{item.articleTitle}}</text>
-                                    </view>
+                                        <text class="title" style="margin: 10rpx auto;line-height: 36rpx;font-size: 28rpx;color: #000; padding: 0 30rpx;">{{item.articleTitle}}</text>
+                                   <!-- </view>-->
                                     <view class='a_note'>
 
                                         <view class='a_head'>
@@ -404,7 +404,7 @@
                             </view>
                         </view>
                     </view>
-                </view>
+
                 <view wx:else>
                     <view style="margin-top:100rpx;display:flex; justify-content:center; align-items:center;">
                         <image hidden="{{loadingHidden}}" style="width: 32rpx;height: 32rpx;  " src="../../image/loading.gif"></image>

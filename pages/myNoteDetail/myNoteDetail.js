@@ -80,7 +80,7 @@ Page({
             pageIndex:0,
             pageLimit:10,
             maxHeight:maxHeight,
-            videoHeight:windowsHeight*0.8*2
+            videoHeight:windowsHeight*0.6*2
         })
         this.init(options.aid)
 
