@@ -33,7 +33,7 @@ Page({
       uuid:'',
       uploadedPathArr:[],
       upImgArr:[],
-      typeArray: ['~选择栏目~','宝妈团','出游', '吃喝',"专栏"],
+      typeArray: ['~选择栏目~','宝妈团','出游', '吃喝'],
       index: 0,
       submitTrue:false,
       //文件上传类别 img/video
