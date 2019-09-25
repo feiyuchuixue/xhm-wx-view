@@ -39,7 +39,8 @@ Page({
       //文件上传类别 img/video
       fileType:"img",
       src:'',
-      tempFile:[]
+      tempFile:[],
+      userId:''
 
 
   },
@@ -51,6 +52,19 @@ Page({
 
   },
     onLoad: function (options) {
+      this.setData({
+          userId:app.globalData.userInfo.id
+      })
+      let userId = this.data.userId;
+      //用户上传权限设置
+      if(userId =='6cd033dfe2a04aa7bb420543a598c34b' || userId =='d4e5fc5390e1448ca485275e23341e3e' || userId =='12efc086cbbc42a998f44444fec51730'){
+
+          this.setData({
+              typeArray:['~选择栏目~','宝妈团','出游', '吃喝','专栏']
+          })
+
+      }
+        console.log("userId == " + this.data.userId)
 
 
     },
