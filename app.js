@@ -19,30 +19,62 @@ App({
 
   queryOpenId: function() {
     var that = this;
-    wx.login({
-      success: function(e) {
-        if (e.code) {
-          wx.request({
-            url: that.globalData.pathURL + 'xhm/getOpenId/getOpenId',
-            data: {
-              code: e.code
-            },
-            method: 'POST',
-            header: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            success: function(res) {
-              if (res.data.recode == 0) {
-                that.globalData.openid = res.data.result.openId;
-                that.getUserInfo();
+    return new Promise(function (resolve, reject) {
+      wx.login({
+        success: function(e) {
+          if (e.code) {
+            wx.request({
+              url: that.globalData.pathURL + 'xhm/getOpenId/getOpenId',
+              data: {
+                code: e.code
+              },
+              method: 'POST',
+              header: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              success: function(res) {
+                if (res.data.recode == 0) {
+                  that.globalData.openid = res.data.result.openId;
+
+                  wx.request({
+                    url: that.globalData.pathURL + 'xhm/userCon/getUserByOpenId',
+                    data: {
+                      userOpenId: that.globalData.openid
+                    },
+                    method: 'POST',
+                    header: {
+                      'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    success: function(ress) {
+                      if (ress.data.recode == 0) {
+                        console.log("调用加载1。。。 res =",ress)
+                        that.globalData.userInfo = ress.data.result;
+                        res.userId = ress.data.result.id;
+
+                      } else {
+                        console.log("调用加载2。。。 res =",ress)
+
+                        that.goLoginPageTimeOut();
+                      }
+                      resolve(res)
+                    }
+                  });
+
+              //    that.getUserInfo(res);
+
+                }
               }
-            }
-          });
+            });
+          }
         }
-      }
+      })
+
+
     })
+
   },
-  getUserInfo: function() {
+  getUserInfo: function(res) {
+    let userId ="";
     console.log("调用加载中")
     var that = this;
     wx.request({
@@ -54,16 +86,20 @@ App({
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
-      success: function(res) {
-        if (res.data.recode == 0) {
-          console.log("调用加载1。。。 res =",res)
-          that.globalData.userInfo = res.data.result;
+      success: function(ress) {
+        if (ress.data.recode == 0) {
+          console.log("调用加载1。。。 res =",ress)
+          that.globalData.userInfo = ress.data.result;
+          res.userId = ress.data.result.id;
+
         } else {
-          console.log("调用加载2。。。 res =",res)
+          console.log("调用加载2。。。 res =",ress)
+
           that.goLoginPageTimeOut();
         }
       }
     });
+
   },
 
   goLoginPageTimeOut: function() {

@@ -36,7 +36,6 @@ Page({
       uploadedPathArr:[],
       upImgArr:[],
       typeArray: ['~选择栏目~','宝妈团','出游', '吃喝'],
-      typeArrayAdmin: ['~选择栏目~','宝妈团','出游', '吃喝','专栏'],
       index: 0,
       submitTrue:false,
       //文件上传类别 img/video
@@ -59,8 +58,20 @@ Page({
             userId:app.globalData.userInfo.id
         })
         let userId = this.data.userId;
+        wx.showModal({
+            title: '用户id:'+userId,
+            content: '模态弹窗',
+            success: function (res) {
+                if (res.confirm) {
+                    console.log('用户点击确定')
+                }else{
+                    console.log('用户点击取消')
+                }
+
+            }
+        })
         //用户上传权限设置
-        if(userId =='6cd033dfe2a04aa7bb420543a598c34b' || userId =='d4e5fc5390e1448ca485275e23341e3e' || userId =='12efc086cbbc42a998f44444fec51730'){
+        if(userId =='6cd033dfe2a04aa7bb420543a598c34b' || userId =='d4e5fc5390e1448ca485275e23341e3e' || userId =='12efc086cbbc42a998f44444fec51730' || userId == "26a4c3b5de0541d59998e7b41d84100d"){
             this.setData({
                 typeArray:['~选择栏目~','宝妈团','出游', '吃喝','专栏']
             })

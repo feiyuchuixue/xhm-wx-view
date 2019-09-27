@@ -12,7 +12,7 @@ Page({
         pageIndex3:0,
 
         // tabs: ["推荐", "宝妈团", "出游", "专栏"],
-        tabs: ["推荐", "宝妈团", "出游", "专栏"],
+        tabs: ["推荐", "宝妈团", "出游"],
         activeIndex: 0,
         sliderOffset: 0,
         article:[],
@@ -32,10 +32,9 @@ Page({
         activitys1: [],
         activitys2: [],
         imagesCount: 0,
-        arr:[100,110,140,160,180,170]
+        arr:[100,110,140,160,180,170],
+        userId:""
     },
-
-
 
     onShareAppMessage: function () {
         return {
@@ -317,43 +316,61 @@ Page({
     },
     onLoad: function (e) {
         var that = this;
-        // app.queryOpenId();
+        app.queryOpenId().then(function (res) {
+            if (res.data.recode == 0) {
 
-        const pullScroll = that.selectComponent('#pullScrollView-id--index-0');
-        //隐藏
-        pullScroll.hideFooter();
-
-        const pullScroll1 = that.selectComponent('#pullScrollView-id--index-1');
-        //隐藏
-        pullScroll1.hideFooter();
-
-        const pullScroll2 = that.selectComponent('#pullScrollView-id--index-2');
-        //隐藏
-        pullScroll2.hideFooter();
-
-        const pullScroll3 = that.selectComponent('#pullScrollView-id--index-3');
-        //隐藏
-        pullScroll3.hideFooter();
-
-
-        wx.getSystemInfo({
-            success: function (res) {
-                that.mTabWidth = res.windowWidth / that.data.tabs.length;
-            }
-        });
-        let _this = this;
-        if(_this.data.article.length>0){
-            return;
-        }
-        wx.getSystemInfo({
-            success: function (res) {
-                that.setData({
-                    screenWidth: res.windowWidth
+               that.setData({
+                    userId:res.userId
                 })
             }
-        });
+            let userId = that.data.userId;
+            console.log("userId == " +userId);
 
-        init(_this,false,0)
+            //用户上传权限设置
+            if(userId =='6cd033dfe2a04aa7bb420543a598c34b' || userId =='d4e5fc5390e1448ca485275e23341e3e' || userId =='12efc086cbbc42a998f44444fec51730' || userId == "26a4c3b5de0541d59998e7b41d84100d"){
+
+                that.setData({
+                    tabs:["推荐", "宝妈团", "出游", "专栏"]
+                })
+            }
+
+            const pullScroll = that.selectComponent('#pullScrollView-id--index-0');
+            //隐藏
+            pullScroll.hideFooter();
+
+            const pullScroll1 = that.selectComponent('#pullScrollView-id--index-1');
+            //隐藏
+            pullScroll1.hideFooter();
+
+            const pullScroll2 = that.selectComponent('#pullScrollView-id--index-2');
+            //隐藏
+            pullScroll2.hideFooter();
+
+            const pullScroll3 = that.selectComponent('#pullScrollView-id--index-3');
+            //隐藏
+            pullScroll3.hideFooter();
+
+            wx.getSystemInfo({
+                success: function (res) {
+                    that.mTabWidth = res.windowWidth / that.data.tabs.length;
+                }
+            });
+            let _this = that;
+            if(_this.data.article.length>0){
+                return;
+            }
+            wx.getSystemInfo({
+                success: function (res) {
+                    that.setData({
+                        screenWidth: res.windowWidth
+                    })
+                }
+            });
+            init(_this,false,0)
+
+
+        })
+
     },
     getUserInfo: function (e) {
         console.log(e)
